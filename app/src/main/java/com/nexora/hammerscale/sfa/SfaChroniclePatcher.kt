@@ -39,6 +39,9 @@ object SfaChroniclePatcher {
             // That 961 blob is inner with local_fight_finish
             val innerBlob = paramFields[1] as? ByteArray ?: return null
             val inner = SfaGameProtocolParser.readProtoFields(innerBlob).toMutableMap()
+            // Only patch chronicle local_fight_finish, not confirm_video_ad etc
+            val innerCmd = inner[2] as? ByteArray ?: return null
+            if (innerCmd.toString(Charsets.UTF_8) != "local_fight_finish") return null
             var deepBlob = inner[4] as? ByteArray ?: return null
             // Patch deep
             val patchedDeep = patchDeep(deepBlob, roundsOverride)
@@ -62,12 +65,13 @@ object SfaChroniclePatcher {
 
     private fun patchDeep(deep: ByteArray, roundsOverride: Int?): ByteArray? {
         val fields = SfaGameProtocolParser.readProtoFields(deep).toMutableMap()
-        // deep[3] 3->1
+        // deep[3] 3->1 (win) - leave is 3, win is 1
         if ((fields[3] as? Long) == 3L) fields[3] = 1L
-        // deep[4] 1002->1001
+        // deep[4] 1002->1001 (also handle 1187 etc via inner check, but deep 1002 is leave)
         if ((fields[4] as? Long) == 1002L) fields[4] = 1001L
-        // deep[10] 3->4
-        if ((fields[10] as? Long) == 3L) fields[10] = 4L
+        // deep[10] 3->4 or 1->4 (both leave variants -> win 4)
+        val d10 = fields[10] as? Long
+        if (d10 == 3L || d10 == 1L) fields[10] = 4L
 
         // deep[5] is 857 bytes containing chronicle fight
         val deep5 = fields[5] as? ByteArray ?: return null
