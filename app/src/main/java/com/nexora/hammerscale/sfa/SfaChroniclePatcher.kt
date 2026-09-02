@@ -43,7 +43,7 @@ object SfaChroniclePatcher {
             // The 961 blob is at field1 of params? Wait check: outer params = {1:961}
             // That 961 blob is inner with local_fight_finish
             val innerBlob = paramFields[1] as? ByteArray ?: return null
-            val inner = SfaGameProtocolParser.readProtoFields(innerBlob)
+            val inner = SfaGameProtocolParser.readProtoFields(innerBlob).toMutableMap()
             var deepBlob = inner[4] as? ByteArray ?: return null
             // Patch deep
             val patchedDeep = patchDeep(deepBlob, roundsOverride)

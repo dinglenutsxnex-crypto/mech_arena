@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexora.hammerscale.model.ConnectionViewModel
 import com.nexora.hammerscale.model.GameEvent
 import com.nexora.hammerscale.sfa.SfaAppState
+import com.nexora.hammerscale.sfa.SfaBattleConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
