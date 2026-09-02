@@ -88,16 +88,16 @@ object SfaChroniclePatcher {
             deep5Fields[1] = buildProto(sub1Fields)
         }
         // deep5[3] 26:4 keep
-        // deep5[5] is the rounds field: 01:04 -> 07:04
+        // deep5[5] is the rounds field: 01:04 -> 12:12 (12/12 required per user, not 4)
         val deep5Field5 = deep5Fields[5] as? ByteArray
         if (deep5Field5 != null) {
             val f5 = SfaGameProtocolParser.readProtoFields(deep5Field5).toMutableMap()
-            val required = (f5[2] as? Long)?.toInt() ?: 4
-            val targetWon = roundsOverride ?: required // if override null, set won = required (win)
-            // For observed win, they set 7 vs 4, but 4 would also win. Use targetWon
-            // Ensure won >= required
-            val won = if (targetWon < required) required else targetWon
+            val required = (f5[2] as? Long)?.toInt() ?: 12
+            val targetWon = roundsOverride ?: required
+            // Ensure won == required == 12/12 (user verified)
+            val won = if (targetWon < 12) 12 else targetWon
             f5[1] = won.toLong()
+            f5[2] = 12L // force required to 12/12
             deep5Fields[5] = buildProto(f5)
         }
         fields[5] = buildProto(deep5Fields)
