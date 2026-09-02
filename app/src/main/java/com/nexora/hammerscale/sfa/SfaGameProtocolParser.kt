@@ -113,8 +113,8 @@ object SfaGameProtocolParser {
                 GameEvent.LoginOut(guid, pass)
             }
             command == "LOGIN" && !isOut -> GameEvent.LoginIn()
-            // For SFA we treat every other command as generic Command so dev mode shows flow
-            else -> GameEvent.Command(command, isOut, extraDetail = params?.let { "params ${it.size}B" } ?: "")
+            // SFA dev mode: just like SF3 — show command name, first line handled by adapter (no params blob)
+            else -> GameEvent.Command(command, isOut)
         }
     }
 

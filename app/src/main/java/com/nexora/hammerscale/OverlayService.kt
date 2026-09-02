@@ -564,7 +564,19 @@ class OverlayService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) { stopSelf(); return START_NOT_STICKY }
-        intent?.getStringExtra("game")?.let { currentGame = it }
+        val newGame = intent?.getStringExtra("game")
+        if (newGame != null && newGame != currentGame) {
+            // Game switch: clear stale SF3/SFA events so overlay doesn't show old menu
+            currentGame = newGame
+            events.clear()
+            vmEventsCursor = 0
+            sfaEventsCursor = 0
+            try { adapter.notifyDataSetChanged() } catch (_: Exception) {}
+            overlayView?.findViewById<TextView>(R.id.tv_event_count)?.text = "0"
+            overlayView?.findViewById<TextView>(R.id.tv_status_bar)?.text = "switched to $currentGame — waiting for SFA-NEBU"
+        } else if (newGame != null) {
+            currentGame = newGame
+        }
         // Refresh UI if already created
         overlayView?.let { applyMode(it) }
         return START_STICKY
@@ -732,6 +744,7 @@ class OverlayService : Service() {
             val sz = events.size
             events.clear()
             vmEventsCursor = 0
+            sfaEventsCursor = 0
             adapter.notifyItemRangeRemoved(0, sz)
             view.findViewById<TextView>(R.id.tv_event_count)?.text = "0"
             view.findViewById<TextView>(R.id.tv_status_bar)?.text = "cleared"
@@ -740,7 +753,17 @@ class OverlayService : Service() {
 
         view.findViewById<TextView>(R.id.menu_download).setOnClickListener {
             menuPanel.visibility = View.GONE
-            val msgs = AppState.viewModel.getAllMessages()
+            // SFA fix: use correct ViewModel for current game; fallback to merged if empty
+            val msgs = when (currentGame) {
+                "SFA" -> {
+                    val sfa = SfaAppState.viewModel.getAllMessages()
+                    if (sfa.isNotEmpty()) sfa else AppState.viewModel.getAllMessages()
+                }
+                else -> {
+                    val sf3 = AppState.viewModel.getAllMessages()
+                    if (sf3.isNotEmpty()) sf3 else SfaAppState.viewModel.getAllMessages()
+                }
+            }
             LogDownloader.downloadAndShare(this, msgs)
         }
 
