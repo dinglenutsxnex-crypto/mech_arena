@@ -57,17 +57,43 @@ class SfaTcpHandler(
     // Chronicle win intercept — SFA only, independent from SF3
     private val chronicleInterceptArmed = java.util.concurrent.atomic.AtomicBoolean(false)
     private var chronicleRoundsOverride: Int? = null
+    @Volatile private var expectedChronicleId: String? = null
     fun armChronicleIntercept(roundsToWin: Int? = null) {
         chronicleRoundsOverride = roundsToWin
         chronicleInterceptArmed.set(true)
-        android.util.Log.d("SfaChronicle", "armChronicleIntercept rounds=$roundsToWin")
+        android.util.Log.d("SfaChronicle", "armChronicleIntercept rounds=$roundsToWin expected=$expectedChronicleId")
     }
     fun disarmChronicleIntercept() {
         chronicleInterceptArmed.set(false)
         chronicleRoundsOverride = null
+        expectedChronicleId = null
         android.util.Log.d("SfaChronicle", "disarmChronicleIntercept")
     }
     fun isChronicleArmed(): Boolean = chronicleInterceptArmed.get()
+    private fun sniffChronicleStart(frame: ByteArray) {
+        val cmd = extractCommandName(frame) ?: return
+        if (cmd != "roguelike_enter_chapter") return
+        // Extract battleId for logging and auto rounds
+        val payload = SfaGameProtocolParser.extractPayload(frame) ?: return
+        val outer = SfaGameProtocolParser.readProtoFields(payload)
+        val params = outer[3] as? ByteArray ?: return
+        // Use parser helper via reflection? Just read directly
+        val pf = SfaGameProtocolParser.readProtoFields(params)
+        var bid: String? = null
+        for ((k,v) in pf) {
+            if (v is ByteArray) {
+                val sub = SfaGameProtocolParser.readProtoFields(v)
+                for ((kk,vv) in sub) if (vv is Long && vv in 1..60000) { bid = vv.toString(); break }
+            }
+            if (bid != null) break
+        }
+        expectedChronicleId = bid
+        android.util.Log.d("SfaChronicle", "sniffChronicleStart id=$bid armed=${chronicleInterceptArmed.get()}")
+        // Post synthetic BattleStarted is handled by parser -> GameEvent, but also emit log
+        try {
+            SfaAppState.viewModel.postSyntheticEvent(com.nexora.hammerscale.model.GameEvent.BattleStarted(bid ?: "?", "roguelike_enter_chapter"))
+        } catch (_: Exception) {}
+    }
 
     private fun extractCommandName(frame: ByteArray): String? {
         return try {
@@ -198,12 +224,11 @@ class SfaTcpHandler(
                 } catch (_: Exception) {}
                 val patched = SfaChroniclePatcher.patchToWin(payloadForServer, rounds)
                 if (patched != null) {
-                    chronicleInterceptArmed.set(false)
+                    // Keep armed until user manually disables — don't auto turn off slider (user complaint)
                     payloadForServer = patched
                     val roundsStr = rounds?.toString() ?: "auto12"
-                    val logText = "SFA CHRONICLE PATCH battleId=${battleIdForLog ?: "?"} roundsLookup=$roundsStr patched ${beforeWon ?: "?"}:${beforeReq ?: "?"} -> 12:12 deep[3]3->1 deep[4]1002->1001 deep[5].sub1 1->12 (${patched.size}B)"
-                    android.util.Log.d("SfaChronicle", "patch FIRED $logText size ${packet.payload.size}->${patched.size}")
-                    // Show decoded battle id / round set and what was modified — visible in dev logs (first line like SF3)
+                    val logText = "SFA CHRONICLE PATCH battleId=${battleIdForLog ?: "?"} roundsLookup=$roundsStr patched ${beforeWon ?: "?"}:${beforeReq ?: "?"} -> 12:12 deep[3]3->1 deep[4]1002->1001 sub1 1->12 (${packet.payload.size}->${patched.size}B) 1/3 win"
+                    android.util.Log.d("SfaChronicle", "patch FIRED $logText")
                     try {
                         SfaAppState.viewModel.postSyntheticEvent(GameEvent.Command("sfa_chronicle_patch", true, logText))
                         SfaAppState.viewModel.postSyntheticEvent(GameEvent.Command("sfa_win", true, "battleId=$battleIdForLog rounds=12/12 win"))
@@ -337,6 +362,7 @@ class SfaTcpHandler(
                     val frame01 = raw.copyOfRange(pos, pos+2+len)
                     val cmdName = extractCommandName(frame01)
                     onMessage(connId, makeMessage(dir, frame01, cmdName))
+                    if (dir == LiveMessage.Direction.OUTBOUND) sniffChronicleStart(frame01)
                     pos += 2 + len
                 }
                 0x02 -> {
@@ -345,7 +371,7 @@ class SfaTcpHandler(
                     when {
                         compLen <= 0 || compLen > MAX_FRAME_BYTES -> { if (conn!=null){conn.inboundResyncBytes++; if(conn.inboundResyncBytes>MAX_RESYNC_BYTES){conn.inboundResyncBytes=0; return}}; pos++ }
                         pos + 5 + compLen > raw.size -> break
-                        else -> { conn?.inboundResyncBytes=0; val f=raw.copyOfRange(pos,pos+5+compLen); val cmdName=extractCommandName(f); onMessage(connId, makeMessage(dir,f,cmdName)); pos+=5+compLen }
+                        else -> { conn?.inboundResyncBytes=0; val f=raw.copyOfRange(pos,pos+5+compLen); val cmdName=extractCommandName(f); onMessage(connId, makeMessage(dir,f,cmdName)); if (dir == LiveMessage.Direction.OUTBOUND) sniffChronicleStart(f); pos+=5+compLen }
                     }
                 }
                 0x03 -> {
@@ -354,7 +380,7 @@ class SfaTcpHandler(
                     when {
                         compLen <=0 -> { if(conn!=null){conn.inboundResyncBytes++; if(conn.inboundResyncBytes>MAX_RESYNC_BYTES){conn.inboundResyncBytes=0; return}}; pos++ }
                         pos + 2 + compLen > raw.size -> break
-                        else -> { conn?.inboundResyncBytes=0; val f=raw.copyOfRange(pos,pos+2+compLen); val cmdName=extractCommandName(f); onMessage(connId, makeMessage(dir,f,cmdName)); pos+=2+compLen }
+                        else -> { conn?.inboundResyncBytes=0; val f=raw.copyOfRange(pos,pos+2+compLen); val cmdName=extractCommandName(f); onMessage(connId, makeMessage(dir,f,cmdName)); if (dir == LiveMessage.Direction.OUTBOUND) sniffChronicleStart(f); pos+=2+compLen }
                     }
                 }
                 else -> { if (conn!=null && dir==LiveMessage.Direction.INBOUND){conn.inboundResyncBytes++; if(conn.inboundResyncBytes>MAX_RESYNC_BYTES){conn.inboundResyncBytes=0; return}}; pos++ }

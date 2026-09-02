@@ -294,25 +294,32 @@ class OverlayService : Service() {
                 overlayView?.findViewById<TextView>(R.id.tv_status_bar)?.text = "${events.size} events  ·  last: ${events.last().timeStr}  [SFA]"
             }
             miniView?.findViewById<TextView>(R.id.tv_mini_count)?.apply { if (!isUserMode) text = "${events.size}" }
-            // Chronicle win: if we just sent process_offline_batch while armed, auto-win succeeded
+            // Chronicle win: show hint that you edited, keep slider ON (user said don't auto turn off)
             if (sfaChronicleArmed) {
                 val didPatch = added.any { it is GameEvent.Command && it.name == "process_offline_batch" && it.isOutbound }
                 if (didPatch) {
                     android.os.Handler(android.os.Looper.getMainLooper()).post {
-                        sfaChronicleArmed = false
-                        userSfaChronicleEnabled = false
-                        overlayView?.findViewById<Switch>(R.id.sw_sfa_chronicle)?.let { sw ->
-                            sw.setOnCheckedChangeListener(null)
-                            sw.isChecked = false
-                            sw.setOnCheckedChangeListener { _, checked ->
-                                userSfaChronicleEnabled = checked
-                                if (checked) armSfaChronicle() else disarmSfaChronicle()
-                            }
-                        }
-                        com.nexora.hammerscale.sfa.SfaTrafficVpnService.instance?.disarmChronicleIntercept()
-                        updateSfaChroniclePanel()
+                        // Don't disarm — keep armed until user toggles off, just flash and update status
                         flashLabelGreen(R.id.tv_label_sfa_chronicle)
-                        Toast.makeText(this, "SFA Chronicle WIN patched", Toast.LENGTH_SHORT).show()
+                        overlayView?.findViewById<TextView>(R.id.tv_sfa_chronicle_status)?.let { tv ->
+                            tv.text = "EDITED: 1/3->1 win, 1->12/12 patched @ ${added.last().timeStr} (still ARMED)"
+                            tv.setTextColor(Color.parseColor("#FF3FB950"))
+                            tv.visibility = View.VISIBLE
+                        }
+                        Toast.makeText(this, "SFA Chronicle patched 1/3->1 win 12/12", Toast.LENGTH_SHORT).show()
+                        updateSfaChroniclePanel()
+                    }
+                }
+                // Also highlight battle start as red hint
+                val didStart = added.any { it is GameEvent.BattleStarted && it.commandName == "roguelike_enter_chapter" }
+                if (didStart) {
+                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                        flashLabelGreen(R.id.tv_label_sfa_chronicle)
+                        overlayView?.findViewById<TextView>(R.id.tv_sfa_chronicle_status)?.let { tv ->
+                            tv.text = "CHRONICLE START detected id=${added.filterIsInstance<GameEvent.BattleStarted>().lastOrNull()?.battleId} — next offline batch will be win"
+                            tv.setTextColor(Color.parseColor("#FFD29922"))
+                            tv.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

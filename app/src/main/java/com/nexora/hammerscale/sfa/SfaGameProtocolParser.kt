@@ -113,6 +113,17 @@ object SfaGameProtocolParser {
                 GameEvent.LoginOut(guid, pass)
             }
             command == "LOGIN" && !isOut -> GameEvent.LoginIn()
+            command == "roguelike_enter_chapter" && isOut -> {
+                val bid = extractChronicleId(params) ?: "?"
+                GameEvent.BattleStarted(bid, "roguelike_enter_chapter")
+            }
+            command == "roguelike_enter_chapter" && !isOut -> GameEvent.Command(command, false, params?.let { "server ack ${it.size}B" } ?: "")
+            command == "process_offline_batch" && isOut -> {
+                // Show as battle command but will be patched to win; detail shows original round before patch
+                val bid = extractOfflineBattleId(params) ?: "?"
+                GameEvent.BattleCommand("process_offline_batch", bid, true)
+            }
+            command == "process_offline_batch" && !isOut -> GameEvent.Command(command, false, "server ack")
             // SFA dev mode: just like SF3 — show command name, first line handled by adapter (no params blob)
             else -> GameEvent.Command(command, isOut)
         }
@@ -138,6 +149,37 @@ object SfaGameProtocolParser {
             .find(text)?.value ?: "?"
         val pass = Regex("[0-9a-f]{32}").find(text)?.value ?: "?"
         return guid to pass
+    }
+
+    private fun extractChronicleId(params: ByteArray?): String? {
+        if (params==null) return null
+        return try {
+            val fields=readProtoFields(params)
+            // Try direct varint candidates
+            for ((k,v) in fields) {
+                if (v is Long && v in 1..60000) return v.toString()
+                if (v is ByteArray) {
+                    val sub=readProtoFields(v)
+                    for ((kk,vv) in sub) if (vv is Long && vv in 1..60000) return vv.toString()
+                }
+            }
+            null
+        } catch (_:Exception) { null }
+    }
+    private fun extractOfflineBattleId(params: ByteArray?): String? {
+        if (params==null) return null
+        return try {
+            val pf=readProtoFields(params)
+            val innerBlob=pf[1] as? ByteArray ?: return null
+            val inner=readProtoFields(innerBlob)
+            val deep=inner[4] as? ByteArray ?: return null
+            val deepFields=readProtoFields(deep)
+            val deep5=deepFields[5] as? ByteArray ?: return null
+            val deep5Fields=readProtoFields(deep5)
+            val sub1=deep5Fields[1] as? ByteArray ?: return null
+            val sub1Fields=readProtoFields(sub1)
+            (sub1Fields[5] as? Long)?.toString() ?: (sub1Fields[2] as? Long)?.toString()
+        } catch (_:Exception) { null }
     }
 
     fun readProtoFields(data: ByteArray): Map<Int, Any> {
