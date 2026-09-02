@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nexora.hammerscale.model.ConnectionViewModel
 import com.nexora.hammerscale.model.GameEvent
+import com.nexora.hammerscale.sfa.SfaAppState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -71,6 +72,9 @@ class OverlayService : Service() {
     private var vmEventsCursor = 0
 
     private var isUserMode = true
+    // SFA: current game hint from MainActivity ("SF3" or "SFA")
+    private var currentGame: String = "SF3"
+    private var sfaEventsCursor = 0
 
     private enum class BattleType { NONE, EVENT, CLAN }
     private var activeBattleType = BattleType.NONE
@@ -264,6 +268,29 @@ class OverlayService : Service() {
         if (last is GameEvent.WinConfirmed) {
             lastWinConfirmedId = last.battleId
             updateEventsPanel()
+        }
+    }
+
+    // SFA: dev mode observer — same UI list, hooks SFA-NEBU
+    private val sfaEventObserver = Observer<List<GameEvent>> { newList ->
+        val added = if (sfaEventsCursor < newList.size) newList.drop(sfaEventsCursor) else emptyList()
+        sfaEventsCursor = newList.size
+        if (added.isNotEmpty()) {
+            val prevSize = events.size
+            events.addAll(added)
+            if (events.size > 3000) {
+                events.subList(0, 1000).clear()
+                adapter.notifyDataSetChanged()
+            } else {
+                adapter.notifyItemRangeInserted(prevSize, added.size)
+            }
+            val rv = overlayView?.findViewById<RecyclerView>(R.id.rv_events)
+            if (rv != null && isAtBottom(rv)) rv.scrollToPosition(events.size - 1)
+            if (!isUserMode) {
+                overlayView?.findViewById<TextView>(R.id.tv_event_count)?.text = events.size.toString()
+                overlayView?.findViewById<TextView>(R.id.tv_status_bar)?.text = "${events.size} events  ·  last: ${events.last().timeStr}  [SFA]"
+            }
+            miniView?.findViewById<TextView>(R.id.tv_mini_count)?.apply { if (!isUserMode) text = "${events.size}" }
         }
     }
 
@@ -537,6 +564,9 @@ class OverlayService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) { stopSelf(); return START_NOT_STICKY }
+        intent?.getStringExtra("game")?.let { currentGame = it }
+        // Refresh UI if already created
+        overlayView?.let { applyMode(it) }
         return START_STICKY
     }
 
@@ -556,6 +586,8 @@ class OverlayService : Service() {
         AppState.viewModel.clanRounds.observeForever(clanRoundsObserver)
         AppState.viewModel.battleSeq.observeForever(battleSeqObserver)
         AppState.viewModel.raidFightActive.observeForever(raidFightObserver)
+        // SFA: parallel observer — same list, dev mode shows all SFA commands
+        SfaAppState.viewModel.gameEvents.observeForever(sfaEventObserver)
         
         BattleConfig.loadAsync(
             resources,
@@ -637,18 +669,27 @@ class OverlayService : Service() {
         val menuDevItems = view.findViewById<View>(R.id.panel_menu_dev_items)
         val modeToggleTv = view.findViewById<TextView>(R.id.menu_mode_toggle)
 
+        // SFA user mode is empty by design (boat just needs to float)
+        val isSfa = currentGame == "SFA"
+
         if (isUserMode) {
             tabRow?.visibility      = View.GONE
             rvEvents?.visibility    = View.GONE
             panelEvents?.visibility = View.GONE
             statusBar?.visibility   = View.GONE
             eventCount?.visibility  = View.GONE
-            panelUser?.visibility   = View.VISIBLE
+            if (isSfa) {
+                panelUser?.visibility   = View.GONE
+            } else {
+                panelUser?.visibility   = View.VISIBLE
+            }
             menuDevItems?.visibility = View.GONE
             modeToggleTv?.text      = "   DEV MODE"
-            updateUserModeBattleLabels()
-            updateUserModeRaidLabel(AppState.viewModel.raidFightActive.value == true)
-            updateUserModeBrawlerLabel()
+            if (!isSfa) {
+                updateUserModeBattleLabels()
+                updateUserModeRaidLabel(AppState.viewModel.raidFightActive.value == true)
+                updateUserModeBrawlerLabel()
+            }
         } else {
             tabRow?.visibility      = View.VISIBLE
             rvEvents?.visibility    = View.VISIBLE
@@ -1125,6 +1166,7 @@ class OverlayService : Service() {
         AppState.viewModel.clanRounds.removeObserver(clanRoundsObserver)
         AppState.viewModel.battleSeq.removeObserver(battleSeqObserver)
         AppState.viewModel.raidFightActive.removeObserver(raidFightObserver)
+        SfaAppState.viewModel.gameEvents.removeObserver(sfaEventObserver)
         pendingArmJob?.cancel()
         pendingBrawlerArmJob?.cancel()
         if (duelHijackWaiting) TrafficVpnService.instance?.cancelDuelHijack()
