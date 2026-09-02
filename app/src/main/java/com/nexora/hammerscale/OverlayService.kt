@@ -85,6 +85,8 @@ class OverlayService : Service() {
     private var userBrawlerEnabled     = false
     private var duelHijackWaiting      = false
     private var duelHijackLossWaiting  = false
+    private var userSfaChronicleEnabled = false
+    private var sfaChronicleArmed = false
 
     private val labelColorNormal = Color.parseColor("#FFE6EDF3")
     private val labelColorActive = Color.parseColor("#FFFF4444")
@@ -291,6 +293,28 @@ class OverlayService : Service() {
                 overlayView?.findViewById<TextView>(R.id.tv_status_bar)?.text = "${events.size} events  ·  last: ${events.last().timeStr}  [SFA]"
             }
             miniView?.findViewById<TextView>(R.id.tv_mini_count)?.apply { if (!isUserMode) text = "${events.size}" }
+            // Chronicle win: if we just sent process_offline_batch while armed, auto-win succeeded
+            if (sfaChronicleArmed) {
+                val didPatch = added.any { it is GameEvent.Command && it.name == "process_offline_batch" && it.isOutbound }
+                if (didPatch) {
+                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                        sfaChronicleArmed = false
+                        userSfaChronicleEnabled = false
+                        overlayView?.findViewById<Switch>(R.id.sw_sfa_chronicle)?.let { sw ->
+                            sw.setOnCheckedChangeListener(null)
+                            sw.isChecked = false
+                            sw.setOnCheckedChangeListener { _, checked ->
+                                userSfaChronicleEnabled = checked
+                                if (checked) armSfaChronicle() else disarmSfaChronicle()
+                            }
+                        }
+                        com.nexora.hammerscale.sfa.SfaTrafficVpnService.instance?.disarmChronicleIntercept()
+                        updateSfaChroniclePanel()
+                        flashLabelGreen(R.id.tv_label_sfa_chronicle)
+                        Toast.makeText(this, "SFA Chronicle WIN patched", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
@@ -419,6 +443,43 @@ class OverlayService : Service() {
         brawlerInterceptArmed = false
         TrafficVpnService.instance?.disarmBrawlerIntercept()
         updateBrawlerPanel()
+    }
+
+    private fun armSfaChronicle() {
+        if (sfaChronicleArmed) return
+        val vpn = SfaAppState.viewModel // trigger load
+        SfaBattleConfig.ensureLoaded(this)
+        val sfaVpn = com.nexora.hammerscale.sfa.SfaTrafficVpnService.instance
+        if (sfaVpn == null) {
+            android.util.Log.e("SfaChronicle", "armSfaChronicle: SFA VPN null")
+            return
+        }
+        sfaChronicleArmed = true
+        // Auto round from archive via config not needed; patcher will auto-detect required rounds from packet
+        sfaVpn.armChronicleIntercept(null)
+        updateSfaChroniclePanel()
+        android.util.Log.d("SfaChronicle", "armSfaChronicle: ARMED")
+    }
+    private fun disarmSfaChronicle() {
+        if (!sfaChronicleArmed) return
+        sfaChronicleArmed = false
+        com.nexora.hammerscale.sfa.SfaTrafficVpnService.instance?.disarmChronicleIntercept()
+        updateSfaChroniclePanel()
+        android.util.Log.d("SfaChronicle", "disarmSfaChronicle: DISARMED")
+    }
+    private fun updateSfaChroniclePanel() {
+        val v = overlayView ?: return
+        val status = v.findViewById<TextView>(R.id.tv_sfa_chronicle_status) ?: return
+        val label = v.findViewById<TextView>(R.id.tv_label_sfa_chronicle) ?: return
+        if (sfaChronicleArmed) {
+            status.text = "ARMED — leave chronicle now (instant win)"
+            status.setTextColor(Color.parseColor("#FFD29922"))
+            status.visibility = View.VISIBLE
+            label.setTextColor(Color.parseColor("#FF3FB950"))
+        } else {
+            status.visibility = View.GONE
+            label.setTextColor(Color.parseColor("#FFE6EDF3"))
+        }
     }
 
     private fun flashLabelGreen(labelResId: Int) {
@@ -681,7 +742,6 @@ class OverlayService : Service() {
         val menuDevItems = view.findViewById<View>(R.id.panel_menu_dev_items)
         val modeToggleTv = view.findViewById<TextView>(R.id.menu_mode_toggle)
 
-        // SFA user mode is empty by design (boat just needs to float)
         val isSfa = currentGame == "SFA"
 
         if (isUserMode) {
@@ -690,10 +750,24 @@ class OverlayService : Service() {
             panelEvents?.visibility = View.GONE
             statusBar?.visibility   = View.GONE
             eventCount?.visibility  = View.GONE
+            panelUser?.visibility   = View.VISIBLE
+            // SFA: show only chronicle row, hide SF3 rows; SF3: opposite
+            val sf3Rows = listOf(
+                R.id.row_event_battle, R.id.row_clan_battle, R.id.row_brawler,
+                R.id.row_raid, R.id.row_duel_hijack, R.id.row_duel_hijack_loss
+            )
+            val sfaRows = listOf(R.id.row_sfa_chronicle, R.id.divider_sfa)
             if (isSfa) {
-                panelUser?.visibility   = View.GONE
+                sf3Rows.forEach { view.findViewById<View>(it)?.visibility = View.GONE }
+                // hide SF3 dividers that are between SF3 rows (keep generic)
+                view.findViewById<View>(R.id.tv_duel_hijack_status)?.visibility = View.GONE
+                view.findViewById<View>(R.id.tv_duel_hijack_loss_status)?.visibility = View.GONE
+                sfaRows.forEach { view.findViewById<View>(it)?.visibility = View.VISIBLE }
+                view.findViewById<View>(R.id.tv_sfa_chronicle_status)?.visibility = if (sfaChronicleArmed) View.VISIBLE else View.GONE
             } else {
-                panelUser?.visibility   = View.VISIBLE
+                sf3Rows.forEach { view.findViewById<View>(it)?.visibility = View.VISIBLE }
+                sfaRows.forEach { view.findViewById<View>(it)?.visibility = View.GONE }
+                view.findViewById<View>(R.id.tv_sfa_chronicle_status)?.visibility = View.GONE
             }
             menuDevItems?.visibility = View.GONE
             modeToggleTv?.text      = "   DEV MODE"
@@ -847,6 +921,7 @@ class OverlayService : Service() {
         val swBrawler    = view.findViewById<Switch>(R.id.sw_brawler)
         val swDuelHijack     = view.findViewById<Switch>(R.id.sw_duel_hijack)
         val swDuelHijackLoss = view.findViewById<Switch>(R.id.sw_duel_hijack_loss)
+        val swSfaChronicle   = view.findViewById<Switch>(R.id.sw_sfa_chronicle)
 
         styleSwitch(swEvent)
         styleSwitch(swClan)
@@ -854,11 +929,13 @@ class OverlayService : Service() {
         styleSwitch(swBrawler)
         styleSwitch(swDuelHijack)
         styleSwitch(swDuelHijackLoss)
+        if (swSfaChronicle != null) styleSwitch(swSfaChronicle)
 
         swEvent.isChecked   = userEventBattleEnabled
         swClan.isChecked    = userClanBattleEnabled
         swRaid.isChecked    = userRaidEnabled
         swBrawler.isChecked = userBrawlerEnabled
+        view.findViewById<Switch>(R.id.sw_sfa_chronicle)?.let { it.isChecked = userSfaChronicleEnabled }
 
         swEvent.setOnCheckedChangeListener { _, checked ->
             userEventBattleEnabled = checked
@@ -917,6 +994,22 @@ class OverlayService : Service() {
             }
         }
 
+        // SFA chronicle: arm on toggle, stays armed until next process_offline_batch is patched
+        view.findViewById<Switch>(R.id.sw_sfa_chronicle)?.setOnCheckedChangeListener { _, checked ->
+            userSfaChronicleEnabled = checked
+            if (checked) {
+                if (com.nexora.hammerscale.sfa.SfaTrafficVpnService.instance == null) {
+                    Toast.makeText(this, "SFA VPN not running — start SFA first", Toast.LENGTH_SHORT).show()
+                    view.findViewById<Switch>(R.id.sw_sfa_chronicle)?.isChecked = false
+                    userSfaChronicleEnabled = false
+                    return@setOnCheckedChangeListener
+                }
+                armSfaChronicle()
+            } else {
+                disarmSfaChronicle()
+            }
+        }
+
         view.findViewById<View>(R.id.row_event_battle)?.setOnClickListener {
             swEvent.isChecked = !swEvent.isChecked
         }
@@ -928,6 +1021,9 @@ class OverlayService : Service() {
         }
         view.findViewById<View>(R.id.row_brawler)?.setOnClickListener {
             swBrawler.isChecked = !swBrawler.isChecked
+        }
+        view.findViewById<View>(R.id.row_sfa_chronicle)?.setOnClickListener {
+            view.findViewById<Switch>(R.id.sw_sfa_chronicle)?.let { sw -> sw.isChecked = !sw.isChecked }
         }
 
         view.findViewById<TextView>(R.id.btn_brawler_win)?.setOnClickListener {

@@ -53,6 +53,21 @@ class SfaTcpHandler(
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val outStream = FileOutputStream(vpnFd)
 
+    // Chronicle win intercept — SFA only, independent from SF3
+    private val chronicleInterceptArmed = java.util.concurrent.atomic.AtomicBoolean(false)
+    private var chronicleRoundsOverride: Int? = null
+    fun armChronicleIntercept(roundsToWin: Int? = null) {
+        chronicleRoundsOverride = roundsToWin
+        chronicleInterceptArmed.set(true)
+        android.util.Log.d("SfaChronicle", "armChronicleIntercept rounds=$roundsToWin")
+    }
+    fun disarmChronicleIntercept() {
+        chronicleInterceptArmed.set(false)
+        chronicleRoundsOverride = null
+        android.util.Log.d("SfaChronicle", "disarmChronicleIntercept")
+    }
+    fun isChronicleArmed(): Boolean = chronicleInterceptArmed.get()
+
     private fun extractCommandName(frame: ByteArray): String? {
         return try {
             val proto = SfaGameProtocolParser.extractPayload(frame) ?: return null
@@ -129,10 +144,51 @@ class SfaTcpHandler(
         if (!conn.isWebSocket) {
             val text = String(packet.payload, Charsets.ISO_8859_1)
             if (text.contains("Upgrade: websocket", ignoreCase = true)) conn.awaitingWsHandshake = true
-            // SFA: pure observer — no patching
-            conn.outboundSfaBuffer.write(packet.payload)
+            var payloadForServer = packet.payload
+            if (chronicleInterceptArmed.get() && SfaChroniclePatcher.isProcessOfflineBatch(payloadForServer)) {
+                // Auto-detect rounds from archive if not overridden
+                var rounds = chronicleRoundsOverride
+                if (rounds == null) {
+                    // Try to extract chronicle battleId from current deep[5] and lookup
+                    try {
+                        val outer = SfaGameProtocolParser.extractPayload(payloadForServer) ?: throw Exception()
+                        val outerFields = SfaGameProtocolParser.readProtoFields(outer)
+                        val paramsBlob = outerFields[3] as? ByteArray
+                        if (paramsBlob != null) {
+                            val pf = SfaGameProtocolParser.readProtoFields(paramsBlob)
+                            val innerBlob = pf[1] as? ByteArray
+                            if (innerBlob != null) {
+                                val inner = SfaGameProtocolParser.readProtoFields(innerBlob)
+                                val deep = inner[4] as? ByteArray
+                                if (deep != null) {
+                                    val deepFields = SfaGameProtocolParser.readProtoFields(deep)
+                                    val deep5 = deepFields[5] as? ByteArray
+                                    if (deep5 != null) {
+                                        val deep5Fields = SfaGameProtocolParser.readProtoFields(deep5)
+                                        val sub1 = deep5Fields[1] as? ByteArray
+                                        if (sub1 != null) {
+                                            val sub1Fields = SfaGameProtocolParser.readProtoFields(sub1)
+                                            val battleId = (sub1Fields[5] as? Long)?.toString() ?: (sub1Fields[2] as? Long)?.toString()
+                                            if (battleId != null) rounds = SfaBattleConfig.roundsFor(battleId)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch (_: Exception) {}
+                }
+                val patched = SfaChroniclePatcher.patchToWin(payloadForServer, rounds)
+                if (patched != null) {
+                    chronicleInterceptArmed.set(false)
+                    payloadForServer = patched
+                    android.util.Log.d("SfaChronicle", "patch FIRED rounds=$rounds size ${packet.payload.size}->${patched.size}")
+                } else {
+                    android.util.Log.w("SfaChronicle", "patch FAILED")
+                }
+            }
+            conn.outboundSfaBuffer.write(payloadForServer)
             parseSfaFrames(conn.connId, conn.outboundSfaBuffer, LiveMessage.Direction.OUTBOUND)
-            conn.outboundQueue.trySend(packet.payload)
+            conn.outboundQueue.trySend(payloadForServer)
         } else {
             conn.outboundWsBuffer.write(packet.payload)
             parseWsFrames(conn.connId, conn.outboundWsBuffer, LiveMessage.Direction.OUTBOUND)

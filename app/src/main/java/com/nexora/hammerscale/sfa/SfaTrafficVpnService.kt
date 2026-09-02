@@ -35,14 +35,17 @@ class SfaTrafficVpnService : VpnService() {
         const val VPN_ROUTE   = "0.0.0.0"
         @Volatile var instance: SfaTrafficVpnService? = null
     }
-    private var vpnInterface: ParcelFileDescriptor? = null
+     private var vpnInterface: ParcelFileDescriptor? = null
     private var captureJob: Job? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var tcpHandler: SfaTcpHandler? = null
     private var udpHandler: SfaUdpHandler? = null
     val viewModel: SfaConnectionViewModel by lazy { SfaAppState.viewModel }
 
-    override fun onCreate() { super.onCreate(); instance=this; createNotificationChannel() }
+    override fun onCreate() { super.onCreate(); instance=this; createNotificationChannel(); SfaBattleConfig.ensureLoaded(this) }
+    fun armChronicleIntercept(rounds: Int? = null) { tcpHandler?.armChronicleIntercept(rounds) }
+    fun disarmChronicleIntercept() { tcpHandler?.disarmChronicleIntercept() }
+    fun isChronicleArmed(): Boolean = tcpHandler?.isChronicleArmed() ?: false
     override fun onStartCommand(intent: Intent?, flags:Int, startId:Int): Int {
         return when(intent?.action){ ACTION_STOP -> {stopVpn(); START_NOT_STICKY} else -> {startVpn(); START_STICKY} }
     }
