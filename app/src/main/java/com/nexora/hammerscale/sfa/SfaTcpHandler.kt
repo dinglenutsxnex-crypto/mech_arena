@@ -25,7 +25,7 @@ data class SfaTcpConnState(
     var localSeq: Long,
     var remoteSeq: Long,
     var channel: SocketChannel? = null,
-    var status: TcpStatus = TcpStatus.SYN_RECEIVED,
+    var status: SfaTcpStatus = SfaTcpStatus.SYN_RECEIVED,
     val outboundQueue: KChannel<ByteArray> = KChannel(KChannel.UNLIMITED),
     val writeLock: java.util.concurrent.locks.ReentrantLock = java.util.concurrent.locks.ReentrantLock(),
     var awaitingWsHandshake: Boolean = false,
