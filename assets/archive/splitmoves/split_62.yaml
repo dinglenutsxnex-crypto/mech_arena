@@ -1,0 +1,41 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Stance_Start_Birth
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Twohanded_Sword_Stance_Start_Birth
+    "FileName": twohanded_sword_stance_birth.bin
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+    "Sounds": 
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

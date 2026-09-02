@@ -1,0 +1,10 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__SHADOWLESS
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - RuleShadowless
+...

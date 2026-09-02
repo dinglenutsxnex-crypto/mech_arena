@@ -1,0 +1,296 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_SF
+    Triggers:
+      - Priority: -99998
+        Events:
+          - PostHit
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                    Value2: "1"
+        Actions:
+          - SetShadowCharge:
+                Value: "?GetShadowCharge[Me] + 2 * ?Hit[].Damage"
+      - Priority: -99999
+        Events:
+          - PostHit
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ShadowChargeMax"
+                Log: "BattleID: 30"
+          - SetVariable:
+                Name: Tutorial_ShadowFormShown
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_ShadowForm_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 1
+                ApplyTo: Enemy
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Skill_Helmet
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: On
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                State: Off
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+      - Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+                  - Up
+                  - UnHold
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowChargeUnlimited_On].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ShadowChargeBurnDown"
+                Log: "BattleID: 30"
+                Params:
+                    "On": "1"
+          - ShadowChargeBurnDown:
+                Enable: 0
+          - SetVariable:
+                Name: Tutorial_ShadowChargeUnlimited_On
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+          - Less:
+                Value1: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value"
+                Value2: "17"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowSkill_Count
+                Value: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value"
+                Value2: "16"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_Off].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ShadowTutorialFailed"
+                Log: "BattleID: 30"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value"
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 0
+                Frames: 1
+                ApplyTo: Enemy
+          - ShadowChargeBurnDown:
+                Enable: 1
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                State: On
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_Off
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 0
+                Frames: 1
+                ApplyTo: Enemy
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+      - Events:
+          - AnimationStart:
+                Player: Me
+                Name: SHADOW_MOVE
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ShadowMoveAnimationStart"
+                Log: "BattleID: 30"
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 0
+                Frames: 1
+                ApplyTo: Enemy
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                State: On
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_2
+                Value: 1
+                ApplyTo: Me
+      - Priority: 3500
+        Events:
+          - AnimationEnd:
+                Player: Me
+                Name: SHADOW_MOVE_END
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_3].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_3
+                Value: 1
+                ApplyTo: Me
+          - PauseAnimation:
+                ApplyTo: Enemy
+                InOutFrames: 120
+                Frames: 180
+          - PauseAnimation:
+                ApplyTo: Me
+                InOutFrames: 120
+                Frames: 180
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_DESTROY
+                Value: 1
+                Frames: 320
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_SHOW_UI
+                Value: 1
+                Frames: 100
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_4
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - VariableDestruction:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_SHOW_UI
+        Actions:
+          - Call:
+                ID: TUTORIAL_SHADOW_COOLDOWN_HELMET
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Cooldown
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+      - Events:
+          - VariableDestruction:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_DESTROY
+        Actions:
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_2
+                Value: 1
+                Frames: 2
+                ApplyTo: Me
+          - ShadowChargeBurnDown:
+                Enable: 1
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+          - HideTutorialPanel
+          - Call:
+                ID: TUTORIAL_SHADOW_COOLDOWN_HIDE
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 0
+                Frames: 1
+                ApplyTo: Enemy
+...

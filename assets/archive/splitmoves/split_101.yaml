@@ -1,0 +1,93 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Spear_Slash_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Spear_Slash_Model_Attack
+          - CustomEffect:
+                Name: groundSpearFX
+                ApplyTo: Me
+                AttachToBone: magic_joint_root
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 12
+                    Y: 17
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - Hit:
+                Player: Parent
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Spear_Slash_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: groundSpearFX
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Spear_Slash_Model_Attack
+    "FileName": s_spear_slash_bullet.bin
+    "BlendingFrames": 0
+    "FirstFrame": 6
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": -50
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "End": 12
+        "HitTags":
+          - Hit_Shadow_Spear_Slash_Hit
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 10000
+            "Y": 25000
+        "Slowmo":
+            "Start": 0
+            "End": 20
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.15
+    "Sounds":
+      - "Common":
+          - shadow_moves/shadow_spear_slash/shadow_spear_slash_attack
+        "Frame": 6
+...

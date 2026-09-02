@@ -1,0 +1,129 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_BASHER
+    Triggers:
+      - Priority: 200
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Enemy, 1001, Chance] * ?Hit[].Damage"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentAnimation"
+                Value2: "WEAPON"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_BASHER].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BASHER
+                Value: 1
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BASHER
+                Stackable: 0
+          - SetVariable:
+                Name: PERK_BASHER_WEAKNESS
+                Value: 0
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Priority: 5000
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BASHER].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Stun"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "FOLLOWED_BY"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - Animation:
+                Name: Stun
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+                BackgroundColor: "#9f1c03"
+                Icon: ICON_PERK_BASHER
+                Frames: "?GetPerkVariable[Enemy, 1001, StunDuration]"
+                ShowExpiration: 1
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Priority: 5001
+        Events:
+          - PostHit:
+                Player: Me
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Stun"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BASHER
+                Value: 0
+                ApplyTo: Me
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+        Templates:
+          - STATE.ALIVE
+Animations:
+  - "Animation": Stun
+    "FileName": h_stun.bin
+    "Groups":
+      - STATE
+      - STUN
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+...

@@ -1,0 +1,241 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_Nunchaku_Instead_Super_1
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+Animations:
+  - "Animation": Nunchaku_Slash
+    "FileName": nunchaku_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_BASIC
+      - WEAPON
+      - NUNCHAKU
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 45
+      - "Name": Blocking
+        "Start": 46
+      - "Name": Throwable
+        "Start": 40
+      - "Name": Transitional
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 25
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 23
+        "End": 25
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 17
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 6
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 13
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 18
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 29
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+...

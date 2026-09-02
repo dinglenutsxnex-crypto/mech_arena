@@ -1,0 +1,45 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Spear_Dojo
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Spear_Idle
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Spear_Idle
+    "FileName": staff_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 8
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...

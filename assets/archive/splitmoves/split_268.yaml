@@ -1,0 +1,475 @@
+﻿Root: 
+TriggerSets:
+  - Name: SARGE_WALK
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - GreaterEqual:
+                Value1: "?Fight[].Round"
+                Value2: "2"
+        Actions:
+          - SetVariable:
+                Name: SARGE_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 300
+      - Templates:
+          - TACTICS.SARGES_WALK
+        Priority: 3500
+        Actions:
+          - Animation:
+                Name: Sarge_Walk
+          - SetVariable:
+                Name: SARGE_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 800
+          - RepulsionType:
+                ApplyTo: Me
+                State: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 1
+                ApplyTo: Me
+          - SetShader:
+                ApplyTo: Enemy
+                Name: power
+                Toggle: On
+                Transition: 1
+        Tactics:
+            MathWeight: 9999
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SARGE_THROW_Active_CD].Value"
+                        Value2: "1"
+              - GreaterEqual:
+                    Value1: "?Fight[].Round"
+                    Value2: "2"
+      - Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+        Actions:
+          - RepulsionType:
+                ApplyTo: Me
+                State: 0
+          - SetShader:
+                ApplyTo: Enemy
+                Name: power
+                Toggle: Off
+                Transition: 0.5
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Sarge_Walk_End
+        Conditions: 
+        Actions:
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - RepulsionType:
+                ApplyTo: Me
+                State: 0
+          - SetShader:
+                ApplyTo: Enemy
+                Name: power
+                Toggle: Off
+                Transition: 0.5
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: -1000
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow start
+          - HitEffect:
+                Name: HitEffect_Critical_Basic
+                ParticlesCount: 1000
+          - FreezeFrame:
+                Frames: 30
+          - ShakeCamera:
+                Frames: 55
+                AmpX: 5
+                AmpY: 15
+                PeriodX: 5.7
+                PeriodY: 6.3
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Sarge_Smashing_Start_Reverse
+        Priority: 401
+        Conditions:
+          - GreaterEqual:
+                Value1: "?Fight[].Round"
+                Value2: "2"
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "155"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Sarge_Walk"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Sarge_Walk_End"
+        Actions:
+          - Animation:
+                Name: Sarge_Smashing_Active_Miss
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 1
+                ApplyTo: Me
+      - Templates:
+          - REACTION.HIT_TO_ENEMY
+        Priority: 1101
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Sarge_Smashing"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_STEEL_FOOT_FALL].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Sarge_Smashing_Active_Reverse
+        Events:
+          - PostHit:
+                Player: Enemy
+      - Priority: 401
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Sarge_Smashing_Active_Reverse"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Sarge_Smashing_Active_Miss"
+        Actions:
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+          - RepulsionType:
+                ApplyTo: Me
+                State: 0
+          - SetShader:
+                ApplyTo: Enemy
+                Name: power
+                Toggle: Off
+                Transition: 0.5
+Animations:
+  - "Animation": Sarge_Walk
+    "FileName": sarge_walk.bin
+    "Groups":
+      - SHADOW_MOVE
+    "RepulsionScale":
+        "X": 0.5
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Sarge_Walk_End
+        "Start": 110
+      - "Name": Sarge_Smashing_Start_Reverse
+        "Start": 32
+        "End": 32
+      - "Name": Sarge_Smashing_Start_Reverse
+        "Start": 51
+        "End": 51
+      - "Name": Sarge_Smashing_Start_Reverse
+        "Start": 70
+        "End": 70
+      - "Name": Sarge_Smashing_Start_Reverse
+        "Start": 89
+        "End": 89
+      - "Name": Sarge_Smashing_Start_Reverse
+        "Start": 108
+        "End": 108
+  - "Animation": Sarge_Smashing_Active_Miss
+    "FileName": sarge_smashing_miss.bin
+    "BlendingFrames": 20
+    "Mirrored": -1
+    "Groups":
+      - ATTACK
+      - WEAPON
+      - HEAVY
+      - SHADOW_MOVE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 63
+      - "Name": Sarge_Walk_End
+        "Start": 62
+        "End": 62
+      - "Type": Attack
+        "Start": 20
+        "End": 22
+        "HitTags":
+          - Unblockable
+          - Hit_Stomach_Heavy
+          - Sarge_Smashing
+        "Material": hammer
+        "AttackingParts":
+          - Hand_left
+          - Forearm_left
+          - Hammers_Attacking_Edge_l
+        "Slowmo":
+            "Start": 14
+            "End": 22
+            "Distance": 200
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.1
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 14
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+  - "Animation": Sarge_Smashing_Active_Reverse
+    "FileName": sarge_smashing_active.bin
+    "EndFrame": 150
+    "Groups":
+      - ATTACK
+      - WEAPON
+      - HEAVY
+      - SHADOW_MOVE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Transitions":
+      - "FrameShift": 0
+        "AITransistable": 1
+        "Animations":
+          - Sarge_Smashing_Active_Miss
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 148
+      - "Name": Sarge_Passive_2_Start
+        "Start": 66
+        "End": 66
+      - "Type": Attack
+        "Start": 20
+        "End": 22
+        "HitTags":
+          - Unblockable
+          - Hit_Stomach_Heavy
+          - Sarge_Smashing
+        "Material": hammer
+        "AttackingParts":
+          - Hand_left
+          - Forearm_left
+          - Hammers_Attacking_Edge_l
+        "Slowmo":
+            "Start": 14
+            "End": 22
+            "Distance": 200
+        "Damage":
+            "Attack": WeaponDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.1
+      - "Type": Attack
+        "Start": 66
+        "End": 68
+        "HitTags":
+          - Unblockable
+          - Hit_Overhead_Critical_Fall
+        "Material": hammer
+        "AttackingParts":
+          - Hand_left
+          - Forearm_left
+          - Hammers_Attacking_Edge_l
+        "Slowmo":
+            "Start": 18
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.2
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 14
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 60
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+...

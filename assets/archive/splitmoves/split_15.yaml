@@ -1,0 +1,41 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Agile_Fists
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Stance_Start_Birth_Agile_Fists
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Stance_Start_Birth_Agile_Fists
+    "FileName": m_agl_stance_birth.bin
+    "EndFrame": 30
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+        "Shift":
+            "X": 40
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

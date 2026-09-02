@@ -1,0 +1,27 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__LIFESTEAL
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: ENCHANTMENT_LIFESTEAL_REGEN
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "?RuleVariable[Me, LifeSteal, Value] * ?Hit[].Damage"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_LIFESTEAL
+                BackgroundColor: "#cc6128"
+                Icon: ICON_ENCHANTMENT_LIFESTEAL
+                Frames: 90
+                Stackable: 0
+...

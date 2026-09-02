@@ -1,0 +1,61 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_RETRIBUTION
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_RETRIBUTION].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "?GetPerkVariable[Me, 1012, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "?GetPerkVariable[Me, 1012, AdditionDamage]"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Priority: 100
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, SHOCKED].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_RETRIBUTION].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_RETRIBUTION
+                Value: 1
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_RETRIBUTION
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_RETRIBUTION
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

@@ -1,0 +1,38 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_LIFESTEAL
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2001, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: ENCHANTMENT_LIFESTEAL_REGEN
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "?GetPerkVariable[Me, 2001, LifestealPower] * ?Hit[].Damage"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_LIFESTEAL
+                BackgroundColor: "#2f4668"
+                Icon: ICON_ENCHANTMENT_LIFESTEAL
+                Frames: 90
+        Templates:
+          - STATE.ALIVE
+...

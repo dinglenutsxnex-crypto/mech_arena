@@ -1,0 +1,905 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_MOVEMENT_COMBOS
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - SetVariable:
+                Name: TUTORIAL
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 1
+                ApplyTo: Enemy
+          - RepulsionType:
+                ApplyTo: Enemy
+                State: 1
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: show_tutorial_dialog
+        Actions:
+          - Call:
+                ID: DLG_SARGE_MOVEMENT
+      - Events:
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Start_Dialog].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Start_Dialog
+                Value: 1
+                ApplyTo: Me
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Basic_AttackCloser
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Punch
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_MovementShown
+                Value: 1
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Kick
+                State: Off
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_MovementShown].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BasicAttackShown_3].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_BasicAttackShown_3
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_MovementShown].Value"
+                Value2: "1"
+          - Less:
+                Value1: "?GetVariable[Me, Tutorial_BasicAttackShown_3_Combo].Value"
+                Value2: "11"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BasicAttackShown_3].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_BasicAttackShown_3_Combo
+                Value: "?GetVariable[Me, Tutorial_BasicAttackShown_3_Combo].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_MovementShown].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_LowKickShown].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - GreaterEqual:
+                        Value1: "?GetVariable[Me, Tutorial_BasicAttackShown_3_Combo].Value"
+                        Value2: "10"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "ATTACK"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "MOVE"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, Tutorial_BasicAttackShown_3].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "BasicAttack"
+                Log: "BattleID: 10"
+                Params:
+                    "Unskiped": "?GetVariable[Me, Tutorial_BasicAttackShown_3].Value"
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_BasicAttackShown_3_Combo].Value"
+          - HideTutorialPanel
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Low_KickCloser
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Punch
+                  - Forward
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Down
+                  - Kick
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_LowKickShown
+                Value: 1
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Kick
+                State: On
+          - SwitchKey:
+                Keys:
+                  - Punch
+                State: Off
+          - SetVariable:
+                Name: Tutorial_NO_KNEE_KICK
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK_LOW"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_LowKickShown].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_GizmoWillBlockDialog_3
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK"
+          - Less:
+                Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3_Combo].Value"
+                Value2: "7"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_LowKickShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_LowKickShown_1].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_GizmoWillBlockDialog_3_Combo
+                Value: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3_Combo].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3].Value"
+                    Value2: "1"
+              - GreaterEqual:
+                    Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3_Combo].Value"
+                    Value2: "6"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown_1].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "LowKick"
+                Log: "BattleID: 10"
+                Params:
+                    "Unskiped": "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3].Value"
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_GizmoWillBlockDialog_3_Combo].Value"
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Down
+                  - Kick
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_ThrowShown_1
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_GizmoWillBlockDialog
+                Value: "1"
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_HEAVY
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_SUPER
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Throw_Count_On
+                Value: "1"
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_NO_KNEE_KICK
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: Tutorial_THROW_GIZMO_DIALOG
+                Value: 1
+                ApplyTo: Me
+                Frames: 20
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - EveryFrame:
+                Step: 10
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_GizmoWillBlockDialog].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "155"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentInterval"
+                Value2: "Throwable"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Uninterrupt"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+        Actions:
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Punch
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_ThrowShown
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: Tutorial_THROW_GIZMO_DIALOG
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_THROW_GIZMO_DIALOG_SHOWN].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_THROW_GIZMO_DIALOG_SHOWN
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_THROW_GUI
+                Value: 1
+                ApplyTo: Me
+                Frames: 31
+          - Call:
+                ID: DLG_SARGE_HIT_HIM
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: Tutorial_THROW_GUI
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_THROW_GUI_SHOWN].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_THROW_GUI_SHOWN
+                Value: 1
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Punch
+                State: On
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Combos_StepCloser
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+          - EveryFrame:
+                Step: 10
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_THROW_GIZMO_DIALOG_SHOWN].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "155"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentInterval"
+                Value2: "Throwable"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_THROW_GUI].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_ON].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_END].Value"
+                    Value2: "1"
+        Actions:
+          - DestroyEffect:
+                Name: Frame_OFF
+                ApplyTo: Enemy
+          - CustomEffect:
+                Name: Frame_ON
+                ApplyTo: Enemy
+                AttachToBone: toe_l
+                Looped: 1
+                Follow:
+                    X: 1
+                    Y: 0
+                    Z: 0
+                Shift:
+                    X: -110
+                    Y: 5
+                    Z: 25
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Tutorial_FrameEffect_ON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_FrameEffect_OFF
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+          - EveryFrame:
+                Step: 10
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_THROW_GIZMO_DIALOG_SHOWN].Value"
+                Value2: "1"
+          - Greater:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "155"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_THROW_GUI].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_OFF].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_END].Value"
+                    Value2: "1"
+        Actions:
+          - DestroyEffect:
+                Name: Frame_ON
+                ApplyTo: Enemy
+          - CustomEffect:
+                Name: Frame_OFF
+                ApplyTo: Enemy
+                AttachToBone: toe_l
+                Looped: 1
+                Follow:
+                    X: 1
+                    Y: 0
+                    Z: 0
+                Shift:
+                    X: -110
+                    Y: 5
+                    Z: 25
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Tutorial_FrameEffect_OFF
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_FrameEffect_ON
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Events:
+          - AnimationStart:
+                Player: Enemy
+        Priority: 99999
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_OFF].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_ON].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentAnimation"
+                Value2: "THROW_FALL"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_FrameEffect_END].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_FrameEffect_END
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_FrameEffect_ON
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: Tutorial_FrameEffect_OFF
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - DestroyEffect:
+                Name: Frame_ON
+                ApplyTo: Enemy
+          - DestroyEffect:
+                Name: Frame_OFF
+                ApplyTo: Enemy
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_Throw_Count_On].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Throw_Count
+                Value: "?GetVariable[Me, Tutorial_Throw_Count].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Enemy
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_Throw_Count_On].Value"
+                Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, Tutorial_Throw_Count].Value"
+                Value2: "20"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockKeys_On].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ThrowFail_Start"
+                Log: "BattleID: 10"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_Throw_Count].Value"
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                State: Off
+          - SetVariable:
+                Name: Tutorial_BlockKeys_On
+                Value: 1
+                ApplyTo: Me
+          - DestroyEffect:
+                Name: Frame_OFF
+                ApplyTo: Enemy
+          - DestroyEffect:
+                Name: Frame_ON
+                ApplyTo: Enemy
+      - Events:
+          - AnimationStart:
+                Player: Enemy
+        Priority: 99999
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown_1].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentAnimation"
+                Value2: "STAND_UP"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ThrowSuccess"
+                Log: "BattleID: 10"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_Throw_Count].Value"
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Punch
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_BlockShown
+                Value: 1
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                State: Off
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_HEAVY
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_SUPER
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+        Priority: 99999
+        Conditions:
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, Tutorial_Throw_Count].Value"
+                Value2: "20"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "ThrowFail_End"
+                Log: "BattleID: 10"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_Throw_Count].Value"
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Punch
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_BlockShown
+                Value: 1
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                State: Off
+          - SetVariable:
+                Name: Tutorial_ThrowShown
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_HEAVY
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_SUPER
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+          - DestroyEffect:
+                Name: Frame_OFF
+                ApplyTo: Enemy
+          - DestroyEffect:
+                Name: Frame_ON
+                ApplyTo: Enemy
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Priority: 99999
+        Conditions:
+          - Equal:
+                Value1: "?Player[Enemy].CurrentAnimation"
+                Value2: "Gizmo_Cast_Start"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ThrowShown_1].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, Gizmo_DISARM].Value"
+                    Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "GizmoDisarmCrutch"
+                Log: "BattleID: 10"
+                Params:
+                    "GizmoDisarmCrutch": "1"
+          - Disarm:
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: Gizmo_DISARM
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: true
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 1
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                State: On
+          - RepulsionType:
+                ApplyTo: Enemy
+                State: 0
+...

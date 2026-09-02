@@ -1,0 +1,26 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__TIMEOUT_WIN
+    Triggers:
+      - Priority: 999999
+        Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - TimeoutWin
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "0"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "0"
+                ApplyTo: Me
+      - Priority: -999999
+        Events:
+          - Hit:
+                Player: Enemy
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+...

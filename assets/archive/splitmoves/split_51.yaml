@@ -1,0 +1,44 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Swords_Strong_Dojo
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Stance_Idle
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Stance_Idle
+    "FileName": m_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...

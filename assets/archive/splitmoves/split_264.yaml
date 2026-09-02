@@ -1,0 +1,18 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__SARGE_SHADOW_FORM
+    Triggers:
+      - Events:
+          - RoundLoad
+        Conditions:
+          - GreaterEqual:
+                Value1: "?Fight[].Round"
+                Value2: "2"
+        Actions:
+          - ToggleShadowForm:
+                Value: 1
+                Infinity: 1
+                EffectName: "shadow_fire"
+          - SetShadowCharge:
+                Value: "1"
+...

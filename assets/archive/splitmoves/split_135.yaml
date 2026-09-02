@@ -1,0 +1,39 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Push_Passive
+    Triggers:
+      - Events:
+          - IntervalStart:
+                Player: Enemy
+                Name: Force_Push
+        Conditions:
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "300"
+          - LessEqual:
+                Value1: "?Coordinate[?Player[Enemy],COM].X"
+                Value2: "?Coordinate[?Player[Me],COM].X"
+        Actions:
+          - Move:
+                ApplyTo: Me
+                Speed: 30
+                Acceleration: -1.5
+                Frames: 20
+      - Events:
+          - IntervalStart:
+                Player: Enemy
+                Name: Force_Push
+        Conditions:
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "300"
+          - Greater:
+                Value1: "?Coordinate[?Player[Enemy],COM].X"
+                Value2: "?Coordinate[?Player[Me],COM].X"
+        Actions:
+          - Move:
+                ApplyTo: Me
+                Speed: -30
+                Acceleration: 1.5
+                Frames: 20
+...

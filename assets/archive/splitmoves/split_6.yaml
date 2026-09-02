@@ -1,0 +1,647 @@
+﻿Root: 
+TriggerSets:
+  - Name: JUMP_Up
+    Triggers:
+      - Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Shadow]"
+                            IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Shadow]"
+                            IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Jump_Up
+  - Name: FLIP_Front
+    Triggers:
+      - Templates:
+          - TACTICS.APPROACH_AFAR
+          - TACTICS_BASE.APPROACH
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                            IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Flip_Front
+        Tactics:
+            MathWeight: 40
+            Conditions:
+              - Or:
+                  - And:
+                      - Greater:
+                            Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                            Value2: "300"
+                      - Not:
+                          - Equal:
+                                Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                                Value2: "1"
+                  - And:
+                      - Equal:
+                            Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                            Value2: "1"
+                      - Not:
+                          - Equal:
+                                Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                                Value2: "1"
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+  - Name: FLIP_Back
+    Triggers:
+      - Templates:
+          - TACTICS.RETREAT
+          - TACTICS_BASE.RETREAT
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Back]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                            IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_FLIP_BACK].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Flip_Back
+        Tactics:
+            MathWeight: 10
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+  - Name: WALL_JUMP
+    Triggers:
+      - Templates:
+          - TACTICS.ESCAPE
+          - TACTICS_BASE.ESCAPE
+        Priority: 150
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Less:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Me],Wall,Back].X)"
+                Value2: "45"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                            IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Back(Down)]"
+                                IgnoredByAI: 1
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                            IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+        Actions:
+          - Animation:
+                Name: Wall_Jump
+        Tactics:
+            Conditions:
+              - Less:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Me],Wall,Back].X)"
+                    Value2: "45"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Me],Wall,Back].X)"
+                    Value2: "150"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "250"
+              - Not:
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentInterval"
+                        Value2: "Attack"
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+            MathWeight: 2000
+Animations:
+  - "Animation": Jump_Up
+    "FileName": m_jump_up.bin
+    "Groups":
+      - MOVE
+      - JUMP_UP
+      - JUMP
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "EndFrame": 54
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Transitional
+        "End": 6
+      - "Name": Unstable
+        "Start": 11
+        "End": 30
+      - "Name": Uninterrupt
+        "End": 35
+      - "Name": Blocking
+        "Start": 36
+      - "Name": Throwable
+        "Start": 36
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/jump/m/m_jump_1
+              - voice/jump/m/m_jump_2
+              - voice/jump/m/m_jump_3
+              - voice/jump/m/m_jump_4
+              - voice/jump/m/m_jump_5
+              - voice/jump/m/m_jump_6
+            "Female":
+              - voice/jump/f/f_jump_1
+              - voice/jump/f/f_jump_2
+              - voice/jump/f/f_jump_3
+              - voice/jump/f/f_jump_4
+              - voice/jump/f/f_jump_5
+              - voice/jump/f/f_jump_6
+        "Frame": 8
+      - "Common":
+          - whoosh/jump/19a_Jumps_Wooshes_V2
+          - whoosh/jump/19a_Jumps_Wooshes_V12
+          - whoosh/jump/19a_Jumps_Wooshes_V16
+          - whoosh/jump/19a_Jumps_Wooshes_V18
+        "Frame": 3
+      - "Floor":
+            "Stone":
+              - step/land/stone/11_Land_Stone_Surface_V4
+              - step/land/stone/11_Land_Stone_Surface_V5
+              - step/land/stone/11_Land_Stone_Surface_V9
+            "Wood":
+              - step/land/wood/10_Land_Wood_Surface_V4
+              - step/land/wood/10_Land_Wood_Surface_V22
+              - step/land/wood/10_Land_Wood_Surface_V23
+        "Frame": 30
+  - "Animation": Flip_Front
+    "FileName": m_fron_flip.bin
+    "Groups":
+      - MOVE
+      - FLIP_FRONT
+      - JUMP
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 11
+    "EndFrame": 54
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Unstable
+        "Start": 12
+        "End": 39
+      - "Name": Blocking
+        "Start": 44
+      - "Name": Throwable
+        "Start": 44
+      - "Name": Uninterrupt
+        "End": 43
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/jump/m/m_jump_1
+              - voice/jump/m/m_jump_2
+              - voice/jump/m/m_jump_3
+              - voice/jump/m/m_jump_4
+              - voice/jump/m/m_jump_5
+              - voice/jump/m/m_jump_6
+            "Female":
+              - voice/jump/f/f_jump_1
+              - voice/jump/f/f_jump_2
+              - voice/jump/f/f_jump_3
+              - voice/jump/f/f_jump_4
+              - voice/jump/f/f_jump_5
+              - voice/jump/f/f_jump_6
+        "Frame": 10
+      - "Common":
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V3
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V6
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V9
+        "Frame": 8
+      - "Floor":
+            "Stone":
+              - step/land/stone/11_Land_Stone_Surface_V4
+              - step/land/stone/11_Land_Stone_Surface_V5
+              - step/land/stone/11_Land_Stone_Surface_V9
+            "Wood":
+              - step/land/wood/10_Land_Wood_Surface_V4
+              - step/land/wood/10_Land_Wood_Surface_V22
+              - step/land/wood/10_Land_Wood_Surface_V23
+        "Frame": 40
+  - "Animation": Flip_Back
+    "FileName": m_back_flip.bin
+    "Groups":
+      - MOVE
+      - FLIP_BACK
+      - JUMP
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 20
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Unstable
+        "Start": 10
+        "End": 38
+      - "Name": Blocking
+        "Start": 44
+      - "Name": Throwable
+        "Start": 44
+      - "Name": Uninterrupt
+        "End": 43
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/jump/m/m_jump_1
+              - voice/jump/m/m_jump_2
+              - voice/jump/m/m_jump_3
+              - voice/jump/m/m_jump_4
+              - voice/jump/m/m_jump_5
+              - voice/jump/m/m_jump_6
+            "Female":
+              - voice/jump/f/f_jump_1
+              - voice/jump/f/f_jump_2
+              - voice/jump/f/f_jump_3
+              - voice/jump/f/f_jump_4
+              - voice/jump/f/f_jump_5
+              - voice/jump/f/f_jump_6
+        "Frame": 10
+      - "Common":
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V3
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V6
+          - whoosh/doublejump/19b_DoubleJump_Wooshes_V9
+        "Frame": 8
+      - "Floor":
+            "Stone":
+              - step/land/stone/11_Land_Stone_Surface_V4
+              - step/land/stone/11_Land_Stone_Surface_V5
+              - step/land/stone/11_Land_Stone_Surface_V9
+            "Wood":
+              - step/land/wood/10_Land_Wood_Surface_V4
+              - step/land/wood/10_Land_Wood_Surface_V22
+              - step/land/wood/10_Land_Wood_Surface_V23
+        "Frame": 37
+  - "Animation": Wall_Jump
+    "FileName": m_walljump.bin
+    "Groups":
+      - MOVE
+      - WALL_JUMP
+    "RepulsionScale":
+        "X": 0.8
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 14
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Wall
+            "Part": Back
+        "Shift":
+            "X": 54
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 50
+      - "Name": Blocking
+        "Start": 51
+      - "Name": Throwable
+        "Start": 51
+      - "Name": Unstable
+        "Start": 13
+        "End": 50
+      - "Type": NoWallRepulsion
+        "End": 25
+      - "Type": NoRepulsion
+        "End": 25
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/jump/m/m_jump_1
+              - voice/jump/m/m_jump_2
+              - voice/jump/m/m_jump_3
+              - voice/jump/m/m_jump_4
+              - voice/jump/m/m_jump_5
+              - voice/jump/m/m_jump_6
+            "Female":
+              - voice/jump/f/f_jump_1
+              - voice/jump/f/f_jump_2
+              - voice/jump/f/f_jump_3
+              - voice/jump/f/f_jump_4
+              - voice/jump/f/f_jump_5
+              - voice/jump/f/f_jump_6
+        "Frame": 10
+      - "Common":
+          - step/wood/8_Footsteps_Wood_Surface_V9
+          - step/wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 23
+      - "Common":
+          - whoosh/jump/19a_Jumps_Wooshes_V2
+          - whoosh/jump/19a_Jumps_Wooshes_V12
+          - whoosh/jump/19a_Jumps_Wooshes_V16
+          - whoosh/jump/19a_Jumps_Wooshes_V18
+        "Frame": 23
+      - "Floor":
+            "Stone":
+              - step/land/stone/11_Land_Stone_Surface_V4
+              - step/land/stone/11_Land_Stone_Surface_V5
+              - step/land/stone/11_Land_Stone_Surface_V9
+            "Wood":
+              - step/land/wood/10_Land_Wood_Surface_V4
+              - step/land/wood/10_Land_Wood_Surface_V22
+              - step/land/wood/10_Land_Wood_Surface_V23
+        "Frame": 44
+...

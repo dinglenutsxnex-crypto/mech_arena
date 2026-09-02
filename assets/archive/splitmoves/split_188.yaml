@@ -1,0 +1,20 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Fall_Floor_Wooden
+    Triggers:
+      - Templates:
+          - FLOOR.FALL
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - fall/floor layer/wood/4_Wooden_Floor_Texture_Of_The_Body_Fall_V1_bip
+                  - fall/floor layer/wood/4_Wooden_Floor_Texture_Of_The_Body_Fall_V2_bip
+                  - fall/floor layer/wood/4_Wooden_Floor_Texture_Of_The_Body_Fall_V3_bip
+                  - fall/floor layer/wood/4_Wooden_Floor_Texture_Of_The_Body_Fall_V8_bip
+        Events:
+          - FloorHit:
+                Player: Me
+          - IntervalStart:
+                Player: Me
+                Name: Floorfall
+...

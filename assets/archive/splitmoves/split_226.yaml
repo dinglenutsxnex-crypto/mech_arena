@@ -1,0 +1,36 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_DAMAGE_RETURN_HEAD
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2007, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Enemy
+                Name: ENCHANTMENT_DAMAGE_RETURN
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "-?GetPerkVariable[Me, 2007, DamageReturnPower] * ?Hit[].Damage"
+          - ShowStatusIcon:
+                ApplyTo: Enemy
+                Name: ICON_ENCHANTMENT_DAMAGE_RETURN_BODY
+                Icon: ICON_ENCHANTMENT_DAMAGE_RETURN
+                BackgroundColor: "#9f1c03"
+                Frames: 90
+        Templates:
+          - STATE.ALIVE
+...

@@ -1,0 +1,57 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_PLAYER_Guandao
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_PLAYER
+        Actions:
+          - Animation:
+                Name: Guandao_Stance_Start_Round
+          - SetVariable:
+                Name: START_ROUND_NOT_PLAYER
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 20
+        Priority: 10000
+        Events:
+          - StageChange:
+                Stage: RoundStart
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Guandao_Stance_Start_Round
+    "FileName": guandao_stance.bin
+    "Groups":
+      - STANCE_START_ROUND
+    "EndsStage":
+      - RoundStart
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Common":
+          - strike/wood/light/2_Wood_Hits_A_V25_bip
+        "Frame": 14
+...

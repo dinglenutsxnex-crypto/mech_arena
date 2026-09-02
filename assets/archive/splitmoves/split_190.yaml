@@ -1,0 +1,20 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Fall_Floor_Stone
+    Triggers:
+      - Templates:
+          - FLOOR.FALL
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - fall/floor layer/stone/1_Stone_Floor_Texture_Of_The_Body_Fall_V1
+                  - fall/floor layer/stone/1_Stone_Floor_Texture_Of_The_Body_Fall_V5
+                  - fall/floor layer/stone/1_Stone_Floor_Texture_Of_The_Body_Fall_V9
+                  - fall/floor layer/stone/1_Stone_Floor_Texture_Of_The_Body_Fall_V11
+        Events:
+          - FloorHit:
+                Player: Me
+          - IntervalStart:
+                Player: Me
+                Name: Floorfall
+...

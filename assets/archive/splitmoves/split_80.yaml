@@ -1,0 +1,80 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_PLAYER_Nunchaku
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_PLAYER
+        Actions:
+          - Animation:
+                Name: Nunchaku_Stance_Start_Round
+          - SetVariable:
+                Name: START_ROUND_NOT_PLAYER
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 20
+        Priority: 10000
+        Events:
+          - StageChange:
+                Stage: RoundStart
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Nunchaku_Stance_Start_Round
+    "FileName": nunchaku_stance.bin
+    "EndsStage":
+      - RoundStart
+    "EndFrame": 77
+    "Groups":
+      - STANCE_START_ROUND
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 6
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 15
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 45
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 54
+...

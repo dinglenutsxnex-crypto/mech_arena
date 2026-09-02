@@ -1,0 +1,80 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Evaporation_Passive
+    Triggers:
+      - Priority: 3010
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Shadow_Evaporation"
+        Actions:
+          - Animation:
+                Name: Shadow_Evaporation_Passive
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: Shadow_Evaporation
+                Frames: 90
+                Type: ModHP
+                HPPerFrame: "-1 * ?Hit[].Damage / 90"
+          - ApplyStatus:
+                ApplyTo: Enemy
+                Name: Shadow_Evaporation
+                Frames: 90
+                Type: ModHP
+                HPPerFrame: "-1 * ?Hit[].Damage / 90"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: Shadow_Evaporation
+                Icon: ICON_PERK_BREAKING_POINT_BODY
+                BackgroundColor: "#9f1c03"
+                Frames: 90
+                ShowExpiration: 1
+                Stackable: 0
+Animations:
+  - "Animation": Shadow_Evaporation_Passive
+    "FileName": h_stun_reaction.bin
+    "Groups":
+      - SHADOW_MOVE_PASSIVE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/hit/heavy/m/m_heavy_dmg_1
+              - voice/hit/heavy/m/m_heavy_dmg_2
+              - voice/hit/heavy/m/m_heavy_dmg_3
+              - voice/hit/heavy/m/m_heavy_dmg_4
+              - voice/hit/heavy/m/m_heavy_dmg_5
+              - voice/hit/heavy/m/m_heavy_dmg_6
+            "Female":
+              - voice/hit/heavy/f/f_heavy_dmg_1
+              - voice/hit/heavy/f/f_heavy_dmg_2
+              - voice/hit/heavy/f/f_heavy_dmg_3
+              - voice/hit/heavy/f/f_heavy_dmg_4
+              - voice/hit/heavy/f/f_heavy_dmg_5
+              - voice/hit/heavy/f/f_heavy_dmg_6
+        "Frame": 1
+...

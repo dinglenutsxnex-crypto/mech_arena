@@ -1,0 +1,431 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Sword_Lonely_Slash_1
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.FORWARD
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Sword_Lonely_Slash_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_FORWARD"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                                IgnoredByAI: 1
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Sword_Lonely_Slash_Start
+          - CustomEffect:
+                Name: ShadowJumpUP
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 0
+                Shift:
+                    X: 10
+                    Y: -50
+                    Z: 0
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Sword_Lonely_Slash_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_WEAPON
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Sword_Lonely_Slash_CD
+                Frames: 400
+                Equipment: Weapon
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Me
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Priority: 300
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Sword_Lonely_Slash_Start"
+        Actions:
+          - DestroyEffect:
+                Name: ShadowJumpUP
+                ApplyTo: Me
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Sword_Lonely_Slash_Start"
+        Actions:
+          - Animation:
+                Name: Shadow_Sword_Lonely_Slash_Attack
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: ShadowJumpDown
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Sword_Lonely_Slash_Attack"
+        Actions:
+          - SetVariable:
+                Name: Shadow_Sword_Lonely_Slash_Model_Destroy
+                Value: 1
+                ApplyTo: Both
+                Frames: 100
+          - CreateModel:
+                PoolQuantity: 1
+                ModelInfo:
+                    AiMode: NoneMode
+                    Alias: SHADOW_SWORD_LONELY_SLASH_ATTACKING_EDGE
+                    Animation: 1
+                    Attributes:
+                        CriticalChance: 0
+                    Skeleton: mgc-fireball
+                    Tags:
+                      - SHADOW_SWORD_LONELY_SLASH_MODEL
+                      - SHADOW_ATTACKING_EDGE
+                      - DESTROYABLE
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Sword_Lonely_Slash_Attack"
+        Actions:
+          - Animation:
+                Name: Shadow_Sword_Lonely_Slash_End
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Sword_Lonely_Slash_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: ShadowJumpUP
+                ApplyTo: Me
+Animations:
+  - "Animation": Shadow_Sword_Lonely_Slash_Start
+    "FileName": shadow_ability_sword_1_start.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - WEAPON
+      - SWORD_LONELY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+    "Sounds":
+      - "Common":
+          - shadow_moves/sword_lonely_slash/rise
+        "Frame": 1
+  - "Animation": Shadow_Sword_Lonely_Slash_Attack
+    "FileName": shadow_ability_sword_1_attack.bin
+    "FirstFrame": 18
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 26
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - WEAPON
+      - SWORD_LONELY
+    "RepulsionScale":
+        "X": 0.7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": ShadowJumpDown
+        "Start": 30
+        "End": 30
+      - "Name": Shadow_Move_Successful
+        "Start": 37
+        "End": 37
+      - "Type": NoRepulsion
+        "Start": 33
+        "End": 42
+      - "Type": Attack
+        "Start": 33
+        "End": 37
+        "HitTags":
+          - Hit_Overhead_Critical_Fall
+          - Unblockable
+        "AttackingParts":
+          - Sword_Attacking_Edge_l
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 30
+            "End": 37
+            "Distance": 800
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.15
+    "Sounds":
+      - "Common":
+          - shadow_moves/sword_lonely_slash/fall
+        "Frame": 26
+  - "Animation": Shadow_Sword_Lonely_Slash_End
+    "FileName": shadow_ability_sword_1_end.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - WEAPON
+      - SWORD_LONELY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+...

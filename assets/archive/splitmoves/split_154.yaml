@@ -1,0 +1,199 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_Hammers_Instead_Super_1
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+        Actions:
+          - Animation:
+                Name: Hammers_Slash
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+Animations:
+  - "Animation": Hammers_Slash
+    "FileName": dual_axes_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_BASIC
+      - WEAPON
+      - HAMMERS
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 34
+      - "Name": Blocking
+        "Start": 35
+      - "Name": Throwable
+        "Start": 29
+      - "Name": Transitional
+        "End": 16
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 16
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Stomach
+        "AttackingParts":
+          - Hammers_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": hammer
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 10
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 8
+...

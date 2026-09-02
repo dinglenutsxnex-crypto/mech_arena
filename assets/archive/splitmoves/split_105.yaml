@@ -1,0 +1,82 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Sword_Ray_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Sword_Ray_Model_Attack
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: magic_joint_left
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Sword_Ray_Model_Attack
+    "FileName": s_sword_ray_bullet.bin
+    "BlendingFrames": 0
+    "EndFrame": 20
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": 50
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "HitTags":
+          - Hit_Head_Critical_Fall
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 25000
+            "Y": 4000
+        "Slowmo":
+            "Start": 0
+            "End": 20
+            "Distance": 250
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.1
+...

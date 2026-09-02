@@ -1,0 +1,279 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Power_Will
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.UP
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Power_Will_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Shadow(Down|Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Power_Will_Cast
+          - SetVariable:
+                Name: Shadow_Power_Will_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 500
+          - SetVariable:
+                Name: SF_CD_HELM
+                Value: 1
+                ApplyTo: Me
+                Frames: 500
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Power_Will_CD
+                Frames: 500
+                Equipment: Helmet
+        Priority: 300
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Shadow_Power_Will_No_Reaction
+        Actions:
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 1
+                ApplyTo: Me
+                Frames: 300
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: Shadow_Power_Will_CD
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_ROCK
+                Frames: 300
+                ShowExpiration: 1
+                Stackable: 0
+          - SetShader:
+                ApplyTo: Me
+                Name: power
+                Toggle: On
+                Transition: 0.3
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: SHADOW_POWER_WILL_NO_REACTION
+        Actions:
+          - SetShader:
+                ApplyTo: Me
+                Name: power
+                Toggle: Off
+                Transition: 0.3
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: -1000
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow start
+          - HitEffect:
+                Name: HitEffect_Critical_Basic
+                ParticlesCount: 1000
+          - FreezeFrame:
+                Frames: 30
+          - ShakeCamera:
+                Frames: 55
+                AmpX: 5
+                AmpY: 15
+                PeriodX: 5.7
+                PeriodY: 6.3
+Animations:
+  - "Animation": Shadow_Power_Will_Cast
+    "FileName": shadow_ability_armor_str_01.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 47
+      - "Name": Shadow_Move_Successful
+        "Start": 30
+        "End": 30
+      - "Name": Throwable
+        "Start": 42
+      - "Name": Blocking
+        "Start": 48
+      - "Name": Shadow_Power_Will_No_Reaction
+        "Start": 30
+        "End": 30
+...

@@ -1,0 +1,513 @@
+﻿Root: 
+TriggerSets:
+  - Name: GIZMO_THROW_Active
+    Triggers:
+      - Templates:
+          - ATTACK.BASIC
+          - TACTICS.GIZMO_THROW
+        Priority: 301
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, GIZMO_THROW_Active_CD].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "155"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Down|Up)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Active_Start
+          - SetVariable:
+                Name: GIZMO_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 50
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 9999
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "135"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, GIZMO_THROW_Active_CD].Value"
+                        Value2: "1"
+      - Templates:
+          - REACTION.HIT_TO_ENEMY
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_STEEL_FOOT_FALL].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Active_End
+          - SetVariable:
+                Name: GIZMO_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 450
+        Priority: 450
+        Events:
+          - PostHit:
+                Player: Enemy
+      - Templates:
+          - REACTION.HIT_HEAD_CRIT_TO_ENEMY
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "THROW_FALL"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentInterval"
+                    Value2: "Unstable"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "STAND_UP_ROLL"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "Hit_No_Critical_Reaction"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Active_End
+          - SetVariable:
+                Name: GIZMO_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 450
+        Priority: 450
+        Events:
+          - PostHit:
+                Player: Enemy
+                Defense: HeadDefense
+      - Templates:
+          - REACTION.HIT_CRIT_TO_ENEMY
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "THROW_FALL"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentInterval"
+                    Value2: "Unstable"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "STAND_UP_ROLL"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "STAND_UP_KICK"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "Hit_No_Critical_Reaction"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Active_End
+          - SetVariable:
+                Name: GIZMO_THROW_Active_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 450
+        Priority: 450
+        Events:
+          - PostHit:
+                Player: Enemy
+Animations:
+  - "Animation": Gizmo_Throw_Active_Start
+    "FileName": gizmo_throw_active_start.bin
+    "Groups":
+      - FISTS
+      - UNARMED
+      - HEAVY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 25
+      - "Name": Blocking
+        "Start": 26
+      - "Name": Throwable
+        "Start": 26
+      - "Type": Attack
+        "Start": 7
+        "End": 9
+        "HitTags":
+          - Unblockable
+          - No_FX_SFX
+          - Gizmo_Throw_Start
+        "AttackingParts":
+          - Hand_right
+          - Forearm_right
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 5
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 3
+  - "Animation": Gizmo_Throw_Active_End
+    "FileName": gizmo_throw_active_end.bin
+    "FirstFrame": 8
+    "Groups":
+      - THROW
+      - FISTS
+      - UNARMED
+      - HEAVY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Type": Attack
+        "Start": 23
+        "End": 25
+        "HitTags":
+          - Unblockable
+        "Material": flesh
+        "AttackingParts":
+          - Hand_left
+          - Forearm_left
+        "Slowmo":
+            "Start": 18
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.06
+      - "Type": Attack
+        "Start": 40
+        "End": 43
+        "HitTags":
+          - Unblockable
+        "Material": flesh
+        "AttackingParts":
+          - Hand_right
+          - Forearm_right
+        "Slowmo":
+            "Start": 18
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": HeadDefense
+            "BaseDamage": 0.06
+      - "Type": Attack
+        "Start": 59
+        "End": 63
+        "HitTags":
+          - Unblockable
+        "Material": flesh
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Slowmo":
+            "Start": 55
+            "End": 63
+            "Distance": 300
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.06
+      - "Type": Attack
+        "Start": 89
+        "End": 92
+        "HitTags":
+          - Unblockable
+        "Material": flesh
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Slowmo":
+            "Start": 83
+            "End": 92
+            "Distance": 300
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": HeadDefense
+            "BaseDamage": 0.09
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 28
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 34
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 55
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 83
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 80
+...

@@ -1,0 +1,22 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__REGENERATION
+    Triggers:
+      - Events:
+          - StageChange
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].CurrentStage"
+                Value2: "RoundFightStart"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: RULE_REGENERATION
+                Type: ModHP
+                HPPerFrame: "?RuleVariable[Me, Regeneration, Value]"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_REGENERATION
+                Icon: ICON_ENCHANTMENT_REGENERATION
+                BackgroundColor: "#cc6128"
+...

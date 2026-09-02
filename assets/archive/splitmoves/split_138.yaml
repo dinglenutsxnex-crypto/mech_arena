@@ -1,0 +1,63 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mind_Control_Passive
+    Triggers:
+      - Events:
+          - IntervalStart:
+                Player: Enemy
+                Name: Mind_Control
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Control_Passive
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: head
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Control_Passive"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+Animations:
+  - "Animation": Shadow_Mind_Control_Passive
+    "FileName": h_stun_reaction.bin
+    "Groups":
+      - SHADOW_MOVE_PASSIVE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+...

@@ -1,0 +1,52 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_STEEL_FOOT
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Priority: 3100
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1005, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "SUPER_FALL"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_STEEL_FOOT_FALL
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 1
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_STEEL_FOOT
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_STEEL_FOOT
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+          - ShakeCamera:
+                Frames: 20
+                AmpX: 3
+                AmpY: 10
+                PeriodX: 5.7
+                PeriodY: 6.3
+        Templates:
+          - STATE.ALIVE
+...

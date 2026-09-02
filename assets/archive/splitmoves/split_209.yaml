@@ -1,0 +1,57 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_REVENGE
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, CRITICAL].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1008, Chance]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_REVENGE
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_REVENGE
+                Frames: "?GetPerkVariable[Me, 1008, Duration]"
+                ShowExpiration: 1
+                Stackable: 0
+          - SetVariable:
+                Name: PERK_REVENGE
+                Frames: "?GetPerkVariable[Me, 1008, Duration]"
+                Value: 1
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_REVENGE].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "1 + ?GetPerkVariable[Me, 1008, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "1 + ?GetPerkVariable[Me, 1008, AdditionDamage]"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+...

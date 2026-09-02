@@ -1,0 +1,40 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Staff
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Staff_Stance_Birth
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Staff_Stance_Birth
+    "FileName": staff_stance_birth.bin
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+        "Shift":
+            "X": 40
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

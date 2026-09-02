@@ -1,0 +1,88 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Evaporation_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Evaporation_Model_Attack
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: magic_joint_root
+                Looped: 1
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 120
+                    Z: 0
+                PoolQuantity: 1
+          - ShakeCamera:
+                Frames: 50
+                AmpX: 10
+                AmpY: -20
+                PeriodX: 10
+                PeriodY: 10
+      - Events:
+          - Hit:
+                Player: Enemy
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Evaporation_Model_Attack
+    "FileName": shadow_jump_explosion.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "FirstFrame": 1
+    "Velocity":
+        "X": 5
+    "BlendingFrames": 0
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 1
+        "HitTags":
+          - Hit_Shadow_Evaporation
+          - Unblockable
+        "AttackingParts":
+          - Magic_attacking_edge
+        "Impulse":
+            "Y": 20000
+        "Slowmo":
+            "Start": 1
+            "End": 20
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.01
+...

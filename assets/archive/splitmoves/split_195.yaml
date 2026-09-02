@@ -1,0 +1,20 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Strike_Hammer
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Strike[].Material"
+                Value2: "hammer"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/hammer/hit1
+                  - strike/hammer/hit2
+                  - strike/hammer/hit3
+                  - strike/hammer/hit4
+                  - strike/hammer/hit5
+...

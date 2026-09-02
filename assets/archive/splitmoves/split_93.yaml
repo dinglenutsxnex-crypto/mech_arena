@@ -1,0 +1,61 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Sword_Lonely_Slash_Model
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Sword_Lonely_Slash_Model
+          - CustomEffect:
+                Name: ShadowJumpDown
+                ApplyTo: Me
+                AttachToBone: magic_joint_right
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - VariableDestruction:
+                Player: Both
+                Name: Shadow_Sword_Lonely_Slash_Model_Destroy
+        Actions:
+          - DestroyEffect:
+                Name: ShadowJumpDown
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Sword_Lonely_Slash_Model
+    "FileName": shadow_ability_sword_1_bullet.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_ATTACKING_EDGE
+    "Looped": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": magic_joint_root
+        "To":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+...

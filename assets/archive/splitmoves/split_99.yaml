@@ -1,0 +1,298 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Hammers_Throw_Reaction
+    Triggers:
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Shadow_Hammers_Throw_Start"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Hammers_Throw_Passive_Start
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Enemy
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Events:
+          - PostHit:
+                Player: Me
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Shadow_Hammers_Throw_End"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Hammers_Throw_Passive_End
+      - Priority: 1102
+        Events:
+          - BorderHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Hammers_Throw_Passive_Start"
+        Actions:
+          - Animation:
+                Name: Hit_Wall_Critical_Fall
+Animations:
+  - "Animation": Shadow_Hammers_Throw_Passive_Start
+    "FileName": s_dual_hammers_throw_passive_start.bin
+    "FirstFrame": 4
+    "Groups":
+      - SHADOW_MOVE_PASSIVE
+      - FALL
+      - FALL_CRITICAL_ON_FACE
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+  - "Animation": Shadow_Hammers_Throw_Passive_End
+    "FileName": s_dual_hammers_throw_passive_end.bin
+    "Groups":
+      - SHADOW_MOVE_PASSIVE
+      - FALL
+      - FALL_CRITICAL_ON_FACE
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": weapon_r
+        "Shift":
+            "X": 45
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Floorfall
+        "Start": 20
+        "End": 20
+  - "Animation": Hit_Wall_Critical_Fall
+    "FileName": h_hit_wall_fall.bin
+    "Groups":
+      - HIT
+      - FALL
+      - FALL_CRITICAL
+      - FALL_CRITICAL_ON_FACE
+      - FOLLOWED_BY
+    "FirstFrame": 4
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Wall
+            "Part": Back
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Unstable
+      - "Name": Floorfall
+        "Start": 20
+        "End": 20
+      - "Type": NoWallRepulsion
+        "End": 15
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/hit/heavy/m/m_heavy_dmg_1
+              - voice/hit/heavy/m/m_heavy_dmg_2
+              - voice/hit/heavy/m/m_heavy_dmg_3
+              - voice/hit/heavy/m/m_heavy_dmg_4
+              - voice/hit/heavy/m/m_heavy_dmg_5
+              - voice/hit/heavy/m/m_heavy_dmg_6
+            "Female":
+              - voice/hit/heavy/f/f_heavy_dmg_1
+              - voice/hit/heavy/f/f_heavy_dmg_2
+              - voice/hit/heavy/f/f_heavy_dmg_3
+              - voice/hit/heavy/f/f_heavy_dmg_4
+              - voice/hit/heavy/f/f_heavy_dmg_5
+              - voice/hit/heavy/f/f_heavy_dmg_6
+        "Frame": 1
+...

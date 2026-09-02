@@ -1,0 +1,758 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_SUPER_2_1_Axes
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Axes_Super_2_Slash_1
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_2_2_Axes
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_2
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Axes_Super_2_Slash_2
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 230
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_1"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_2_3_Axes
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_3
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Axes_Super_2_Slash_3
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 240
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_2"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+Animations:
+  - "Animation": Axes_Super_2_Slash_1
+    "FileName": dual_axes_super_2_slash_1.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_1
+      - WEAPON
+      - AXES
+      - HEAVY
+      - SUPER_AXES_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 50
+      - "Name": Blocking
+        "Start": 51
+      - "Name": Throwable
+        "Start": 45
+      - "Name": Transitional
+        "End": 32
+      - "Name": Perk_Parry
+        "Start": 11
+        "End": 25
+      - "Type": Attack
+        "Start": 17
+        "End": 19
+        "HitTags":
+          - Hit_Head_Short
+        "AttackingParts":
+          - Axes_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 11
+            "End": 19
+            "Distance": 220
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_High_Short
+      - "Type": Attack
+        "Start": 22
+        "End": 25
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 16
+            "End": 25
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 10
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 18
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 7
+  - "Animation": Axes_Super_2_Slash_2
+    "FileName": dual_axes_super_2_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_2
+      - WEAPON
+      - AXES
+      - HEAVY
+      - SUPER_AXES_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Axes_Super_2_Slash_1
+    "Intervals":
+      - "Name": Transitional
+        "End": 49
+      - "Name": Uninterrupt
+        "End": 79
+      - "Name": Blocking
+        "Start": 80
+      - "Name": Throwable
+        "Start": 74
+      - "Name": Perk_Parry
+        "Start": 11
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 37
+        "End": 48
+      - "Type": Attack
+        "Start": 17
+        "End": 19
+        "HitTags":
+          - Hit_Head_Short
+        "AttackingParts":
+          - Axes_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 11
+            "End": 19
+            "Distance": 220
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_High_Short
+      - "Type": Attack
+        "Start": 22
+        "End": 25
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 16
+            "End": 25
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 43
+        "End": 45
+        "HitTags":
+          - Hit_Stomach_Short
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 9000
+        "Slowmo":
+            "Start": 37
+            "End": 45
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 46
+        "End": 48
+        "HitTags":
+          - Hit_Legs
+        "AttackingParts":
+          - Axes_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 9000
+        "Slowmo":
+            "Start": 40
+            "End": 48
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Low
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 10
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 18
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 37
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 42
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 56
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 7
+  - "Animation": Axes_Super_2_Slash_3
+    "FileName": dual_axes_super_2_slash_3.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_3
+      - WEAPON
+      - AXES
+      - HEAVY
+      - SUPER_AXES_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Axes_Super_2_Slash_2
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 80
+      - "Name": Blocking
+        "Start": 81
+      - "Name": Throwable
+        "Start": 75
+      - "Name": Perk_Parry
+        "Start": 11
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 37
+        "End": 48
+      - "Name": Perk_Parry
+        "Start": 54
+        "End": 62
+      - "Type": Attack
+        "Start": 17
+        "End": 19
+        "HitTags":
+          - Hit_Head_Short
+        "AttackingParts":
+          - Axes_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 11
+            "End": 19
+            "Distance": 220
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_High_Short
+      - "Type": Attack
+        "Start": 22
+        "End": 25
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 16
+            "End": 25
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 43
+        "End": 45
+        "HitTags":
+          - Hit_Stomach_Short
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 9000
+        "Slowmo":
+            "Start": 37
+            "End": 45
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 46
+        "End": 48
+        "HitTags":
+          - Hit_Legs
+        "AttackingParts":
+          - Axes_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 9000
+        "Slowmo":
+            "Start": 40
+            "End": 48
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Low
+      - "Type": Attack
+        "Start": 60
+        "End": 62
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Axes_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": axe
+        "Impulse":
+            "X": 22000
+            "Y": 5000
+        "Slowmo":
+            "Start": 54
+            "End": 62
+            "Distance": 250
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 10
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 18
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 37
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 42
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 56
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 7
+...

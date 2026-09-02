@@ -1,0 +1,69 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Thud_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Thud_Model_Attack
+          - ShakeCamera:
+                Frames: 50
+                AmpX: 10
+                AmpY: -20
+                PeriodX: 10
+                PeriodY: 10
+Animations:
+  - "Animation": Shadow_Thud_Model_Attack
+    "FileName": shadow_jump_explosion.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "EndFrame": 9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": magic_joint_root
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "End": 9
+        "HitTags":
+          - Hit_Legs_Critical_Fall
+          - Unblockable
+          - No_FX_SFX
+        "AttackingParts":
+          - Magic_attacking_edge
+        "Impulse":
+            "Y": 20000
+        "Slowmo":
+            "Start": 1
+            "End": 9
+            "Distance": 300
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.17
+        "Dodge":
+            "Distance": 300
+...

@@ -1,0 +1,47 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_IRON_GRIP
+    Triggers:
+      - Priority: 9998
+        Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, SHOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_IRON_GRIP].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1004, Chance]"
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_IRON_GRIP
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_IRON_GRIP
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_IRON_GRIP
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

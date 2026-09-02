@@ -1,0 +1,11 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__NO_TIMER
+    Triggers:
+      - Priority: 999999
+        Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - RuleWithoutTime
+...

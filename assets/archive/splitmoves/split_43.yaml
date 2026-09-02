@@ -1,0 +1,688 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_SUPER_2_1_Dual_Sabers
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Dual_Sabers_Super_2_Slash_1
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: ATTACK_SUPER_2_2_Dual_Sabers
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_2
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Dual_Sabers_Super_2_Slash_2
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 230
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_1"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_2_3_Dual_Sabers
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_3
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Dual_Sabers_Super_2_Slash_3
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 240
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_2"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+Animations:
+  - "Animation": Dual_Sabers_Super_2_Slash_1
+    "FileName": dual_sabers_super_2_slash_1.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_1
+      - WEAPON
+      - SWORDS
+      - HEAVY
+      - SUPER_SWORDS_AGILE_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Transitional
+        "End": 20
+      - "Name": Uninterrupt
+        "End": 36
+      - "Name": Blocking
+        "Start": 37
+      - "Name": Throwable
+        "Start": 31
+      - "Name": Perk_Parry
+        "Start": 7
+        "End": 18
+      - "Type": Attack
+        "Start": 13
+        "End": 15
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 7
+            "End": 15
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 16
+        "End": 18
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Saber_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 8000
+        "Slowmo":
+            "Start": 10
+            "End": 18
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 10
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Dual_Sabers_Super_2_Slash_2
+    "FileName": dual_sabers_super_2_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_2
+      - WEAPON
+      - SWORDS
+      - HEAVY
+      - SUPER_SWORDS_AGILE_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Dual_Sabers_Super_2_Slash_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 49
+      - "Name": Transitional
+        "End": 35
+      - "Name": Blocking
+        "Start": 50
+      - "Name": Throwable
+        "Start": 44
+      - "Name": Perk_Parry
+        "Start": 7
+        "End": 18
+      - "Name": Perk_Parry
+        "Start": 23
+        "End": 31
+      - "Type": Attack
+        "Start": 13
+        "End": 15
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 7
+            "End": 15
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 16
+        "End": 18
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Saber_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 8000
+        "Slowmo":
+            "Start": 10
+            "End": 18
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 29
+        "End": 31
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 8000
+        "Slowmo":
+            "Start": 23
+            "End": 31
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Overhead
+    "Sounds":
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 10
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 24
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Dual_Sabers_Super_2_Slash_3
+    "FileName": dual_sabers_super_2_slash_3.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_3
+      - WEAPON
+      - SWORDS
+      - HEAVY
+      - SUPER_SWORDS_AGILE_2
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Dual_Sabers_Super_2_Slash_2
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 66
+      - "Name": Unstable
+        "Start": 38
+        "End": 42
+      - "Name": Blocking
+        "Start": 67
+      - "Name": Throwable
+        "Start": 61
+      - "Name": Perk_Parry
+        "Start": 7
+        "End": 18
+      - "Name": Perk_Parry
+        "Start": 23
+        "End": 31
+      - "Name": Perk_Parry
+        "Start": 41
+        "End": 49
+      - "Type": Attack
+        "Start": 13
+        "End": 15
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 7
+            "End": 15
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 16
+        "End": 18
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Saber_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 8000
+        "Slowmo":
+            "Start": 10
+            "End": 18
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 29
+        "End": 31
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 8000
+        "Slowmo":
+            "Start": 23
+            "End": 31
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.04
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Overhead
+      - "Type": Attack
+        "Start": 47
+        "End": 49
+        "HitTags":
+          - Hit_Stomach
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Hand_left
+          - Forearm_left
+        "Material": steel
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 48
+            "End": 56
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 10
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 24
+      - "Common":
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V6_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V10_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V16_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V17_bip
+          - whoosh/light/8_Short_Whooshes_Of_Light_Weapon_V21_bip
+        "Frame": 44
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+...

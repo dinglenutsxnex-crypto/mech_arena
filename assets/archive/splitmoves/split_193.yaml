@@ -1,0 +1,19 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Strike_Katana
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Strike[].Material"
+                Value2: "katana"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/katana/popadanie1
+                  - strike/katana/popadanie2
+                  - strike/katana/popadanie3
+                  - strike/katana/popadanie4
+...

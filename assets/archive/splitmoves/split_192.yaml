@@ -1,0 +1,127 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Strike_Unarmed
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "HEAVY"
+          - Or:
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "flesh"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "UNARMED"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/fists/light/3_Hand_Slap_Hits_A_V1_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V7_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V8_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V14_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V15_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V16_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V28_bip
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "HEAVY"
+          - Or:
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "flesh"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "UNARMED"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V12_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V31_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V33_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V36_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V38_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V39_bip
+  - Name: SFX__Strike_Wood
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "wood"
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "nunchaku"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "HEAVY"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "UNARMED"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/wood/heavy/2_Wood_Hits_A_V4_bip
+                  - strike/wood/heavy/2_Wood_Hits_A_V19_bip
+                  - strike/wood/heavy/2_Wood_Hits_B_V2_bip
+                  - strike/wood/heavy/2_Wood_Hits_C_V33_bip
+                  - strike/wood/heavy/2_Wood_Hits_V28_bip
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "wood"
+              - Equal:
+                    Value1: "?Strike[].Material"
+                    Value2: "nunchaku"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "HEAVY"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "UNARMED"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/wood/light/2_Wood_Hits_A_V24_bip_1
+                  - strike/wood/light/2_Wood_Hits_A_V25_bip
+                  - strike/wood/light/2_Wood_Hits_V12_bip
+                  - strike/wood/light/2_Wood_Hits_V23_bip
+                  - strike/wood/light/2_Wood_Hits_V30 _bip
+  - Name: SFX__Strike_Steel
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Strike[].Material"
+                Value2: "steel"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "UNARMED"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/fists/light/3_Hand_Slap_Hits_V14_bip
+                  - strike/fists/light/3_Hand_Slap_Hits_V15_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V31_bip
+                  - strike/fists/heavy/3_Hand_Slap_Hits_V39_bip
+...

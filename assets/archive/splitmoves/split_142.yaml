@@ -1,0 +1,249 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Vanish
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.DOWN_BREAKER
+          - STATE.SHADOW_FORM
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Vanish_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Shadow(Down)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "LOW_STANCE"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - SetVariable:
+                ApplyTo: Me
+                Name: Shadow_Vanish
+                Value: 1
+                Frames: 120
+          - SetShader:
+                ApplyTo: Me
+                Name: power
+                Toggle: On
+                Transition: 0.3
+          - SetVariable:
+                Name: Shadow_Vanish_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 600
+          - SetVariable:
+                Name: SF_CD_ARMOR
+                Value: 1
+                ApplyTo: Me
+                Frames: 600
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Vanish_CD
+                Frames: 600
+                Equipment: ARMOR
+        Priority: 300
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Back
+                States:
+                  - Down
+                  - Hold
+          - StageChange:
+                Stage: RoundFightStart
+      - Priority: -99999
+        Events:
+          - Hit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Shadow_Vanish].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+          - CustomEffect:
+                Name: sf_teleport_in
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 0
+                Follow:
+                    X: 1
+                    Y: 0
+                    Z: 0
+                Shift:
+                    X: 0
+                    Y: -80
+                    Z: 0
+                PoolQuantity: 1
+      - Priority: 99999
+        Events:
+          - Hit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Shadow_Vanish].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                ApplyTo: Me
+                Name: Shadow_Vanish
+                Value: 0
+                Frames: 1
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow start
+          - Animation:
+                Name: Shadow_Vanish_Out
+          - CustomEffect:
+                Name: sf_teleport_out
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 0
+                Follow:
+                    X: 1
+                    Y: 0
+                    Z: 0
+                Shift:
+                    X: -15
+                    Y: -45
+                    Z: 0
+                Frames: 5
+                PoolQuantity: 1
+          - SetVariable:
+                ApplyTo: Me
+                Name: Shadow_Vanish
+                Value: 0
+                Frames: 1
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: Shadow_Vanish
+        Actions:
+          - SetShader:
+                ApplyTo: Me
+                Name: power
+                Toggle: Off
+                Transition: 0.3
+Animations:
+  - "Animation": Shadow_Vanish_Out
+    "FileName": sf_teleport.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "FirstFrame": 17
+    "BlendingFrames": 0
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": -150
+    "SetDirection":
+        "From":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 30
+      - "Name": Shadow_Move_Successful
+        "Start": 1
+        "End": 1
+      - "Name": Blocking
+        "Start": 31
+      - "Name": Throwable
+        "Start": 31
+      - "Type": Attack
+        "Start": 1
+        "End": 2
+        "HitTags":
+          - Unblockable
+        "Slowmo":
+            "Start": 25
+            "End": 29
+            "Distance": 300
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.01
+    "Sounds":
+      - "Common":
+          - shadow_moves/teleport/teleport_out
+        "Frame": 17
+...

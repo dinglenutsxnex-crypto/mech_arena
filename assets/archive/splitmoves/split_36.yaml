@@ -1,0 +1,238 @@
+﻿Root: 
+TriggerSets:
+  - Name: KICK_SUPER_3_Strong_2_Without_Weapon
+    Triggers:
+      - Templates:
+          - REACTION.HIT_TO_ENEMY
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Strong_Super_3_Kick"
+          - Greater:
+                Value1: "abs(?Coordinate[?Player[Enemy],COM].X - ?Coordinate[?Player[Me],Wall,Front].X)"
+                Value2: "150"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_STEEL_FOOT_FALL].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Strong_Super_3_Kick_2_Fists
+        Priority: 450
+        Events:
+          - PostHit:
+                Player: Enemy
+Animations:
+  - "Animation": Strong_Super_3_Kick_2_Fists
+    "FileName": str_super_3_kick_2_no_wpn.bin
+    "Groups":
+      - ATTACK
+      - KICK_SUPER_2
+      - UNARMED
+      - KICK
+      - SUPER_ARMOR_STRONG_3
+    "FirstFrame": 13
+    "RepulsionScale":
+        "X": 0.8
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 160
+      - "Name": Blocking
+        "Start": 161
+      - "Name": Throwable
+        "Start": 155
+      - "Type": Attack
+        "Start": 13
+        "End": 16
+        "HitTags":
+          - Hit_Strong_Super_3_Kick
+          - Hit_No_Critical_Reaction
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 7
+            "End": 16
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.1
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 114
+        "End": 116
+        "HitTags":
+          - Unblockable
+        "Material": flesh
+        "Slowmo":
+            "Start": 110
+            "End": 116
+            "Distance": 300
+        "Damage":
+            "Attack": UnarmedDamage
+            "Defense": BodyDefense
+            "BaseDamage": 0.1
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 7
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 29
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 48
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 4
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 22
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 86
+...

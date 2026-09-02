@@ -1,0 +1,176 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mind_Throw_Model_Create
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Model_Create
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: magic_joint_root
+                Looped: 1
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Mind_Throw_Destroy
+                Value: 1
+                ApplyTo: Parent
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Model_Create"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Model_Attack
+      - Events:
+          - Hit:
+                Player: Enemy
+          - BorderHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+          - SetVariable:
+                Name: Shadow_Mind_Throw_Destroy
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - DestroyMe
+      - Events:
+          - EveryFrame:
+                Step: 5
+        Priority: 1000
+        Conditions:
+          - GreaterEqual:
+                Value1: "abs(?Coordinate[?Player[Me],Nodes,magic_joint_root].X - ?Coordinate[?Player[Parent],COM].X)"
+                Value2: "600"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+          - SetVariable:
+                Name: Shadow_Mind_Throw_Destroy
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - DestroyMe
+      - Events:
+          - PostHit:
+                Player: Parent
+        Priority: 3200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Shadow_Mind_Throw_Model_Attack"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Shadow_Mind_Throw_Model_Create"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+          - SetVariable:
+                Name: Shadow_Mind_Throw_Destroy
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Mind_Throw_Model_Create
+    "FileName": shadow_ability_helm_str_bullet.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+    "BlendingFrames": 0
+    "EndFrame": 9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+  - "Animation": Shadow_Mind_Throw_Model_Attack
+    "FileName": shadow_ability_helm_str_bullet_fly.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_ATTACKING_EDGE
+    "FirstFrame": 10
+    "Velocity":
+        "X": 12
+    "Looped": 1
+    "BlendingFrames": 0
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Me
+            "Object": Nodes
+            "Part": magic_joint_root
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Me
+            "Object": Nodes
+            "Part": magic_joint_root
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "HitTags":
+          - Hit_Mind_Throw
+          - Unblockable
+        "AttackingParts":
+          - Magic_attacking_edge
+        "Impulse":
+            "X": 8000
+            "Y": 5000
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0
+...

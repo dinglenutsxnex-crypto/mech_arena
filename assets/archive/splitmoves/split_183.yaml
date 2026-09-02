@@ -1,0 +1,522 @@
+﻿Root: 
+TriggerSets:
+  - Name: REACTION__Block_Overhead_Katana
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Katana_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Katana_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_High_Katana
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Katana_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Katana_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Middle_Katana
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Katana_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Katana_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Low_Katana
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Katana_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Katana_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: SFX__Block_Katana
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].WeaponMaterial"
+                Value2: "katana"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - block/katana/block1
+                  - block/katana/block2
+        Priority: 1100
+        Events:
+          - PostHit:
+                Player: Me
+Animations:
+  - "Animation": Block_Overhead_Katana_InOut
+    "FileName": b_katana_Overhead_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Overhead_Katana_Hit
+    "FileName": b_katana_Overhead_block.bin
+    "FirstFrame": 4
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 19
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 20
+  - "Animation": Block_High_Katana_InOut
+    "FileName": b_katana_high_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_High_Katana_Hit
+    "FileName": b_katana_high_block.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 17
+      - "Name": Blocking
+  - "Animation": Block_Middle_Katana_InOut
+    "FileName": b_katana_mid_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Middle_Katana_Hit
+    "FileName": b_katana_mid_block.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 17
+      - "Name": Blocking
+  - "Animation": Block_Low_Katana_InOut
+    "FileName": b_katana_low_block_inout.bin
+    "FirstFrame": 3
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Low_Katana_Hit
+    "FileName": b_katana_low_block.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 20
+      - "Name": Blocking
+...

@@ -1,0 +1,96 @@
+﻿Root: 
+TriggerSets:
+  - Name: GIZMO_HOP_FRONT
+    Triggers:
+      - Templates:
+          - TACTICS.GIZMO_HOP
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+        Priority: 110
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STEP_FORWARD"
+                IgnoredByAI: 1
+        Actions:
+          - Animation:
+                Name: Hop_Front
+        Tactics:
+            MathWeight: 9999
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "135"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, GIZMO_THROW_Active_CD].Value"
+                        Value2: "1"
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "FALL"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "PHYSICS"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "FALL_CRITICAL"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "Stun"
+Animations:
+  - "Animation": Hop_Front
+    "FileName": m_forward_hop.bin
+    "Groups":
+      - MOVE
+      - DASH
+      - DASH_FORWARD
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/light_land/stone/stone_otskok_1
+              - step/light_land/stone/stone_otskok_2
+              - step/light_land/stone/stone_otskok_3
+            "Wood":
+              - step/light_land/wood/wood_otskok_1
+              - step/light_land/wood/wood_otskok_2
+              - step/light_land/wood/wood_otskok_3
+        "Frame": 14
+    "Intervals":
+      - "Name": Blocking
+        "Start": 15
+      - "Name": Throwable
+        "Start": 15
+      - "Name": Uninterrupt
+        "End": 14
+...

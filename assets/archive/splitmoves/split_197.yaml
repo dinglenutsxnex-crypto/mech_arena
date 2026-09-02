@@ -1,0 +1,102 @@
+﻿Root: 
+TriggerSets:
+  - Name: Hit_Shock
+    Triggers:
+      - Priority: 9999
+        Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, UNSHOCKABLE].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "100 * 0.5 * ?Hit[].Damage"
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 9997
+        Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_IRON_GRIP].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, SHOCK].Value"
+                Value2: "1"
+        Actions:
+          - Disarm:
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Me
+      - Priority: 9999
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, UNSHOCKABLE].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SUPER_FALL"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "100 * 0.5 * ?Hit[].Damage"
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "THROW_FALL"
+        Actions:
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 9997
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_IRON_GRIP].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "THROW_FALL"
+          - Equal:
+                Value1: "?GetVariable[Me, SHOCK].Value"
+                Value2: "1"
+        Actions:
+          - Disarm:
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Me
+...

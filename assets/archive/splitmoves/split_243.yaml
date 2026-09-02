@@ -1,0 +1,203 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_SUPER_ARMOR_SLASH_In_Fight
+    Triggers:
+      - Events:
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetUserVariable[Tutorial_SUPER_ARMOR_Training].Value"
+                    Value2: "1"
+        Actions:
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash_Armor
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Kick
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_SUPER_ARMOR_Training_ON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetUserVariable:
+                Name: Tutorial_SUPER_ARMOR_Training
+                Value: 1
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_NOReverse].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash_Armor
+                Offset:
+                    X: 0
+                    Y: -320
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_YESReverse].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash_Armor_Reverse
+                Offset:
+                    X: 0
+                    Y: -320
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Count
+                Value: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK_SUPER_1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK_SUPER_2"
+              - GreaterEqual:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value"
+                    Value2: "15"
+        Actions:
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Back
+                  - Kick
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_SUPER_ARMOR_Training_ON
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+...

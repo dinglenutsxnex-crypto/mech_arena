@@ -1,0 +1,93 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Uppercut_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Uppercut_Model_Attack
+          - CustomEffect:
+                Name: Shadow_uppercut
+                ApplyTo: Me
+                AttachToBone: magic_joint_root
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Priority: 1110
+        Events:
+          - Hit:
+                Player: Parent
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Uppercut_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: Shadow_uppercut
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Uppercut_Model_Attack
+    "FileName": s_str_armor_uppercut_bullet.bin
+    "BlendingFrames": 0
+    "FirstFrame": 6
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "Y": 10
+            "X": -30
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 21
+        "End": 30
+        "HitTags":
+          - Hit_Shadow_Uppercut
+          - Unblockable
+          - No_FX_SFX
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": -20000
+            "Y": 29000
+        "Slowmo":
+            "Start": 18
+            "End": 30
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.15
+...

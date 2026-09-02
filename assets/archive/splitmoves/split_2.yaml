@@ -1,0 +1,81 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Dojo
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Priority: 49
+        Actions:
+          - Animation:
+                Name: Stance_Idle
+        Events:
+          - Birth:
+                Player: Me
+  - Name: Invulnerability
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+  - Name: SetUnarmedFactor
+    Triggers:
+      - Priority: 10000
+        Events:
+          - Hit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "UNARMED"
+        Actions:
+          - SetVariable:
+                Name: UNARMED_FACTOR
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+  - Name: SetHeadFactor
+    Triggers:
+      - Priority: 10000
+        Events:
+          - Hit:
+                Player: Me
+                Defense: HeadDefense
+        Actions:
+          - SetVariable:
+                Name: HEAD_FACTOR
+                Value: 0.6
+                ApplyTo: Me
+                Frames: 1
+Animations:
+  - "Animation": Stance_Idle
+    "FileName": m_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...

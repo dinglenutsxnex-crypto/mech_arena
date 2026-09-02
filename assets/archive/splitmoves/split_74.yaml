@@ -1,0 +1,2572 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.BASIC
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash
+        Priority: 200
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Down|Up)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_DOUBLE_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.DOUBLE
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Double
+        Priority: 210
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_BASIC"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_HEAVY_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.HEAVY
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Heavy
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 240
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_HEAVY].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_UPPER_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.UPPER
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Upper
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: ATTACK_SPINNING_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SPINNING
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Spinning_1
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_BACK"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down|Hold)]"
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Not:
+                              - Equal:
+                                    Value1: "?Trigger[].Event"
+                                    Value2: "StageChange"
+                              - Equal:
+                                    Value1: "?Trigger[].Event"
+                                    Value2: "IntervalEnd"
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch]"
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: ATTACK__SPINNING_2_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SPINNING_DOUBLE
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Spinning_2
+        Priority: 230
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SPINNING"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_LOW_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.LOW
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Slash_Low
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "LOW_STANCE"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: STEP_FORWARD_Nunchaku
+    Triggers:
+      - Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Step_Forward
+        Templates:
+          - TACTICS.APPROACH_CLOSE
+          - TACTICS_BASE.APPROACH
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 20
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+  - Name: STEP_BACK_Nunchaku
+    Triggers:
+      - Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Step_Back
+        Templates:
+          - TACTICS.RETREAT
+          - TACTICS_BASE.RETREAT
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 10
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+  - Name: STANCE_IDLE_Nunchaku
+    Triggers:
+      - Templates:
+          - STANCE.IDLE
+          - STATE.ALIVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundFightEnd"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Idle
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 10
+  - Name: STEP_FORWARD_Nunchaku_Weapon
+    Triggers:
+      - Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Step_Forward_Weapon
+        Templates:
+          - TACTICS.APPROACH_CLOSE
+          - TACTICS_BASE.APPROACH
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 20
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+  - Name: STEP_BACK_Nunchaku_Weapon
+    Triggers:
+      - Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Step_Back_Weapon
+        Templates:
+          - TACTICS.RETREAT
+          - TACTICS_BASE.RETREAT
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 10
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+  - Name: STANCE_IDLE_Nunchaku_Weapon
+    Triggers:
+      - Templates:
+          - STANCE.IDLE
+          - STATE.ALIVE
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundFightEnd"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - Animation:
+                Name: Nunchaku_Idle_Weapon
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 10
+  - Name: NUNCHAKU_IDLE_VARIABLE
+    Triggers:
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 500
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "WEAPON"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "IDLE"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "REACTION"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "LOW_STANCE"
+        Actions:
+          - SetVariable:
+                Name: Nunchaku_Idle_Weapon
+                Value: 0
+                ApplyTo: Me
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - SetVariable:
+                Name: Nunchaku_Idle_Weapon
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 500
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Nunchaku_Idle_Weapon].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+        Actions:
+          - SetVariable:
+                Name: Nunchaku_Idle_Weapon
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - Birth:
+                Player: Me
+        Priority: -99999
+        Actions:
+          - SetVariable:
+                Name: Nunchaku_Idle_Weapon
+                Value: 1
+                ApplyTo: Me
+  - Name: STANCE_START_IDLE_Nunchaku
+    Triggers:
+      - Templates:
+          - STANCE.START_IDLE
+        Actions:
+          - Animation:
+                Name: Nunchaku_Stance_Idle
+        Priority: 12
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+  - Name: SFX__Block_Nunchaku
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].WeaponMaterial"
+                Value2: "nunchaku"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - block/nunchaku/nunchak_block_1
+                  - block/nunchaku/nunchak_block_2
+                  - block/nunchaku/nunchak_block_3
+                  - block/nunchaku/nunchak_block_4
+                  - block/nunchaku/nunchak_block_5
+        Priority: 1100
+        Events:
+          - PostHit:
+                Player: Me
+Animations:
+  - "Animation": Nunchaku_Slash
+    "FileName": nunchaku_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_BASIC
+      - WEAPON
+      - NUNCHAKU
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 45
+      - "Name": Blocking
+        "Start": 46
+      - "Name": Throwable
+        "Start": 40
+      - "Name": Transitional
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 25
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 23
+        "End": 25
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 17
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 6
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 13
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 18
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 29
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Slash_Double
+    "FileName": nunchaku_slash_3.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_DOUBLE
+      - WEAPON
+      - NUNCHAKU
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Nunchaku_Slash
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 59
+      - "Name": Blocking
+        "Start": 60
+      - "Name": Throwable
+        "Start": 54
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 30
+        "End": 38
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 23
+        "End": 25
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 17
+            "End": 25
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 36
+        "End": 38
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 30
+            "End": 38
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 6
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 13
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 18
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 39
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Slash_Heavy
+    "FileName": nunchaku_heavy_slash.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Groups":
+      - ATTACK
+      - ATTACK_HEAVY
+      - WEAPON
+      - NUNCHAKU
+      - HEAVY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 64
+      - "Name": Blocking
+        "Start": 65
+      - "Name": Throwable
+        "Start": 59
+      - "Name": Perk_Parry
+        "Start": 29
+        "End": 36
+      - "Type": Attack
+        "Start": 34
+        "End": 36
+        "HitTags":
+          - Hit_Chest_Heavy
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 25000
+            "Y": 8000
+        "Slowmo":
+            "Start": 29
+            "End": 36
+            "Distance": 320
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.22
+        "Block":
+            "Distance": 320
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 15
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 32
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 40
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 55
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 28
+  - "Animation": Nunchaku_Slash_Upper
+    "FileName": nunchaku_upper_slash.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Groups":
+      - ATTACK
+      - ATTACK_UPPER
+      - WEAPON
+      - NUNCHAKU
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 49
+      - "Name": Unstable
+        "Start": 23
+        "End": 32
+      - "Name": Blocking
+        "Start": 50
+      - "Name": Throwable
+        "Start": 44
+      - "Name": Perk_Parry
+        "Start": 3
+        "End": 13
+      - "Name": Perk_Parry
+        "Start": 24
+        "End": 32
+      - "Type": Attack
+        "Start": 9
+        "End": 11
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_l
+          - Nunchaku_Attacking_Edge_2_l
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 12000
+            "Y": 4000
+        "Slowmo":
+            "Start": 3
+            "End": 11
+            "Distance": 230
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 230
+            "Name":
+              - Block_Overhead
+      - "Type": Attack
+        "Start": 23
+        "End": 24
+        "HitTags":
+          - Hit_Chest_Heavy
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_l
+          - Nunchaku_Attacking_Edge_2_l
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_left
+          - Forearm_left
+        "Material": nunchaku
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 24
+            "End": 32
+            "Distance": 230
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 230
+            "Name":
+              - Block_Middle_Heavy
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 14
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 22
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 35
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Slash_Spinning_1
+    "FileName": nunchaku_spinning_slash_1.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SPINNING
+      - WEAPON
+      - NUNCHAKU
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 34
+      - "Name": Blocking
+        "Start": 35
+      - "Name": Throwable
+        "Start": 29
+      - "Name": Transitional
+        "End": 14
+      - "Name": Perk_Parry
+        "Start": 5
+        "End": 13
+      - "Type": Attack
+        "Start": 11
+        "End": 13
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 13
+            "Distance": 260
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 260
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 4
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 15
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 22
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 33
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Slash_Spinning_2
+    "FileName": nunchaku_spinning_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SPINNING_DOUBLE
+      - WEAPON
+      - NUNCHAKU
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Nunchaku_Slash_Spinning_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 61
+      - "Name": Blocking
+        "Start": 62
+      - "Name": Throwable
+        "Start": 56
+      - "Name": Unstable
+        "Start": 25
+        "End": 30
+      - "Name": Perk_Parry
+        "Start": 5
+        "End": 13
+      - "Name": Perk_Parry
+        "Start": 24
+        "End": 33
+      - "Type": Attack
+        "Start": 11
+        "End": 13
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 13
+            "Distance": 260
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 260
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 30
+        "End": 33
+        "HitTags":
+          - Hit_Head_Heavy
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 24
+            "End": 33
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Heavy
+      - "Type": Attack
+        "Start": 47
+        "End": 49
+        "HitTags":
+          - Hit_Head_Short
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 18000
+            "Y": 9000
+        "Slowmo":
+            "Start": 30
+            "End": 38
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.03
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High_Short
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 4
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 18
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 40
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 45
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 54
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Slash_Low
+    "FileName": nunchaku_low_slash.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Groups":
+      - ATTACK
+      - ATTACK_LOW
+      - WEAPON
+      - NUNCHAKU
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 60
+      - "Name": Blocking
+        "Start": 61
+      - "Name": Throwable
+        "Start": 55
+      - "Name": Perk_Parry
+        "Start": 5
+        "End": 13
+      - "Name": Perk_Parry
+        "Start": 24
+        "End": 32
+      - "Type": Attack
+        "Start": 11
+        "End": 13
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 16000
+            "Y": 4000
+        "Slowmo":
+            "Start": 8
+            "End": 13
+            "Distance": 230
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 230
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 30
+        "End": 32
+        "HitTags":
+          - Hit_Legs
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_l
+          - Nunchaku_Attacking_Edge_2_l
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_left
+          - Forearm_left
+        "Material": nunchaku
+        "Impulse":
+            "X": 16000
+            "Y": 6000
+        "Slowmo":
+            "Start": 24
+            "End": 32
+            "Distance": 280
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 280
+            "Name":
+              - Block_Low
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 13
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 26
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 32
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 45
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Step_Forward
+    "FileName": m_step_forward.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_FORWARD
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/wood/8_Footsteps_Wood_Surface_V3
+              - step/wood/8_Footsteps_Wood_Surface_V7
+              - step/wood/8_Footsteps_Wood_Surface_V9
+              - step/wood/8_Footsteps_Wood_Surface_V10
+              - step/wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Nunchaku_Step_Back
+    "FileName": m_step_back.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_BACK
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/wood/8_Footsteps_Wood_Surface_V3
+              - step/wood/8_Footsteps_Wood_Surface_V7
+              - step/wood/8_Footsteps_Wood_Surface_V9
+              - step/wood/8_Footsteps_Wood_Surface_V10
+              - step/wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Nunchaku_Idle
+    "FileName": m_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+  - "Animation": Nunchaku_Step_Forward_Weapon
+    "FileName": nunchaku_step_forward.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_FORWARD
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/wood/8_Footsteps_Wood_Surface_V3
+              - step/wood/8_Footsteps_Wood_Surface_V7
+              - step/wood/8_Footsteps_Wood_Surface_V9
+              - step/wood/8_Footsteps_Wood_Surface_V10
+              - step/wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Nunchaku_Step_Back_Weapon
+    "FileName": nunchaku_step_back.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_BACK
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/wood/8_Footsteps_Wood_Surface_V3
+              - step/wood/8_Footsteps_Wood_Surface_V7
+              - step/wood/8_Footsteps_Wood_Surface_V9
+              - step/wood/8_Footsteps_Wood_Surface_V10
+              - step/wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Nunchaku_Idle_Weapon
+    "FileName": nunchaku_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+  - "Animation": Nunchaku_Stance_Idle
+    "FileName": nunchaku_stance_idle.bin
+    "Groups":
+      - STANCE_START_IDLE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 1
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 15
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 25
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 35
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 50
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 60
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 70
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 80
+...

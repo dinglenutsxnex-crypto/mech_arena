@@ -1,0 +1,522 @@
+﻿Root: 
+TriggerSets:
+  - Name: DOJO_MODE_TACTICS
+    Triggers:
+      - Priority: -99999
+        Events:
+          - PostHit:
+                Player: Enemy
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+          - SetVariable:
+                Name: DOJO_MODE_TACTICS_OFF
+                Value: 1
+                ApplyTo: Me
+                Frames: 300
+      - Priority: 99999
+        Events:
+          - VariableDestruction:
+                Name: DOJO_MODE_TACTICS_OFF
+          - ModulePreEnter:
+                Name: Inventory
+          - ModulePreEnter:
+                Name: Shop
+          - ModulePreEnter:
+                Name: CharacterCreation
+          - ModulePreEnter:
+                Name: Map
+          - ModulePreEnter:
+                Name: BoosterpacksScreen
+          - ModuleEnter:
+                Name: Inventory
+          - ModuleEnter:
+                Name: Shop
+          - ModuleEnter:
+                Name: CharacterCreation
+          - ModuleEnter:
+                Name: BoosterpacksScreen
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+  - Name: SHOP_Tutorial
+    Triggers:
+      - Name: EXIT_TUTORIAL
+        Priority: 100000
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Module[].CurrentModule"
+                Value2: "Shop"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "TRY_ON"
+          - Equal:
+                Value1: "?GetUserVariable[STATE_tutorial].Value"
+                Value2: "4"
+        Actions:
+          - EndTryOn
+          - Call:
+                ID: TUTORIAL_TRY_ON_HELMET
+  - Name: beta_TUTORIAL_SUPER_WEAPON_SLASH
+    Triggers:
+      - Events:
+          - AnimationStart:
+                Player: Me
+          - ModuleEnter:
+                Name: DojoInterface
+        Conditions:
+          - Equal:
+                Value1: "?GetUserVariable[Tutorial_SUPER_Training].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetUserVariable[STATE_tutorial].Value"
+                Value2: "8"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY_OUT"
+              - Equal:
+                    Value1: "?Trigger[].Event"
+                    Value2: "ModuleEnter"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Shown].Value"
+                    Value2: "1"
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Punch
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Count_ON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Shown
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetUserVariable[Tutorial_SUPER_Training].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetUserVariable[STATE_tutorial].Value"
+                Value2: "8"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_NOReverse].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Inventory"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Shop"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "CharacterCreation"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "PerkScreen"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash
+                Offset:
+                    X: 0
+                    Y: -320
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetUserVariable[Tutorial_SUPER_Training].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetUserVariable[STATE_tutorial].Value"
+                Value2: "8"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_YESReverse].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Inventory"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Shop"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "CharacterCreation"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "PerkScreen"
+          - Or:
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Super_Slash_Reverse
+                Offset:
+                    X: 0
+                    Y: -320
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Count
+                Value: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value + 1"
+                ApplyTo: Me
+      - Priority: -100000
+        Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count_ON].Value"
+                Value2: "1"
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK_SUPER_2"
+              - GreaterEqual:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value"
+                    Value2: "15"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "SuperWeapon"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value"
+          - HideTutorialPanel
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: true
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Back
+                  - Punch
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Count_ON
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetUserVariable:
+                Name: Tutorial_SUPER_Training
+                Value: 2
+          - SetUserVariable:
+                Name: SelectedBattle
+                Value: 40
+          - Call:
+                ID: TUTORIAL_END
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Praise
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - SetVariable:
+                Name: Tutorial_Praise_After_Super_Weapon
+                Value: 1
+                ApplyTo: Me
+                Frames: 160
+      - Events:
+          - VariableDestruction:
+                Name: Tutorial_Praise_After_Super_Weapon
+        Actions:
+          - HideTutorialPanel
+  - Name: DOJO_GIZMO_GO_TO_MAP
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetUserVariable[STATE_tutorial].Value"
+                Value2: "99"
+          - Not:
+              - GreaterEqual:
+                    Value1: "?GetVariable[Me, GIZMO_GO_TO_MAP_TRIGGER].Value"
+                    Value2: "6"
+              - GreaterEqual:
+                    Value1: "?GetUserVariable[Gizmo_go_to_map_variable].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: GIZMO_GO_TO_MAP_TRIGGER
+                Value: "?GetVariable[Me, GIZMO_GO_TO_MAP_TRIGGER].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, GIZMO_GO_TO_MAP_TRIGGER].Value"
+                Value2: "6"
+          - Not:
+              - GreaterEqual:
+                    Value1: "?GetUserVariable[Gizmo_go_to_map_variable].Value"
+                    Value2: "1"
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Up_Back
+                  - Down_Forward
+                  - Down
+                  - Down_Back
+                State: Off
+          - SetUserVariable:
+                Name: Gizmo_go_to_map_variable
+                Value: 1
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - IntervalEnd:
+                Player: Enemy
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?GetUserVariable[Gizmo_go_to_map_variable].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Stun"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Uninterrupt"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "FOLLOWED_BY"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "Stun"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentInterval"
+                    Value2: "Uninterrupt"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "FOLLOWED_BY"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "GoToMapQuestStart"
+          - SetUserVariable:
+                Name: Gizmo_go_to_map_variable
+                Value: 2
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - SetVariable:
+                Name: GIZMO_GO_TO_MAP_TRIGGER
+                Value: "0"
+                ApplyTo: Me
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Up_Back
+                  - Down_Forward
+                  - Down
+                  - Down_Back
+                State: On
+          - Call:
+                ID: GIZMO_GO_TO_MAP
+  - Name: SHOP
+    Triggers:
+      - Name: EXIT
+        Priority: 100000
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Module[].CurrentModule"
+                Value2: "Shop"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "TRY_ON"
+          - Not:
+              - Equal:
+                    Value1: "?GetUserVariable[STATE_tutorial].Value"
+                    Value2: "4"
+        Actions:
+          - EndTryOn
+...

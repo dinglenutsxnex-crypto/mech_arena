@@ -1,0 +1,38 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Strong_Fists
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Stance_Start_Birth_Strong_Fists
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Stance_Start_Birth_Strong_Fists
+    "FileName": m_str_stance_birth.bin
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

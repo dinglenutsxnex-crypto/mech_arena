@@ -1,0 +1,166 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Spear_Throw_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Spear_Throw_Model_Attack
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: magic_joint_top
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Priority: 1110
+        Events:
+          - Hit:
+                Player: Parent
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Spear_Throw_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Spear_Throw_Model_Attack
+    "FileName": s_spear_throw_bullet.bin
+    "BlendingFrames": 0
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "Y": 5
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 3
+        "End": 3
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": -3000
+        "Slowmo":
+            "Start": 1
+            "End": 3
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": HeadDefense
+            "BaseDamage": 0.03
+      - "Type": Attack
+        "Start": 6
+        "End": 6
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": -3000
+        "Slowmo":
+            "Start": 4
+            "End": 6
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": HeadDefense
+            "BaseDamage": 0.03
+      - "Type": Attack
+        "Start": 9
+        "End": 9
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": -3000
+        "Slowmo":
+            "Start": 7
+            "End": 9
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": HeadDefense
+            "BaseDamage": 0.03
+      - "Type": Attack
+        "Start": 12
+        "End": 12
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": -3000
+        "Slowmo":
+            "Start": 10
+            "End": 12
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": HeadDefense
+            "BaseDamage": 0.03
+      - "Type": Attack
+        "Start": 15
+        "End": 15
+        "HitTags":
+          - Hit_Head_Heavy
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": -3000
+        "Slowmo":
+            "Start": 13
+            "End": 15
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": HeadDefense
+            "BaseDamage": 0.05
+...

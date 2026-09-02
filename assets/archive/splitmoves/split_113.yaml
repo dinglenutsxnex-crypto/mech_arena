@@ -1,0 +1,420 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mind_Throw_Active
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.UP
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Mind_Throw_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Shadow(Down|Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Active_Create
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_r
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Mind_Throw_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_HELM
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Mind_Throw_CD
+                Frames: 400
+                Equipment: Helmet
+        Priority: 300
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Mind_Throw
+        Actions:
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Me
+          - CreateModel:
+                PoolQuantity: 1
+                ModelInfo:
+                    AiMode: NoneMode
+                    Alias: MIND_THROW_BULLET
+                    Animation: 1
+                    Attributes:
+                        CriticalChance: 0
+                    Skeleton: mgc-fireball
+                    Tags:
+                      - SHADOW_MIND_THROW_MODEL
+                      - SHADOW_ATTACKING_EDGE
+                      - DESTROYABLE
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Active_Create"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Active_Loop
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Active_Loop"
+          - Equal:
+                Value1: "?GetVariable[Me, Shadow_Mind_Throw_Destroy].Value"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Active_Loop
+      - Events:
+          - Hit:
+                Player: Enemy
+        Priority: 400
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Mind_Throw"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Active_Throw
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: Shadow_Mind_Throw_Destroy
+          - PostHit:
+                Player: Enemy
+        Priority: 401
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "VariableDestruction"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Shadow_Mind_Throw_Active_Create"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Shadow_Mind_Throw_Active_Loop"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "PostHit"
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                        Value2: "1"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Shadow_Mind_Throw_Active_Create"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Shadow_Mind_Throw_Active_Loop"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Active_Miss
+Animations:
+  - "Animation": Shadow_Mind_Throw_Active_Create
+    "FileName": shadow_ability_helm_str_a_start.bin
+    "Groups":
+      - SHADOW_MOVE
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Shadow_Move_Successful
+        "Start": 13
+        "End": 13
+      - "Name": Mind_Throw
+        "Start": 1
+        "End": 1
+      - "Type": DissolveWeapon
+    "Sounds":
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_cast
+        "Frame": 3
+  - "Animation": Shadow_Mind_Throw_Active_Loop
+    "FileName": shadow_ability_helm_str_a_cycle.bin
+    "Groups":
+      - SHADOW_MOVE
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Type": DissolveWeapon
+  - "Animation": Shadow_Mind_Throw_Active_Throw
+    "FileName": shadow_ability_helm_str_a_pull.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Type": DissolveWeapon
+        "End": 48
+      - "Type": Attack
+        "Start": 43
+        "End": 43
+        "HitTags":
+          - Unblockable
+        "Slowmo":
+            "Start": 40
+            "End": 43
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.15
+    "Sounds":
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_hit
+        "Frame": 3
+  - "Animation": Shadow_Mind_Throw_Active_Miss
+    "FileName": shadow_ability_helm_str_a_miss.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+...

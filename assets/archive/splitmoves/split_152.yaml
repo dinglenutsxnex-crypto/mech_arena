@@ -1,0 +1,49 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_NOT_PLAYER_Axes
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_NOT_PLAYER
+        Actions:
+          - Animation:
+                Name: Axes_Stance_Start_Round
+        Priority: 10000
+        Events:
+          - VariableDestruction:
+                Player: Me
+                Name: START_ROUND_NOT_PLAYER
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Axes_Stance_Start_Round
+    "FileName": dual_axes_stance.bin
+    "EndsStage":
+      - RoundStart
+    "Groups":
+      - STANCE_START_ROUND
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...

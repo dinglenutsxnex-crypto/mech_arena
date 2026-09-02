@@ -1,0 +1,338 @@
+﻿Root: 
+TriggerSets:
+  - Name: GIZMO_THROW_Passive
+    Triggers:
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Conditions:
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Passive_Start
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.HIT_HEAD_CRIT
+        Priority: 3012
+        Conditions:
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, CRITICAL].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "THROW_FALL"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Unstable"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STAND_UP_ROLL"
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "Hit_No_Critical_Reaction"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Passive_Start
+        Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+      - Templates:
+          - REACTION.HIT_CRIT
+        Priority: 3012
+        Conditions:
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "0"
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Gizmo_Throw_Start"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, CRITICAL].Value"
+                    Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "THROW_FALL"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Unstable"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STAND_UP_ROLL"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STAND_UP_KICK"
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "Hit_No_Critical_Reaction"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Passive_Start
+        Events:
+          - PostHit:
+                Player: Me
+      - Priority: 3012
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Gizmo_Throw_Passive_Start"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Player[Enemy].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Passive_End
+      - Priority: 3012
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Gizmo_Throw_Passive_Start"
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Player[Enemy].InMirrorPose"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Enemy].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Gizmo_Throw_Passive_End_Mirrored
+Animations:
+  - "Animation": Gizmo_Throw_Passive_Start
+    "FileName": gizmo_throw_passive_start.bin
+    "FirstFrame": 1
+    "Groups":
+      - FALL
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": -50
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+  - "Animation": Gizmo_Throw_Passive_End
+    "FileName": gizmo_throw_passive_end.bin
+    "FirstFrame": 1
+    "Groups":
+      - THROW_FALL
+      - SUPER_FALL
+      - FALL
+      - FOLLOWED_BY
+      - FALL_CRITICAL_ON_BACK
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+      - "Name": Floorfall
+        "Start": 78
+        "End": 78
+  - "Animation": Gizmo_Throw_Passive_End_Mirrored
+    "FileName": gizmo_throw_passive_end.bin
+    "FirstFrame": 1
+    "Mirrored": -1
+    "Groups":
+      - THROW_FALL
+      - SUPER_FALL
+      - FALL
+      - FOLLOWED_BY
+      - FALL_CRITICAL_ON_BACK
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+      - "Name": Floorfall
+        "Start": 72
+        "End": 72
+...

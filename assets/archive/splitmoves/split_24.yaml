@@ -1,0 +1,1440 @@
+﻿Root: 
+TriggerSets:
+  - Name: KICK_Precise
+    Triggers:
+      - Templates:
+          - KICK.BASIC
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Precise
+        Priority: 200
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Up
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                    IgnoredByAI: 1
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                    IgnoredByAI: 1
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                    IgnoredByAI: 1
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                    IgnoredByAI: 1
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Down|Up)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Up|Unhold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: KICK_Short_As_Heavy_Precise
+    Triggers:
+      - Templates:
+          - KICK.HEAVY
+          - TACTICS.ATTACK_VERY_CLOSE
+          - TACTICS_BASE.ATTACK
+        Priority: 241
+        Conditions:
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "90"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_HEAVY].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+        Actions:
+          - Animation:
+                Name: Kick_Knee_Short
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: KICK_DOUBLE_Precise
+    Triggers:
+      - Templates:
+          - KICK.DOUBLE
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Double_Precise
+        Priority: 210
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK_BASIC"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: KICK_HEAVY_Precise
+    Triggers:
+      - Templates:
+          - KICK.HEAVY
+          - TACTICS.ATTACK_AFAR
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Front_Precise
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 240
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_HEAVY].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "250"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: SWEEP_KICK_Precise
+    Triggers:
+      - Templates:
+          - KICK.LOW
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Sweep_Precise
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "LOW_STANCE"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: KICK_TEST_UPPER_Precise
+    Triggers:
+      - Templates:
+          - KICK.UPPER
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Upper_Agile
+        Priority: 210
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: KICK_SPINNING_Precise
+    Triggers:
+      - Templates:
+          - KICK.SPINNING
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Kick_Spinning_Precise
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Kick(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+Animations:
+  - "Animation": Kick_Precise
+    "FileName": k_prc_kick.bin
+    "Groups":
+      - ATTACK
+      - KICK_BASIC
+      - UNARMED
+      - KICK
+    "RepulsionScale":
+        "X": 0.6
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Transitional_Delay
+        "End": 3
+      - "Name": Uninterrupt
+        "End": 26
+      - "Name": Transitional
+        "End": 15
+      - "Name": Blocking
+        "Start": 27
+      - "Name": Throwable
+        "Start": 21
+      - "Name": Perk_Parry
+        "Start": 6
+        "End": 12
+      - "Type": Attack
+        "Start": 10
+        "End": 12
+        "HitTags":
+          - Hit_Stomach_Short
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Impulse":
+            "X": 18000
+            "Y": 9000
+        "Slowmo":
+            "Start": 6
+            "End": 12
+            "Distance": 230
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.09
+        "Block":
+            "Distance": 230
+            "Name":
+              - Block_Middle_Short
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 5
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 2
+  - "Animation": Kick_Knee_Short
+    "FileName": k_knee_kick.bin
+    "Groups":
+      - ATTACK
+      - KICK_SHORT
+      - UNARMED
+      - KICK
+      - KICK_HEAVY
+      - SHORT
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "RepulsionScale":
+        "X": 0.75
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 28
+      - "Name": Blocking
+        "Start": 29
+      - "Name": Throwable
+        "Start": 23
+      - "Name": Perk_Parry
+        "Start": 3
+        "End": 11
+      - "Type": Attack
+        "Start": 9
+        "End": 11
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 18000
+            "Y": 9000
+        "Slowmo":
+            "Start": 6
+            "End": 11
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.09
+        "Block":
+            "Distance": 190
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 5
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 2
+  - "Animation": Kick_Double_Precise
+    "FileName": k_prc_double_kick.bin
+    "Groups":
+      - ATTACK
+      - UNARMED
+      - KICK
+      - KICK_DOUBLE
+    "RepulsionScale":
+        "X": 0.6
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Kick_Precise
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 33
+      - "Name": Blocking
+        "Start": 34
+      - "Name": Throwable
+        "Start": 28
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 12
+      - "Name": Perk_Parry
+        "Start": 12
+        "End": 20
+      - "Type": Attack
+        "Start": 10
+        "End": 12
+        "HitTags":
+          - Hit_Stomach_Short
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Impulse":
+            "X": 18000
+            "Y": 9000
+        "Slowmo":
+            "Start": 6
+            "End": 12
+            "Distance": 230
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.09
+        "Block":
+            "Distance": 230
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 18
+        "End": 20
+        "HitTags":
+          - Hit_Head_Short
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Impulse":
+            "X": 20000
+            "Y": 9000
+        "Slowmo":
+            "Start": 14
+            "End": 20
+            "Distance": 230
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.1
+        "Block":
+            "Distance": 231
+            "Name":
+              - Block_High_Short
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 5
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 2
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 13
+  - "Animation": Kick_Front_Precise
+    "FileName": k_prc_front_kick.bin
+    "Groups":
+      - ATTACK
+      - UNARMED
+      - KICK
+      - KICK_HEAVY
+      - HEAVY
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 12
+    "EndFrame": 47
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 41
+      - "Name": Blocking
+        "Start": 42
+      - "Name": Throwable
+        "Start": 36
+      - "Name": Unstable
+        "Start": 11
+        "End": 22
+      - "Name": Riposte
+        "End": 12
+      - "Name": Perk_Parry
+        "Start": 15
+        "End": 24
+      - "Type": Attack
+        "Start": 21
+        "End": 24
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Impulse":
+            "X": 30000
+            "Y": 10000
+        "Slowmo":
+            "Start": 15
+            "End": 24
+            "Distance": 310
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.12
+        "Block":
+            "Distance": 310
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 15
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+  - "Animation": Kick_Sweep_Precise
+    "FileName": k_prc_sweep.bin
+    "Groups":
+      - ATTACK
+      - UNARMED
+      - KICK
+      - KICK_LOW
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 10
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 32
+      - "Name": Unstable
+        "Start": 10
+        "End": 22
+      - "Name": Blocking
+        "Start": 33
+      - "Name": Throwable
+        "Start": 27
+      - "Name": Riposte
+        "End": 4
+      - "Name": Perk_Parry
+        "Start": 7
+        "End": 15
+      - "Type": Attack
+        "Start": 13
+        "End": 15
+        "HitTags":
+          - Hit_Legs
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 15000
+            "Y": -7000
+            "Z": -7000
+        "Slowmo":
+            "Start": 9
+            "End": 15
+            "Distance": 230
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 219
+            "Name":
+              - Block_Low
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 10
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 7
+  - "Animation": Kick_Upper_Agile
+    "FileName": k_agl_jump_kick.bin
+    "Groups":
+      - ATTACK
+      - UNARMED
+      - KICK
+      - KICK_UPPER
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 36
+      - "Name": Blocking
+        "Start": 37
+      - "Name": Throwable
+        "Start": 31
+      - "Name": Unstable
+        "Start": 9
+        "End": 21
+      - "Name": Riposte
+        "End": 6
+      - "Name": Perk_Parry
+        "Start": 9
+        "End": 17
+      - "Type": Attack
+        "Start": 15
+        "End": 17
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 18000
+            "Y": 6000
+        "Slowmo":
+            "Start": 10
+            "End": 17
+            "Distance": 210
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.13
+        "Block":
+            "Distance": 200
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 9
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Kick_Spinning_Precise
+    "FileName": k_prc_back_kick.bin
+    "Groups":
+      - ATTACK
+      - UNARMED
+      - KICK
+      - KICK_SPINNING
+      - HEAVY
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 6
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Unstable
+        "Start": 9
+        "End": 26
+      - "Name": Uninterrupt
+        "End": 41
+      - "Name": Blocking
+        "Start": 42
+      - "Name": Throwable
+        "Start": 36
+      - "Name": Riposte
+        "End": 2
+      - "Name": Perk_Parry
+        "Start": 5
+        "End": 14
+      - "Type": Attack
+        "Start": 12
+        "End": 14
+        "HitTags":
+          - Hit_Head_Heavy
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 9
+            "End": 14
+            "Distance": 210
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.10
+        "Block":
+            "Distance": 197
+            "Name":
+              - Block_High_Heavy
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 6
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 3
+...

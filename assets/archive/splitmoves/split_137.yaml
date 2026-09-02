@@ -1,0 +1,285 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mind_Control_Active
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.UP
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Mind_Control_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Shadow(Down|Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Control_Active
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_r
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Mind_Control_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_HELM
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Mind_Control_CD
+                Frames: 400
+                Equipment: Helmet
+        Priority: 300
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - Hit:
+                Player: Enemy
+        Priority: -300
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Control_Active"
+        Actions:
+          - SetVariable:
+                Name: CRITICAL
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 1
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Control_Active"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+Animations:
+  - "Animation": Shadow_Mind_Control_Active
+    "FileName": m_agl_stance.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Shadow_Move_Successful
+        "Start": 23
+        "End": 23
+      - "Name": Mind_Control
+        "Start": 23
+        "End": 23
+      - "Type": Attack
+        "Start": 50
+        "End": 52
+        "HitTags":
+          - Hit_Chest
+          - Unblockable
+        "Slowmo":
+            "Start": 37
+            "End": 41
+            "Distance": 300
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.15
+    "Sounds":
+      - "Common":
+          - shadow_moves/force_push/force
+        "Frame": 23
+...

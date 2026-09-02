@@ -1,0 +1,14 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__NO_PUNCHES
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - SwitchKey:
+                Keys:
+                  - Punch
+                State: Off
+                Hide: 1
+...

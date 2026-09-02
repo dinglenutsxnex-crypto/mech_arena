@@ -1,0 +1,251 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Push_Active
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.DOWN
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Push_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Shadow(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "LOW_STANCE"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Push_Player
+          - CustomEffect:
+                Name: sf_force_push
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 0
+                Follow:
+                    X: 1
+                    Y: 0
+                    Z: 0
+                Shift:
+                    X: 85
+                    Y: 47
+                    Z: 0
+                Frame: 8
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Push_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_ARMOR
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Push_CD
+                Frames: 400
+                Equipment: Armor
+        Priority: 300
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Push_Player"
+        Actions:
+          - DestroyEffect:
+                Name: sf_force_push
+                ApplyTo: Me
+Animations:
+  - "Animation": Shadow_Push_Player
+    "FileName": prc_shadow_wave.bin
+    "Groups":
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 22
+      - "Name": Shadow_Move_Successful
+        "Start": 22
+        "End": 22
+      - "Name": Force_Push
+        "Start": 7
+        "End": 7
+    "Sounds":
+      - "Common":
+          - shadow_moves/force_push/force
+        "Frame": 7
+...

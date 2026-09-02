@@ -1,0 +1,35 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_FLURRY
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, COMBO_COUNTER].Value"
+                Value2: "?GetPerkVariable[Me, 1014, ComboCounterValue]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "?GetPerkVariable[Me, 1014, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "?GetPerkVariable[Me, 1014, AdditionDamage]"
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_FLURRY
+                Icon: ICON_PERK_FLURRY
+                BackgroundColor: "#2f4668"
+                Frames: 90
+                ShowExpiration: 1
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

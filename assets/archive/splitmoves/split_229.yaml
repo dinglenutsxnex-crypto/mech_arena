@@ -1,0 +1,54 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_SHADOW_DRAIN
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2003, Chance]"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: ENCHANTMENT_SHADOW_DRAIN_AMOUNT
+                Value: "?GetShadowCharge[Enemy]"
+                ApplyTo: Me
+                Frames: 1
+          - SetShadowCharge:
+                ApplyTo: Enemy
+                Value: "?GetShadowCharge[Enemy] - ?GetPerkVariable[Me, 2003, ShadowDrainPower] * ?Hit[].Damage"
+          - SetVariable:
+                Name: ENCHANTMENT_SHADOW_DRAIN_AMOUNT
+                Value: "?GetVariable[Me, ENCHANTMENT_SHADOW_DRAIN_AMOUNT].Value - ?GetShadowCharge[Enemy]"
+                ApplyTo: Me
+                Frames: 1
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: ENCHANTMENT_SHADOW_DRAIN_REGEN
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "?GetVariable[Me, ENCHANTMENT_SHADOW_DRAIN_AMOUNT]"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_SHADOW_DRAIN
+                Icon: ICON_ENCHANTMENT_SHADOW_DRAIN
+                BackgroundColor: "#2f4668"
+                Frames: 90
+        Templates:
+          - STATE.ALIVE
+...

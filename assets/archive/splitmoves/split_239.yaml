@@ -1,0 +1,37 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Tutorial
+    Triggers:
+      - Priority: 10003
+        Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Stance_Start_Birth_Tutorial
+Animations:
+  - "Animation": Stance_Start_Birth_Tutorial
+    "FileName": m_str_stance_birth.bin
+    "Looped": 1
+    "EndFrame": 60
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

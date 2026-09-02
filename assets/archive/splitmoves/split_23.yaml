@@ -1,0 +1,46 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_NOT_PLAYER_Strong_Fists
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_NOT_PLAYER
+        Actions:
+          - Animation:
+                Name: Stance_Start_Round_Strong_Fists
+        Priority: 10000
+        Events:
+          - VariableDestruction:
+                Player: Me
+                Name: START_ROUND_NOT_PLAYER
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Stance_Start_Round_Strong_Fists
+    "FileName": m_str_stance.bin
+    "Groups":
+      - STANCE_START_ROUND
+    "RepulsionScale":
+        "X": 0.5
+    "EndsStage":
+      - RoundStart
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+        "Frame": 16
+...

@@ -1,0 +1,16 @@
+﻿Root: 
+TriggerSets:
+  - Name: ShadowForm_Start_Fight
+    Triggers:
+      - Priority: -120
+        Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].RoundCounter"
+                Value2: "1"
+        Actions:
+          - SetShadowCharge:
+                Value: "0.5"
+...

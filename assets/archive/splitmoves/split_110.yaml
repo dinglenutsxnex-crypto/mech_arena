@@ -1,0 +1,71 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Carapace_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Carapace_Model_Attack
+      - Events:
+          - Hit:
+                Player: Enemy
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - shadow_moves/carapace/shadow_spray_hit
+Animations:
+  - "Animation": Shadow_Carapace_Model_Attack
+    "FileName": shadow_ability_armor_str_2_bullet.bin
+    "BlendingFrames": 0
+    "FirstFrame": 3
+    "EndFrame": 35
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": chest
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 8
+        "End": 19
+        "HitTags":
+          - Hit_Chest_Middle_Slow
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 14000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 19
+            "Distance": 400
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.17
+...

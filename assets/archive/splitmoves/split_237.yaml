@@ -1,0 +1,94 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_CHEAT
+    Triggers:
+      - Events:
+          - EveryFrame:
+                Step: 10
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CHEAT_LOW_DAMAGE].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Player[Me].Health"
+                Value2: "0.5"
+          - GreaterEqual:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0.5"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "CheatLowDamage"
+                Params:
+                    "ID: 10": "?GetVariable[Me, Tutorial_MovementShown].Value"
+                    "ID: 20": "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    "ID: 30": "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+          - SetVariable:
+                Name: CHEAT_LOW_DAMAGE
+                Value: 1
+                ApplyTo: Enemy
+      - Events:
+          - Hit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Enemy, CHEAT_LOW_DAMAGE].Value"
+                Value2: "1"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: 0.5
+                ApplyTo: Enemy
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: 0.5
+                ApplyTo: Enemy
+      - Events:
+          - EveryFrame:
+                Step: 10
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CHEAT_ATTACKS_DISABLED].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Player[Me].Health"
+                Value2: "0.25"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "CheatAttacksDisabled"
+                Params:
+                    "ID: 10": "?GetVariable[Me, Tutorial_MovementShown].Value"
+                    "ID: 20": "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    "ID: 30": "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+          - SetVariable:
+                Name: CHEAT_ATTACKS_DISABLED
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: TUTORIAL_NO_FLIP_BACK
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: TUTORIAL_NO_ROLL_BACK
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: TUTORIAL_HOP_BLOCK
+                Value: 1
+                ApplyTo: Enemy
+      - Events:
+          - Hit:
+                Player: Enemy
+          - Hit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Enemy, CHEAT_NULL_PLAYER_DAMAGE].Value"
+                Value2: "1"
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+...

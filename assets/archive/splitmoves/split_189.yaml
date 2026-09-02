@@ -1,0 +1,46 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Fall_Armor_Metal
+    Triggers:
+      - Templates:
+          - FLOOR.FALL
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - fall/armor layer/metal/5_Armored_Fall_Layer_V3_bip
+                  - fall/armor layer/metal/5_Armored_Fall_Layer_V4_bip
+                  - fall/armor layer/metal/5_Armored_Fall_Layer_V5_bip
+                  - fall/armor layer/metal/5_Armored_Fall_Layer_V6_bip
+                  - fall/armor layer/metal/5_Armored_Fall_Layer_V12_bip
+        Events:
+          - FloorHit:
+                Player: Me
+          - IntervalStart:
+                Player: Me
+                Name: Floorfall
+  - Name: SFX__Equip_Armor_Metal
+    Triggers:
+      - Events:
+          - Equip:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Module[].CurrentTab"
+                    Value2: "Inventory_Weapon"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - items/equip/plates_equip
+  - Name: SFX__Roll_Metal
+    Triggers:
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Roll_Sound
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - step/roll/metal/perekat_plates_pewpew
+                  - step/roll/metal/perekat_plates_2
+...

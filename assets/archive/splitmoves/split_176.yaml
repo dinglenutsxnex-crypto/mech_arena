@@ -1,0 +1,134 @@
+﻿Root: 
+TriggerSets:
+  - Name: REACTION__Hit_Overhead_Critical_Fall_Force
+    Triggers:
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Overhead_Critical_Fall"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Hit_Overhead_Critical_Fall
+        Events:
+          - PostHit:
+                Player: Me
+Animations:
+  - "Animation": Hit_Overhead_Critical_Fall
+    "FileName": h_hit_Overhead_fall.bin
+    "Groups":
+      - HIT
+      - FALL
+      - FALL_CRITICAL
+      - FALL_CRITICAL_ON_FACE
+      - FOLLOWED_BY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Unstable
+      - "Name": Floorfall
+        "Start": 9
+        "End": 9
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/hit/heavy/m/m_heavy_dmg_1
+              - voice/hit/heavy/m/m_heavy_dmg_2
+              - voice/hit/heavy/m/m_heavy_dmg_3
+              - voice/hit/heavy/m/m_heavy_dmg_4
+              - voice/hit/heavy/m/m_heavy_dmg_5
+              - voice/hit/heavy/m/m_heavy_dmg_6
+            "Female":
+              - voice/hit/heavy/f/f_heavy_dmg_1
+              - voice/hit/heavy/f/f_heavy_dmg_2
+              - voice/hit/heavy/f/f_heavy_dmg_3
+              - voice/hit/heavy/f/f_heavy_dmg_4
+              - voice/hit/heavy/f/f_heavy_dmg_5
+              - voice/hit/heavy/f/f_heavy_dmg_6
+        "Frame": 1
+...

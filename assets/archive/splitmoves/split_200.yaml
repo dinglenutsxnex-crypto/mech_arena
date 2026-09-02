@@ -1,0 +1,102 @@
+﻿Root: 
+TriggerSets:
+  - Name: ShadowForm_Toggle_Off_From_Model
+    Triggers:
+      - Priority: 500
+        Events:
+          - AnimationEnd:
+                Player: Me
+                Name: SHADOW_MOVE_END
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Parent, SHADOW_ATTACKING_EDGE].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Parent, ShadowForm_Toggle_Off_Postpone].Value"
+                Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+                ApplyTo: Parent
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Parent
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+      - Priority: 500
+        Events:
+          - PostHit:
+                Player: Parent
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SHADOW_MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SHADOW_MOVE_END"
+          - Equal:
+                Value1: "?GetVariable[Parent, ShadowForm_Toggle_Off_Postpone].Value"
+                Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+                ApplyTo: Parent
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Parent
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Parent
+                Frames: 1
+...

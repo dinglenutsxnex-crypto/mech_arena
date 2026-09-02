@@ -1,0 +1,589 @@
+﻿Root: 
+TriggerSets:
+  - Name: KICK_SUPER_1_Agile_1
+    Triggers:
+      - Templates:
+          - KICK.SUPER_1
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Agile_Super_1_Kick_1
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Kick(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: KICK_SUPER_1_Agile_2
+    Triggers:
+      - Templates:
+          - KICK.SUPER_2
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Agile_Super_1_Kick_2
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+        Priority: 230
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK_SUPER_1"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: KICK_SUPER_1_Agile_3
+    Triggers:
+      - Templates:
+          - KICK.SUPER_3
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Agile_Super_1_Kick_3
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Kick
+                States:
+                  - Down
+        Priority: 240
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "KICK_SUPER_2"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+Animations:
+  - "Animation": Agile_Super_1_Kick_1
+    "FileName": agl_super_1_kick_1.bin
+    "Groups":
+      - ATTACK
+      - KICK_SUPER_1
+      - UNARMED
+      - KICK
+      - SUPER_ARMOR_AGILE_1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 30
+      - "Name": Blocking
+        "Start": 31
+      - "Name": Throwable
+        "Start": 25
+      - "Name": Transitional
+        "End": 20
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 16
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Legs_Short
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Low_Short
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 8
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Agile_Super_1_Kick_2
+    "FileName": agl_super_1_kick_2.bin
+    "Groups":
+      - ATTACK
+      - KICK_SUPER_2
+      - UNARMED
+      - KICK
+      - SUPER_ARMOR_AGILE_1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Agile_Super_1_Kick_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 47
+      - "Name": Blocking
+        "Start": 48
+      - "Name": Throwable
+        "Start": 42
+      - "Name": Transitional
+        "End": 35
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 16
+      - "Name": Perk_Parry
+        "Start": 22
+        "End": 30
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Legs_Short
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 6
+            "End": 16
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Low_Short
+      - "Type": Attack
+        "Start": 28
+        "End": 30
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 22
+            "End": 30
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 8
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 22
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Agile_Super_1_Kick_3
+    "FileName": agl_super_1_kick_3.bin
+    "Groups":
+      - ATTACK
+      - KICK_SUPER_3
+      - UNARMED
+      - KICK
+      - SUPER_ARMOR_AGILE_1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Agile_Super_1_Kick_2
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 62
+      - "Name": Blocking
+        "Start": 63
+      - "Name": Throwable
+        "Start": 57
+      - "Name": Perk_Parry
+        "Start": 8
+        "End": 16
+      - "Name": Perk_Parry
+        "Start": 22
+        "End": 30
+      - "Name": Perk_Parry
+        "Start": 33
+        "End": 41
+      - "Type": Attack
+        "Start": 14
+        "End": 16
+        "HitTags":
+          - Hit_Legs_Short
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Low_Short
+      - "Type": Attack
+        "Start": 28
+        "End": 30
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Thigh_right
+          - Leg_right
+          - Foot_right
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 22
+            "End": 30
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 39
+        "End": 41
+        "HitTags":
+          - Hit_Stomach
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Impulse":
+            "X": 20000
+            "Y": 6000
+        "Slowmo":
+            "Start": 33
+            "End": 41
+            "Distance": 220
+        "Damage":
+            "Attack": UnarmedDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 220
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 8
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 22
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 34
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+...

@@ -1,0 +1,22 @@
+﻿Root: 
+TriggerSets:
+  - Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON_SHOCK
+    Triggers:
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: SHOCK
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+        Actions:
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+...

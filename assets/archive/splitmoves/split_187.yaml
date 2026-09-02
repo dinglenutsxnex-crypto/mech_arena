@@ -1,0 +1,39 @@
+﻿Root: 
+TriggerSets:
+  - Name: EFFECT__Hit_Shock
+    Triggers:
+      - Templates:
+          - EFFECT.HIT
+        Priority: -1200
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Enemy, SHOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - GUIEffect:
+                Name: GUIEffect_Shock
+                ApplyTo: Me
+                PoolQuantity: 1
+                SingleInstance: 1
+          - PlaySound:
+                Sounds:
+                  - strike/shock/shock_2
+          - FreezeFrame:
+                Frames: 55
+          - ShakeCamera:
+                Frames: 55
+                AmpX: 5
+                AmpY: 15
+                PeriodX: 5.7
+                PeriodY: 6.3
+        Events:
+          - PostHit:
+                Player: Enemy
+...

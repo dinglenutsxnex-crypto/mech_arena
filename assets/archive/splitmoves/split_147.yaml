@@ -1,0 +1,315 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_SUPER_1_3_Axes_Reaction
+    Triggers:
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Axes_Super_1"
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Enemy].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Enemy].InMirrorPose"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Axes_Super_1_Passive_Start_Mirrored
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.HIT
+        Priority: 1101
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Axes_Super_1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Player[Enemy].InMirrorPose"
+                        Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Me, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Me, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Axes_Super_1_Passive_Start
+        Events:
+          - PostHit:
+                Player: Me
+      - Priority: 3012
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Axes_Super_1_Passive_Start"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Axes_Super_1_Passive_Start_Mirrored"
+        Actions:
+          - Animation:
+                Name: Axes_Super_1_Passive_End_Mirrored
+Animations:
+  - "Animation": Axes_Super_1_Passive_Start_Mirrored
+    "FileName": dual_axes_super_1_slash_4_passive_start_b.bin
+    "Groups":
+      - THROW_FALL
+      - SUPER_FALL
+      - FALL
+      - FOLLOWED_BY
+    "FirstFrame": 10
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": 135
+    "SetDirection":
+        "From":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+  - "Animation": Axes_Super_1_Passive_Start
+    "FileName": dual_axes_super_1_slash_4_passive_start_a.bin
+    "Groups":
+      - THROW_FALL
+      - SUPER_FALL
+      - FALL
+      - FOLLOWED_BY
+    "FirstFrame": 10
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": 135
+    "SetDirection":
+        "From":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+  - "Animation": Axes_Super_1_Passive_End_Mirrored
+    "FileName": dual_axes_super_1_slash_4_passive_end.bin
+    "Mirrored": -1
+    "Groups":
+      - THROW_FALL
+      - SUPER_FALL
+      - FALL
+      - FOLLOWED_BY
+      - FALL_CRITICAL_ON_BACK
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoRepulsion
+      - "Name": Uninterrupt
+      - "Name": Floorfall
+        "Start": 50
+        "End": 50
+    "Sounds":
+      - "Common":
+          - whoosh/throw/throw_whoosh
+        "Frame": 42
+...

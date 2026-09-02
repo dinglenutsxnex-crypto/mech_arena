@@ -1,0 +1,51 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__ShadowForm_Up
+    Triggers:
+      - Priority: -120
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, ShadowFormUpSFX].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadowcollect_v1(1)
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 1
+                ApplyTo: Me
+      - Priority: -120
+        Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, ShadowFormUpSFX].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadowcollect_v1(1)
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 1
+                ApplyTo: Me
+...

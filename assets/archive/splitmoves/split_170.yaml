@@ -1,0 +1,409 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_SUPER_3_1_Spear
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+          - TACTICS.ATTACK_CLOSE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Spear_Super_3_Slash_1
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "180"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+  - Name: ATTACK_SUPER_3_2_Spear
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_2
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Spear_Super_3_Slash_2
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 230
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_1"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+Animations:
+  - "Animation": Spear_Super_3_Slash_1
+    "FileName": spear_super_3_slash_1.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_1
+      - WEAPON
+      - SPEAR
+      - SUPER_SPEAR_3
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 30
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 52
+      - "Name": Blocking
+        "Start": 53
+      - "Name": Throwable
+        "Start": 47
+      - "Name": Transitional
+        "End": 32
+      - "Name": Unstable
+        "Start": 16
+        "End": 26
+      - "Name": Perk_Parry
+        "Start": 16
+        "End": 25
+      - "Type": Attack
+        "Start": 21
+        "End": 25
+        "HitTags":
+          - Hit_Head_Heavy
+        "AttackingParts":
+          - Spear_Attacking_Edge_r
+        "Impulse":
+            "X": 23000
+            "Y": 9000
+        "Slowmo":
+            "Start": 16
+            "End": 25
+            "Distance": 375
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 375
+            "Name":
+              - Block_High_Heavy
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 16
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+  - "Animation": Spear_Super_3_Slash_2
+    "FileName": spear_super_3_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_2
+      - WEAPON
+      - SPEAR
+      - SUPER_SPEAR_3
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Spear_Super_3_Slash_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 75
+      - "Name": Blocking
+        "Start": 76
+      - "Name": Throwable
+        "Start": 70
+      - "Name": Unstable
+        "Start": 16
+        "End": 26
+      - "Name": Perk_Parry
+        "Start": 16
+        "End": 25
+      - "Name": Perk_Parry
+        "Start": 44
+        "End": 52
+      - "Type": Attack
+        "Start": 21
+        "End": 25
+        "HitTags":
+          - Hit_Head_Heavy
+        "AttackingParts":
+          - Spear_Attacking_Edge_r
+        "Impulse":
+            "X": 23000
+            "Y": 7000
+        "Slowmo":
+            "Start": 16
+            "End": 25
+            "Distance": 375
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.07
+        "Block":
+            "Distance": 375
+            "Name":
+              - Block_High_Heavy
+      - "Type": Attack
+        "Start": 50
+        "End": 52
+        "HitTags":
+          - Hit_Stomach_Heavy
+        "AttackingParts":
+          - Spear_Attacking_Edge_r
+        "Impulse":
+            "X": 18000
+            "Y": 7000
+        "Slowmo":
+            "Start": 44
+            "End": 52
+            "Distance": 375
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.12
+        "Block":
+            "Distance": 375
+            "Name":
+              - Block_Middle_Heavy
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 16
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 44
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+...

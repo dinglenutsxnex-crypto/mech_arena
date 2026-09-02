@@ -1,0 +1,133 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_BREAKING_POINT
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+                Defense: HeadDefense
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BREAKING_POINT_DEFENSE].Value"
+                Value2: "0"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "25"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BREAKING_POINT_DEFENSE
+                Value: "2"
+                Frames: 180
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BREAKING_POINT
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BREAKING_POINT_HEAD
+                ShowExpiration: 1
+                Frames: 180
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+                Defense: HeadDefense
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BREAKING_POINT_DEFENSE].Value"
+                Value2: "2"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: 1.4
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: 1.4
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - PostHit:
+                Player: Enemy
+                Defense: BodyDefense
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BREAKING_POINT_DEFENSE].Value"
+                Value2: "0"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "25"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BREAKING_POINT_DEFENSE
+                Value: "1"
+                Frames: 180
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BREAKING_POINT
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BREAKING_POINT_BODY
+                ShowExpiration: 1
+                Frames: 180
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+                Defense: BodyDefense
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BREAKING_POINT_DEFENSE].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: 1.4
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: 1.4
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+...

@@ -1,0 +1,90 @@
+﻿Root: 
+TriggerSets:
+  - Name: ShadowForm_Toggle_On
+    Triggers:
+      - Templates:
+          - TACTICS.SHADOW_TOGGLE
+          - TACTICS_BASE.SHADOW_TOGGLE
+        Priority: 500
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 1
+                EffectName: "shadow_fire"
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow start
+        Tactics:
+            MathWeight: 9999
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Player[Me].ShadowForm"
+                        Value2: "1"
+              - GreaterEqual:
+                    Value1: "?GetShadowCharge[Me]"
+                    Value2: "1"
+  - Name: ShadowForm_TakeHit_Charge
+    Triggers:
+      - Priority: -120
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+        Actions:
+          - SetShadowCharge:
+                Value: "?GetShadowCharge[Me] + 0.5 * ?Hit[].BaseDamage * (1 + ?GetVariable[Enemy, CRITICAL_FACTOR].Value) * (1 + ?GetVariable[Enemy, BLOCK_FACTOR].Value) * (1 + ?GetVariable[Enemy, HEAD_FACTOR].Value) * (1 + ?GetVariable[Enemy, WEAPON].Value)"
+  - Name: ShadowForm_DealHit_Charge
+    Triggers:
+      - Priority: -110
+        Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "0"
+        Actions:
+          - SetShadowCharge:
+                Value: "?GetShadowCharge[Me] + 0.3 * ?Hit[].BaseDamage * (1 + ?GetVariable[Me, CRITICAL_FACTOR].Value) * (1 + ?GetVariable[Me, BLOCK_FACTOR].Value) * (1 + ?GetVariable[Me, HEAD_FACTOR].Value) * (1 + ?GetVariable[Me, WEAPON].Value)"
+  - Name: ShadowForm_Hit_Amplify_Damage
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: 1.25
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: 1.25
+                ApplyTo: Me
+...

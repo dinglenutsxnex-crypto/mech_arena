@@ -1,0 +1,52 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_PLUCK
+    Triggers:
+      - Priority: 9997
+        Events:
+          - PostHit:
+                Player: Enemy
+                Defense: HeadDefense
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, COMBO_COUNTER].Value"
+                Value2: "?GetPerkVariable[Me, 1016, ComboCounterValue]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_IRON_GRIP].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1016, ShockChanceValue]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - Disarm:
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 1
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_PLUCK
+                Icon: ICON_PERK_PLUCK
+                BackgroundColor: "#2f4668"
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

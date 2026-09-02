@@ -1,0 +1,999 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_SUPER_1_1_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_1
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Super_1_Slash_1
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 220
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_SUPER].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_FORWARD"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                      - And:
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|UnHold)]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_1_2_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_2
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Super_1_Slash_2
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 230
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_1"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_1_3_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_3
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Super_1_Slash_3
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 240
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_2"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SUPER_1_4_Nunchaku
+    Triggers:
+      - Templates:
+          - ATTACK.SUPER_4
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Nunchaku_Super_1_Slash_4
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Priority: 241
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SUPER_3"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+Animations:
+  - "Animation": Nunchaku_Super_1_Slash_1
+    "FileName": nunchaku_super_1_slash_1.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_1
+      - WEAPON
+      - NUNCHAKU
+      - SUPER_NUNCHAKU_1
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 30
+      - "Name": Blocking
+        "Start": 31
+      - "Name": Transitional
+        "End": 13
+      - "Name": Throwable
+        "Start": 23
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 11
+      - "Type": Attack
+        "Start": 10
+        "End": 11
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 5
+            "End": 11
+            "Distance": 280
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 280
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 12
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Super_1_Slash_2
+    "FileName": nunchaku_super_1_slash_2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_2
+      - WEAPON
+      - NUNCHAKU
+      - SUPER_NUNCHAKU_1
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Nunchaku_Super_1_Slash_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 54
+      - "Name": Blocking
+        "Start": 55
+      - "Name": Throwable
+        "Start": 49
+      - "Name": Transitional
+        "End": 39
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 11
+      - "Name": Perk_Parry
+        "Start": 19
+        "End": 27
+      - "Name": Perk_Parry
+        "Start": 30
+        "End": 38
+      - "Type": Attack
+        "Start": 10
+        "End": 11
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 11
+            "Distance": 280
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 280
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 26
+        "End": 27
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 20
+            "End": 27
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 36
+        "End": 38
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 30
+            "End": 38
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 12
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 22
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 38
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+  - "Animation": Nunchaku_Super_1_Slash_3
+    "FileName": nunchaku_super_1_slash_3.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_3
+      - WEAPON
+      - NUNCHAKU
+      - SUPER_NUNCHAKU_1
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Nunchaku_Super_1_Slash_2
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 75
+      - "Name": Blocking
+        "Start": 76
+      - "Name": Throwable
+        "Start": 70
+      - "Name": Transitional
+        "End": 58
+      - "Name": Unstable
+        "Start": 52
+        "End": 62
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 11
+      - "Name": Perk_Parry
+        "Start": 19
+        "End": 27
+      - "Name": Perk_Parry
+        "Start": 30
+        "End": 38
+      - "Name": Perk_Parry
+        "Start": 48
+        "End": 57
+      - "Type": Attack
+        "Start": 10
+        "End": 11
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 11
+            "Distance": 280
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 280
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 26
+        "End": 27
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 20
+            "End": 27
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 36
+        "End": 38
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 30
+            "End": 38
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 54
+        "End": 57
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Material": flesh
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 48
+            "End": 57
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 12
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 22
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 39
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 47
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 58
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 67
+  - "Animation": Nunchaku_Super_1_Slash_4
+    "FileName": nunchaku_super_1_slash_4.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SUPER_4
+      - WEAPON
+      - NUNCHAKU
+      - SUPER_NUNCHAKU_1
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Nunchaku_Super_1_Slash_3
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 96
+      - "Name": Blocking
+        "Start": 98
+      - "Name": Unstable
+        "Start": 52
+        "End": 62
+      - "Name": Unstable
+        "Start": 67
+        "End": 76
+      - "Name": Throwable
+        "Start": 91
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 11
+      - "Name": Perk_Parry
+        "Start": 19
+        "End": 27
+      - "Name": Perk_Parry
+        "Start": 30
+        "End": 38
+      - "Name": Perk_Parry
+        "Start": 48
+        "End": 57
+      - "Name": Perk_Parry
+        "Start": 78
+        "End": 76
+      - "Type": Attack
+        "Start": 10
+        "End": 11
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 8000
+        "Slowmo":
+            "Start": 5
+            "End": 11
+            "Distance": 280
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 280
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 26
+        "End": 27
+        "HitTags":
+          - Hit_Chest_Short
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 20
+            "End": 27
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle_Short
+      - "Type": Attack
+        "Start": 36
+        "End": 38
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 18000
+            "Y": 8000
+        "Slowmo":
+            "Start": 30
+            "End": 38
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+      - "Type": Attack
+        "Start": 54
+        "End": 57
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Thigh_left
+          - Leg_left
+          - Foot_left
+        "Material": flesh
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 48
+            "End": 57
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 74
+        "End": 76
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - Nunchaku_Attacking_Edge_1_r
+          - Nunchaku_Attacking_Edge_2_r
+          - Hand_right
+          - Forearm_right
+        "Material": nunchaku
+        "Impulse":
+            "X": 17000
+            "Y": 5000
+        "Slowmo":
+            "Start": 68
+            "End": 76
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Overhead
+    "Sounds":
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 3
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 12
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 22
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 30
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 39
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 47
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_low_1
+          - whoosh/nunchaku/nunchak_light_low_2
+          - whoosh/nunchaku/nunchak_light_low_3
+        "Frame": 58
+      - "Common":
+          - whoosh/nunchaku/nunchak_hit_1
+          - whoosh/nunchaku/nunchak_hit_2
+          - whoosh/nunchaku/nunchak_hit_3
+        "Frame": 68
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 78
+      - "Common":
+          - whoosh/nunchaku/nunchak_light_1
+          - whoosh/nunchaku/nunchak_light_2
+          - whoosh/nunchaku/nunchak_light_3
+        "Frame": 90
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 5
+...

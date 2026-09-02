@@ -1,0 +1,37 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_REGENERATION_HEAD
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2009, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: ENCHANTMENT_REGENERATION_HEAD
+                Frames: "?GetPerkVariable[Me, 2009, Frames]"
+                Type: ModHP
+                HPPerFrame: "?GetPerkVariable[Me, 2009, RegenerationPower] * ?Hit[].Damage / ?GetPerkVariable[Me, 2009, Frames]"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_REGENERATION
+                Icon: ICON_ENCHANTMENT_REGENERATION
+                BackgroundColor: "#2f4668"
+                ShowExpiration: 1
+                Frames: "?GetPerkVariable[Me, 2009, Frames]"
+        Templates:
+          - STATE.ALIVE
+...

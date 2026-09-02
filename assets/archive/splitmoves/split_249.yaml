@@ -1,0 +1,43 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__PERPETUAL_SHADOW_FORM
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - ToggleShadowForm:
+                Value: 1
+                ApplyTo: Me
+                EffectName: "shadow_fire"
+          - CustomEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 1
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+                SingleInstance: 1
+          - RuleWithoutSF
+      - Events:
+          - StageChange
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].CurrentStage"
+                Value2: "FightEnd"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+                ApplyTo: Me
+                EffectName: "shadow_fire"
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+...

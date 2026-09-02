@@ -1,0 +1,34 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_RECOLLECTION
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+                Defense: HeadDefense
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1013, Chance]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetShadowCharge:
+                Value: "?GetShadowCharge[Me] +  ?GetPerkVariable[Me, 1013, ShadowChargeValue] * ?Hit[].BaseDamage * (1 + ?GetVariable[Me, CRITICAL_FACTOR].Value) * (1 + ?GetVariable[Me, BLOCK_FACTOR].Value) * (1 + ?GetVariable[Me, HEAD_FACTOR].Value) * (1 + ?GetVariable[Me, WEAPON].Value)"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_RECOLLECTION
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_RECOLLECTION
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

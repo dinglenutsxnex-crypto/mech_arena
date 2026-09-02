@@ -1,0 +1,51 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_ROCK
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+        Priority: 3100
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, CRITICAL].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1006, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Unstable"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "PHYSICS"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_ROCK_NO_FALL
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "?GetPerkVariable[Me, 1006, EnemyDamagefactor]"
+                ApplyTo: Enemy
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "?GetPerkVariable[Me, 1006, EnemyDamagefactor]"
+                ApplyTo: Enemy
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_ROCK
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_ROCK
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

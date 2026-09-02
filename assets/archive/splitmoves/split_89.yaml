@@ -1,0 +1,46 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_NOT_PLAYER_Staff
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_NOT_PLAYER
+        Actions:
+          - Animation:
+                Name: Staff_Stance_Start_Round
+        Priority: 10000
+        Events:
+          - VariableDestruction:
+                Player: Me
+                Name: START_ROUND_NOT_PLAYER
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Staff_Stance_Start_Round
+    "FileName": staff_stance.bin
+    "BlendingFrames": 1
+    "Groups":
+      - STANCE_START_ROUND
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "EndsStage":
+      - RoundStart
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 32
+...

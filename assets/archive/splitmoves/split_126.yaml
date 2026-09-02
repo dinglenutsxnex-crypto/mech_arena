@@ -1,0 +1,473 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Sabers_Throw
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.FORWARD
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Sabers_Throw_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_FORWARD"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                                IgnoredByAI: 1
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Sabers_Throw_Miss
+          - SetVariable:
+                Name: Shadow_Sabers_Throw_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_WEAPON
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Sabers_Throw_CD
+                Frames: 400
+                Equipment: Weapon
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Priority: 300
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Templates:
+          - REACTION.HIT_TO_ENEMY
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Shadow_Sabers_Throw_Start"
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_STEEL_FOOT_FALL].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, PERK_ROCK_NO_FALL].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Hit[].Name"
+                        Value2: "Hit_No_Critical_Reaction"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, BLOCK].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Unstable"
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentAnimation"
+                            Value2: "PHYSICS"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Shadow_Sabers_Throw_Hit
+                Value: 1
+                ApplyTo: Me
+                Frames: 100
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Me
+        Priority: 450
+        Events:
+          - PostHit:
+                Player: Enemy
+      - Priority: 400
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Shadow_Sabers_Throw_Hit
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Shadow_Sabers_Throw_Hit].Value"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Sabers_Throw_Hit
+Animations:
+  - "Animation": Shadow_Sabers_Throw_Miss
+    "FileName": s_dual_sabers_active_miss.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 88
+      - "Name": Shadow_Move_Successful
+        "Start": 33
+        "End": 33
+      - "Name": Shadow_Sabers_Throw_Hit
+        "Start": 50
+        "End": 50
+      - "Name": Throwable
+        "Start": 71
+      - "Name": Blocking
+        "Start": 77
+      - "Name": DissolveWeapon
+        "Start": 34
+        "End": 75
+      - "Name": Transitional
+        "End": 33
+      - "Type": Attack
+        "Start": 19
+        "End": 33
+        "HitTags":
+          - Hit_Shadow_Sabers_Throw_Start
+          - Unblockable
+        "AttackingParts":
+          - Saber_Attacking_Edge_l
+          - Saber_Attacking_Edge_r
+          - Hand_left
+          - Forearm_left
+        "Impulse":
+            "X": 20000
+            "Y": 10000
+        "Slowmo":
+            "Start": 18
+            "End": 30
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "BaseDamage": 0.05
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 6
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 10
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 17
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_hit
+        "Frame": 22
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 49
+  - "Animation": Shadow_Sabers_Throw_Hit
+    "FileName": s_dual_sabers_active_hit.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": -200
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 76
+      - "Name": Shadow_Move_Successful
+        "Start": 30
+        "End": 30
+      - "Name": Throwable
+        "Start": 71
+      - "Name": Blocking
+        "Start": 77
+      - "Type": Attack
+        "Start": 12
+        "End": 20
+        "HitTags":
+          - Hit_Chest_Heavy
+          - Unblockable
+        "AttackingParts":
+          - Saber_Attacking_Edge_r
+          - Hand_right
+          - Forearm_right
+        "Material": steel
+        "Impulse":
+            "X": 15000
+            "Y": 5000
+        "Slowmo":
+            "Start": 8
+            "End": 16
+            "Distance": 250
+        "Damage":
+            "Attack": MagicPower
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 250
+            "Name":
+              - Block_Middle_Heavy
+    "Sounds":
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_hit
+        "Frame": 22
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 49
+...

@@ -1,0 +1,78 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Twohanded_Sword_Slash_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Twohanded_Sword_Slash_Model_Attack
+          - ShakeCamera:
+                Frames: 30
+                AmpX: 8
+                AmpY: -15
+                PeriodX: 10
+                PeriodY: 10
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - PostHit:
+                Player: Parent
+        Actions:
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Twohanded_Sword_Slash_Model_Attack
+    "FileName": shadow_twohanded_heavy_slash_model.bin
+    "BlendingFrames": 0
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": foot_l
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": foot_l
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 3
+        "End": 25
+        "HitTags":
+          - Hit_Legs_Critical_Fall
+          - Unblockable
+          - No_FX_SFX
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 20000
+            "Y": 40000
+        "Slowmo":
+            "Start": 1
+            "End": 25
+            "Distance": 600
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.2
+        "Dodge":
+            "Distance": 350
+...

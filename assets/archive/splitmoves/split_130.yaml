@@ -1,0 +1,89 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mine_Model_Attack
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Actions:
+          - Animation:
+                Name: Shadow_Mine_Model_Attack
+          - CustomEffect:
+                Name: blink_explosion_base
+                ApplyTo: Me
+                AttachToBone: magic_joint_root
+                Looped: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Priority: 1110
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mine_Model_Attack"
+        Actions:
+          - DestroyEffect:
+                Name: blink_explosion_base
+                ApplyTo: Me
+          - DestroyMe
+Animations:
+  - "Animation": Shadow_Mine_Model_Attack
+    "FileName": s_str_armor_uppercut_bullet.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - SHADOW_ATTACKING_EDGE
+    "FirstFrame": 15
+    "EndFrame": 31
+    "BlendingFrames": 0
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": magic_joint_root
+        "Position":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "Shift":
+            "X": 50
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+      - "Type": Attack
+        "Start": 1
+        "End": 31
+        "HitTags":
+          - Hit_Legs_Critical_Fall
+          - Unblockable
+        "AttackingParts":
+          - Shadow_attacking_edge
+        "Impulse":
+            "X": 10000
+            "Y": 20000
+        "Slowmo":
+            "Start": 1
+            "End": 31
+            "Distance": 200
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.1
+...

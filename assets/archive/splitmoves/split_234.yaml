@@ -1,0 +1,167 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_MOVEMENT_COMBOS_Disarm
+    Triggers:
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - EveryFrame:
+                Step: 10
+        Priority: 99999
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STAND_UP"
+                  - Or:
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, Tutorial_ThrowShown].Value"
+                            Value2: "1"
+                      - Equal:
+                            Value1: "?GetVariable[Enemy, Tutorial_ThrowShown_1].Value"
+                            Value2: "1"
+              - And:
+                  - GreaterEqual:
+                        Value1: "?GetVariable[Enemy, Tutorial_Throw_Count].Value"
+                        Value2: "20"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Enemy].CurrentInterval"
+                            Value2: "Uninterrupt"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Gizmo_DISARM].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Gizmo_Disarm].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Uninterrupt"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "GizmoDisarmUse"
+                Log: "BattleID: 10"
+                Params:
+                    "AnimationsToSkip": "?GetVariable[Me, Tutorial_Throw_Count].Value"
+          - Animation:
+                Name: Gizmo_Cast_Start
+          - SetVariable:
+                Name: TUTORIAL_CONTROLS_DISABLED
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: Tutorial_Gizmo_Disarm
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Gizmo_SHOWDIALOGDisarm
+                Value: 1
+                ApplyTo: Me
+                Frames: 5
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: Tutorial_Gizmo_SHOWDIALOGDisarm
+        Actions:
+          - Call:
+                ID: DLG_GIZMO_AGGRO
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: DisarmMe
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "GizmoDisarm"
+                Log: "BattleID: 10"
+                Params:
+                    "GizmoDisarm": "1"
+          - SetVariable:
+                Name: Gizmo_DISARM
+                Value: 1
+                ApplyTo: Me
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: true
+          - Disarm:
+                ApplyTo: Me
+                InstantFreeze: 1
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                State: On
+          - RepulsionType:
+                ApplyTo: Me
+                State: 0
+Animations:
+  - "Animation": Gizmo_Cast_Start
+    "FileName": gizmo_ability_start.bin
+    "RepulsionScale":
+        "X": 0.5
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 58
+      - "Name": Blocking
+        "Start": 59
+      - "Name": DisarmMe
+        "Start": 50
+        "End": 50
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - strike/steel/4_Metallic_Weapon_Hit_V2
+            "Wood":
+              - strike/wood/heavy/2_Wood_Hits_A_V19_bip
+        "Frame": 18
+...

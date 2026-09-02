@@ -1,0 +1,29 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Attacking_Edge_Destruction
+    Triggers:
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "SHADOW_ATTACKING_EDGE"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Shadow_Mind_Throw_Model_Attack"
+        Actions:
+          - DestroyMe
+      - Events:
+          - StageChange:
+                Stage: RoundFightEnd
+        Actions:
+          - DestroyEffect:
+                Name: ShadowJumpDown
+                ApplyTo: Me
+          - DestroyEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+          - DestroyMe
+...

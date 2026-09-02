@@ -1,0 +1,103 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Common
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Priority: 49
+        Actions:
+          - Animation:
+                Name: Stance_Start_Birth
+        Events:
+          - Birth:
+                Player: Me
+  - Name: CLEAR_STATUSES_ON_ROUND_CHANGE
+    Triggers:
+      - Priority: 99999
+        Events:
+          - StageChange:
+                Stage: RoundFightEnd
+          - PostHit
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Trigger[].Event"
+                    Value2: "StageChange"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "PostHit"
+                  - Or:
+                      - LessEqual:
+                            Value1: "?Player[Me].Health"
+                            Value2: "0"
+                      - LessEqual:
+                            Value1: "?Player[Enemy].Health"
+                            Value2: "0"
+        Actions:
+          - ClearStatus:
+                ApplyTo: Me
+          - ClearStatusIcon:
+                ApplyTo: Me
+  - Name: EFFECT__Hit_FirstStrike
+    Triggers:
+      - Priority: -1300
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, FirstStrike].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, FirstStrike].Value"
+                    Value2: "1"
+        Actions:
+          - GUIEffect:
+                Name: GUIEffect_FirstStrike
+                ApplyTo: Enemy
+                PoolQuantity: 1
+                SingleInstance: 1
+          - SetVariable:
+                Name: FirstStrike
+                Value: 1
+                ApplyTo: Enemy
+  - Name: PERK
+    Triggers:
+      - Templates:
+          - STATE.ALIVE
+        Conditions:
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+Animations:
+  - "Animation": Stance_Start_Birth
+    "FileName": m_idle.bin
+    "BlendingFrames": 0
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

@@ -1,0 +1,144 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Mind_Throw_Passive
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+        Priority: 4000
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Hit_Mind_Throw"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Mind_Throw_Passive
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: head
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Passive"
+        Actions:
+          - DestroyEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Floorfall_Mind_Throw
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Passive"
+        Actions:
+          - ShakeCamera:
+                Frames: 30
+                AmpX: 8
+                AmpY: -15
+                PeriodX: 10
+                PeriodY: 10
+          - CustomEffect:
+                Name: mindThrowEnemyFallFX
+                ApplyTo: Me
+                AttachToBone: chest
+                Looped: 0
+                Follow: 0
+                Shift:
+                    X: 0
+                    Y: -12
+                    Z: 0
+                PoolQuantity: 1
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Priority: 1001
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Mind_Throw_Passive"
+        Actions:
+          - Animation:
+                Name: Physics
+          - SetVariable:
+                Name: InPhysics
+                Value: 1
+                ApplyTo: Me
+                Frames: 200
+Animations:
+  - "Animation": Shadow_Mind_Throw_Passive
+    "FileName": shadow_ability_helm_str_b.bin
+    "FirstFrame": 15
+    "EndFrame": 80
+    "Groups":
+      - SHADOW_MOVE_PASSIVE
+      - FALL
+      - FALL_CRITICAL_ON_FACE
+      - FOLLOWED_BY
+      - THROW_FALL
+      - SUPER_FALL
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Unstable
+        "Start": 62
+      - "Name": Floorfall_Mind_Throw
+        "Start": 60
+        "End": 60
+    "Sounds":
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_hit
+        "Frame": 15
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 24
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_whoosh_1
+        "Frame": 37
+      - "Common":
+          - shadow_moves/mind_throw/mind_throw_hit_end
+        "Frame": 46
+  - "Animation": Physics
+    "Groups":
+      - PHYSICS
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Unstable
+...

@@ -1,0 +1,547 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Dual_Swords_Slash
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.FORWARD
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Dual_Swords_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_FORWARD"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                                IgnoredByAI: 1
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Dual_Swords_Miss
+          - SetVariable:
+                Name: Shadow_Dual_Swords_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_WEAPON
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Dual_Swords_CD
+                Frames: 400
+                Equipment: Weapon
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Priority: 300
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Shadow_Dual_Swords_Left_FX
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].InMirrorPose"
+                    Value2: "1"
+        Actions:
+          - CustomEffect:
+                Name: shadow_dual_swords_trail_r
+                ApplyTo: Me
+                AttachToBone: w_dual_swords_02_r
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+                AttachToLocal: 1
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Shadow_Dual_Swords_Left_FX
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].InMirrorPose"
+                Value2: "1"
+        Actions:
+          - CustomEffect:
+                Name: shadow_dual_swords_trail_l
+                ApplyTo: Me
+                AttachToBone: w_dual_swords_02_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+                AttachToLocal: 1
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Shadow_Dual_Swords_Right_FX
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].InMirrorPose"
+                    Value2: "1"
+        Actions:
+          - CustomEffect:
+                Name: shadow_dual_swords_trail_l
+                ApplyTo: Me
+                AttachToBone: w_dual_swords_02_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+                AttachToLocal: 1
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Shadow_Dual_Swords_Right_FX
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].InMirrorPose"
+                Value2: "1"
+        Actions:
+          - CustomEffect:
+                Name: shadow_dual_swords_trail_r
+                ApplyTo: Me
+                AttachToBone: w_dual_swords_02_r
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+                AttachToLocal: 1
+      - Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Shadow_Dual_Swords_Miss"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Shadow_Dual_Swords_Hit"
+        Actions:
+          - DestroyEffect:
+                Name: shadow_dual_swords_trail_r
+                ApplyTo: Me
+          - DestroyEffect:
+                Name: shadow_dual_swords_trail_l
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].Name"
+                Value2: "Shadow_Dual_Sword_Hit"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+        Actions:
+          - Animation:
+                Name: Shadow_Dual_Swords_Hit
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Shadow_Dual_Swords_Model_Create
+        Priority: 399
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Dual_Swords_Hit"
+        Actions:
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 1
+                ApplyTo: Me
+          - CreateModel:
+                PoolQuantity: 1
+                OverrideFromParent: Weapon
+                ModelInfo:
+                    AiMode: NoneMode
+                    Alias: SHADOW_DUAL_SWORDS_SLASH_ATTACKING_EDGE
+                    Animation: 1
+                    Attributes:
+                        CriticalChance: 0
+                    Skeleton: shd-dual_swords_slash
+                    Tags:
+                      - SHADOW_DUAL_SWORDS_SLASH_MODEL
+                      - SHADOW_ATTACKING_EDGE
+                      - DESTROYABLE
+Animations:
+  - "Animation": Shadow_Dual_Swords_Miss
+    "FileName": shadow_ability_dual_swords_double.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - WEAPON
+      - DUAL_SWORDS
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 61
+      - "Name": Blocking
+        "Start": 62
+      - "Name": Transitional
+        "End": 34
+      - "Name": Shadow_Move_Successful
+        "Start": 34
+        "End": 34
+      - "Name": Shadow_Dual_Swords_Left_FX
+        "Start": 17
+        "End": 17
+      - "Name": Shadow_Dual_Swords_Right_FX
+        "Start": 25
+        "End": 25
+      - "Type": Attack
+        "Start": 19
+        "End": 26
+        "HitTags":
+          - Hit_Chest
+          - Shadow_Dual_Sword_Hit
+          - Unblockable
+        "AttackingParts":
+          - Dual_Sword_Attacking_Edge_r
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 19
+            "End": 26
+            "Distance": 500
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 27
+        "End": 34
+        "HitTags":
+          - Hit_Chest
+          - Shadow_Dual_Sword_Hit
+          - Unblockable
+        "AttackingParts":
+          - Dual_Sword_Attacking_Edge_l
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 27
+            "End": 34
+            "Distance": 500
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+    "Sounds":
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 16
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_in
+        "Frame": 17
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_in
+        "Frame": 25
+  - "Animation": Shadow_Dual_Swords_Hit
+    "FileName": shadow_abillty_dual_swords_tripple.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - WEAPON
+      - DUAL_SWORDS
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Transitions":
+      - "FrameShift": 0
+        "AITransistable": 1
+        "Animations":
+          - Shadow_Dual_Swords_Miss
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 61
+      - "Name": Blocking
+        "Start": 62
+      - "Name": Shadow_Dual_Swords_Left_FX
+        "Start": 17
+        "End": 17
+      - "Name": Shadow_Dual_Swords_Right_FX
+        "Start": 25
+        "End": 25
+      - "Name": Shadow_Move_Successful
+        "Start": 34
+        "End": 34
+      - "Name": Shadow_Dual_Swords_Model_Create
+        "Start": 42
+        "End": 42
+      - "Type": DissolveWeapon
+        "Start": 39
+        "End": 60
+      - "Type": Attack
+        "Start": 19
+        "End": 26
+        "HitTags":
+          - Hit_Chest
+          - Shadow_Dual_Sword_Hit
+          - Unblockable
+        "AttackingParts":
+          - Dual_Sword_Attacking_Edge_r
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 19
+            "End": 26
+            "Distance": 500
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 27
+        "End": 34
+        "HitTags":
+          - Hit_Chest
+          - Shadow_Dual_Sword_Hit
+          - Unblockable
+        "AttackingParts":
+          - Dual_Sword_Attacking_Edge_l
+        "Impulse":
+            "X": 15000
+            "Y": 8000
+        "Slowmo":
+            "Start": 27
+            "End": 34
+            "Distance": 500
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+    "Sounds":
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_in
+        "Frame": 17
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_in
+        "Frame": 25
+...

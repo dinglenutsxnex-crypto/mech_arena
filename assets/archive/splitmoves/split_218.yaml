@@ -1,0 +1,76 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_CORNERED_CAT
+    Triggers:
+      - Events:
+          - EveryFrame:
+                Step: 5
+        Conditions:
+          - LessEqual:
+                Value1: "?Player[Me].Health"
+                Value2: "?GetPerkVariable[Me, 1018, Health]"
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_CORNERED_CAT].Value"
+                Value2: "0"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_CORNERED_CAT
+                Value: 1
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_CORNERED_CAT
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_CORNERED_CAT
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_CORNERED_CAT].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "?GetPerkVariable[Me, 1018, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "?GetPerkVariable[Me, 1018, AdditionDamage]"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - EveryFrame:
+                Step: 5
+        Conditions:
+          - Greater:
+                Value1: "?Player[Me].Health"
+                Value2: "?GetPerkVariable[Me, 1018, Health]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_CORNERED_CAT
+                Value: 0
+                ApplyTo: Me
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_CORNERED_CAT
+        Templates:
+          - STATE.ALIVE
+...

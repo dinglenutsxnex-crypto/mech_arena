@@ -1,0 +1,42 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_DAMAGE_ABSORPTION_BODY
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+                Defense: BodyDefense
+        Conditions:
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2005, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "1 - ?GetPerkVariable[Me, 2005, DamageAbsorptionPower]"
+                ApplyTo: Enemy
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "1 - ?GetPerkVariable[Me, 2005, DamageAbsorptionPower]"
+                ApplyTo: Enemy
+          - SetAttribute:
+                Name: Factor_RangedDamage
+                Value: "1 - ?GetPerkVariable[Me, 2005, DamageAbsorptionPower]"
+                ApplyTo: Enemy
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_DAMAGE_ABSORPTION
+                Icon: ICON_ENCHANTMENT_DAMAGE_ABSORPTION
+                BackgroundColor: "#2f4668"
+                Frames: 90
+        Templates:
+          - STATE.ALIVE
+...

@@ -1,0 +1,51 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_BERSERK
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1003, Chance]"
+          - Greater:
+                Value1: "?Player[Me].Health - ?Hit[].Damage * ?GetPerkVariable[Me, 1003, Health]"
+                Value2: "0"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+          - ApplyStatus:
+                ApplyTo: Enemy
+                Name: PERK_BERSERK_DAMAGE
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "-?Hit[].Damage * ?GetPerkVariable[Me, 1003, AdditionDamage]"
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: PERK_BERSERK_DAMAGE
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "-(((?Hit[].Damage * ?GetPerkVariable[Me, 1003, AdditionDamage]) - ?Hit[].Damage) * ?GetPerkVariable[Me, 1003, Health])"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BERSERK
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BERSERK
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

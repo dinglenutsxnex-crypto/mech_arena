@@ -1,0 +1,462 @@
+﻿Root: 
+TriggerSets:
+  - Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON
+    Triggers:
+      - Priority: -99979
+        Events:
+          - PostHit
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetUserVariable[TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_ARMOR].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_HELMET].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                    Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowFormShown
+                Value: 1
+                ApplyTo: Me
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Skill_Weapon
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: On
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_NOReverse
+                Value: 1
+                ApplyTo: Me
+      - Priority: -99979
+        Events:
+          - PostHit
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetUserVariable[TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_ARMOR].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_HELMET].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                    Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetShadowCharge[Me]"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowFormShown
+                Value: 1
+                ApplyTo: Me
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Skill_Weapon_Reverse
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: On
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_YESReverse
+                Value: 1
+                ApplyTo: Me
+      - Priority: -99980
+        Events:
+          - StageChange:
+                Stage: RoundFightEnd
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+        Actions:
+          - HideTutorialPanel
+          - SetUserVariable:
+                Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON
+                Value: 1
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_Off].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_WEAPON_NOReverse].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_YESReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Skill_Weapon
+                Offset:
+                    X: 0
+                    Y: -320
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_Off].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_SHADOW_WEAPON_YESReverse].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Or:
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_YESReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_WEAPON_NOReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Skill_Weapon_Reverse
+                Offset:
+                    X: 0
+                    Y: -320
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+          - Less:
+                Value1: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value"
+                Value2: "17"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowSkill_Count
+                Value: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_Off].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, Tutorial_ShadowSkill_Count].Value"
+                Value2: "16"
+        Actions:
+          - HideTutorialPanel
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_Off
+                Value: 1
+                ApplyTo: Me
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+          - SetUserVariable:
+                Name: TUTORIAL_SHADOW_NEW_ABILITY_WEAPON
+                Value: 1
+      - Priority: 10
+        Events:
+          - AnimationStart:
+                Player: Me
+                Name: SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+        Actions:
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_2
+                Value: 1
+                ApplyTo: Me
+      - Priority: 9
+        Events:
+          - AnimationEnd:
+                Player: Me
+                Name: SHADOW_MOVE_END
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowForm_PauseAnimation].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_2].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowForm_PauseAnimation
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - AnimationEnd:
+                Player: Enemy
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_ShadowFormMoveShown_3].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, InPhysics].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, InPhysics].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "PHYSICS"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "PHYSICS"
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowForm_PauseAnimation].Value"
+                Value2: "1"
+          - GreaterEqual:
+                Value1: "?Player[Me].Health"
+                Value2: "0.15"
+          - GreaterEqual:
+                Value1: "?Player[Enemy].Health"
+                Value2: "0.15"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_3
+                Value: 1
+                ApplyTo: Me
+          - PauseAnimation:
+                ApplyTo: Enemy
+                InOutFrames: 120
+                Frames: 180
+          - PauseAnimation:
+                ApplyTo: Me
+                InOutFrames: 120
+                Frames: 180
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_DESTROY
+                Value: 1
+                Frames: 320
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_SHOW_UI
+                Value: 1
+                Frames: 100
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_ShadowFormMoveShown_4
+                Value: 1
+                ApplyTo: Me
+          - ShadowChargeBurnDown:
+                Enable: 0
+          - ShadowChargeBurnDown:
+                Enable: 0
+                ApplyTo: Enemy
+      - Events:
+          - VariableDestruction:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_SHOW_UI
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+        Actions:
+          - Call:
+                ID: TUTORIAL_SHADOW_COOLDOWN_WEAPON
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Shadow_Form_Cooldown
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+      - Events:
+          - VariableDestruction:
+                Name: TUTORIAL_SHADOW_ABILITY_COOLDOWN_DESTROY
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+        Actions:
+          - ShadowChargeBurnDown:
+                Enable: 1
+          - ShadowChargeBurnDown:
+                Enable: 1
+                ApplyTo: Enemy
+          - HideTutorialPanel
+          - Call:
+                ID: TUTORIAL_SHADOW_COOLDOWN_HIDE
+      - Events:
+          - ShadowChargeBurndown:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, TUTORIAL_SHADOW_NEW_ABILITY_WEAPON].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_ShadowFormShown].Value"
+                Value2: "1"
+        Actions:
+          - HideTutorialPanel
+          - HighlightKey:
+                Keys:
+                  - Shadow
+                Toggle: Off
+...

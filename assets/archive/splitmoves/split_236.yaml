@@ -1,0 +1,361 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_BLOCK
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - SetVariable:
+                Name: TUTORIAL
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 1
+                ApplyTo: Enemy
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 1
+                ApplyTo: Enemy
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: DojoMode
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 1
+                ApplyTo: Enemy
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                  - Forward
+                  - Back
+                  - Down
+                State: Off
+                Hide: 1
+      - Events:
+          - RoundLoad
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - Call:
+                ID: DLG_GIZMO_BLOCK
+      - Priority: 5000
+        Events:
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                    Value2: "1"
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_BlockShown
+                Value: 1
+                ApplyTo: Me
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: false
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Combos_Block
+                Replace:
+                  - "0"
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+      - Priority: 5000
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Block_Duals_Hit"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown_BlockInOut_Crutch].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Duals_InOut
+          - SetVariable:
+                Name: Tutorial_BlockShown_BlockInOut_Crutch
+                Value: 1
+                ApplyTo: Me
+      - Priority: 5000
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_BlockCombo].Value"
+                Value2: "2"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown_BlockInOut_Crutch_2].Value"
+                    Value2: "1"
+        Actions:
+          - SwitchKey:
+                Keys:
+                  - Punch
+                  - Kick
+                  - Up
+                  - Up_Forward
+                  - Down_Forward
+                  - Up_Back
+                  - Down_Back
+                  - Forward
+                  - Back
+                  - Down
+                State: On
+                Hide: 0
+          - SetVariable:
+                Name: Tutorial_BlockShown_BlockInOut_Crutch_2
+                Value: 1
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: 500
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Block_PauseAnimation].Value"
+                    Value2: "1"
+        Actions:
+          - PauseAnimation:
+                ApplyTo: Me
+                InOutFrames: 62
+                Frames: 130
+          - PauseAnimation:
+                ApplyTo: Enemy
+                InOutFrames: 62
+                Frames: 130
+          - SetVariable:
+                Name: Tutorial_Block_PauseAnimation
+                Value: 1
+                ApplyTo: Me
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Combos_Block
+                Replace:
+                  - "1"
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: 500
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockCombo].Value"
+                    Value2: "3"
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown_2].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_BlockCombo
+                Value: "?GetVariable[Me, Tutorial_BlockCombo].Value + 1"
+                ApplyTo: Me
+          - UpdateTutorialPanel:
+                Message: Tutorial_Combos_Block
+                Replace:
+                  - "?GetVariable[Me, Tutorial_BlockCombo].Value"
+          - SetVariable:
+                Name: Tutorial_BlockCombo_Destuction
+                Value: "1"
+                ApplyTo: Me
+                Frames: 60
+      - Events:
+          - PostHit:
+                Player: Me
+          - PostHit:
+                Player: Enemy
+        Priority: 500
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_BlockShown_2].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_NOBlockCombo
+                Value: "?GetVariable[Me, Tutorial_NOBlockCombo].Value + 1"
+                ApplyTo: Me
+      - Events:
+          - PostHit:
+                Player: Me
+          - PostHit:
+                Player: Enemy
+          - VariableDestruction:
+                Player: Me
+                Name: Tutorial_BlockCombo_Destuction
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "PostHit"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                        Value2: "1"
+                  - GreaterEqual:
+                        Value1: "?GetVariable[Me, Tutorial_NOBlockCombo].Value"
+                        Value2: "25"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, Tutorial_BlockShown_2].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "VariableDestruction"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Tutorial_BlockShown].Value"
+                        Value2: "1"
+                  - GreaterEqual:
+                        Value1: "?GetVariable[Me, Tutorial_BlockCombo].Value"
+                        Value2: "3"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, Tutorial_BlockShown_2].Value"
+                            Value2: "1"
+        Actions:
+          - AnalyticsLog:
+                EType: "TUTORIAL_STEP"
+                Name: "Block"
+                Log: "BattleID: 20"
+                Params:
+                    "BlockCombo": "?GetVariable[Me, Tutorial_BlockCombo].Value"
+                    "UnblockableCombo": "?GetVariable[Me, Tutorial_NOBlockCombo].Value"
+          - HideTutorialPanel
+          - ShowTutorialPanel:
+                Type: BattleTutorial
+                Message: Tutorial_Praise
+                Offset:
+                    X: 0
+                    Y: -320
+                Animation: MovingFromCenterAnimation
+          - UIElements:
+                ids:
+                  - 996
+                  - 997
+                  - 998
+                  - 999
+                Show: true
+          - SetVariable:
+                Name: CHEAT_NULL_PLAYER_DAMAGE
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - SetVariable:
+                Name: Tutorial_BlockShown_2
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL
+                Value: 0
+                ApplyTo: Me
+          - SetVariable:
+                Name: TUTORIAL_NO_THROWS
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 0
+                ApplyTo: Enemy
+                Frames: 1
+          - SetVariable:
+                Name: Tutorial_Praise
+                Value: 1
+                ApplyTo: Me
+                Frames: 160
+      - Events:
+          - VariableDestruction:
+                Name: Tutorial_Praise
+        Actions:
+          - HideTutorialPanel
+Animations:
+  - "Animation": Block_High_Duals_InOut
+    "FileName": b_dualweapon_high_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+...

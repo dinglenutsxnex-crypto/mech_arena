@@ -1,0 +1,28 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Equip_Armor_NonMetal
+    Triggers:
+      - Events:
+          - Equip:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Module[].CurrentTab"
+                    Value2: "Inventory_Weapon"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - items/equip/leather_equip
+  - Name: SFX__Roll_Leather
+    Triggers:
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: Roll_Sound
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - step/roll/leather/perekat_leather
+                  - step/roll/leather/perekat_leather_3
+...

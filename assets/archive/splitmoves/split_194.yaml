@@ -1,0 +1,20 @@
+﻿Root: 
+TriggerSets:
+  - Name: SFX__Strike_Axe
+    Triggers:
+      - Events:
+          - Strike:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Strike[].Material"
+                Value2: "axe"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/axe/hit1
+                  - strike/axe/hit2
+                  - strike/axe/hit3
+                  - strike/axe/hit4
+                  - strike/axe/hit5
+...

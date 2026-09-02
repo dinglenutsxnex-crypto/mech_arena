@@ -1,0 +1,148 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_BASHER_FOR_GIZMO
+    Triggers:
+      - Priority: 202
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Less:
+                Value1: "?GetVariable[Me, BASHER_FOR_GIZMO_CHEAT].Value"
+                Value2: "100"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: BASHER_FOR_GIZMO_CHEAT
+                Value: "?GetVariable[Me, BASHER_FOR_GIZMO_CHEAT].Value + 20"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Priority: 201
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetVariable[Me, BASHER_FOR_GIZMO_CHEAT].Value"
+          - Equal:
+                Value1: "?Player[Enemy].CurrentAnimation"
+                Value2: "WEAPON"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, PERK_BASHER].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BASHER
+                Value: 1
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BASHER
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Priority: 5001
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_BASHER].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "Stun"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "FOLLOWED_BY"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - Animation:
+                Name: Stun
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+                BackgroundColor: "#9f1c03"
+                Icon: ICON_PERK_BASHER
+                Frames: 90
+                ShowExpiration: 1
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Priority: 5002
+        Events:
+          - PostHit:
+                Player: Me
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Stun"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_BASHER
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BASHER
+        Templates:
+          - STATE.ALIVE
+Animations:
+  - "Animation": Stun
+    "FileName": h_stun.bin
+    "Groups":
+      - STATE
+      - STUN
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Uninterrupt
+...

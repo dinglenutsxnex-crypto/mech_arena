@@ -1,0 +1,15 @@
+﻿Root: 
+TriggerSets:
+  - Name: DISABLE_FIGHT_START_MESSAGE_IN_FIRST_TUTORIAL_FIGHT
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - FightSettings:
+                ShowFightStart: 0
+...

@@ -1,0 +1,275 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_TUTORIAL_SUPER_ARMOR_SLASH_In_Dojo
+    Triggers:
+      - Events:
+          - AnimationStart:
+                Player: Me
+          - ModuleEnter:
+                Name: DojoInterface
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STANCE_INVENTORY_OUT"
+                  - Equal:
+                        Value1: "?Module[].CurrentModule"
+                        Value2: "DojoInterface"
+              - Equal:
+                    Value1: "?Trigger[].Event"
+                    Value2: "ModuleEnter"
+              - Equal:
+                    Value1: "?Trigger[].Event"
+                    Value2: "StageChange"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetUserVariable[Tutorial_SUPER_ARMOR_Training].Value"
+                    Value2: "1"
+        Actions:
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: UiTutorial
+                Message: Tutorial_Super_Slash_Armor
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Kick
+                Toggle: On
+          - SetVariable:
+                Name: Tutorial_SUPER_ARMOR_Training_ON
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetUserVariable:
+                Name: Tutorial_SUPER_ARMOR_Training
+                Value: 1
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_NOReverse].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Inventory"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Shop"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "CharacterCreation"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "PerkScreen"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: UiTutorial
+                Message: Tutorial_Super_Slash_Armor
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - AnimationStart:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Tutorial_Super_Slash_YESReverse].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Inventory"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Shop"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "CharacterCreation"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "PerkScreen"
+          - Or:
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_Super_Slash_YESReverse
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: Tutorial_Super_Slash_NOReverse
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - HideTutorialPanel
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: false
+          - ShowTutorialPanel:
+                Type: UiTutorial
+                Message: Tutorial_Super_Slash_Armor_Reverse
+          - HighlightKey:
+                Keys:
+                  - Forward
+                Toggle: Off
+          - HighlightKey:
+                Keys:
+                  - Back
+                Toggle: On
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "ATTACK"
+        Actions:
+          - SetVariable:
+                Name: Tutorial_SUPER_Training_Count
+                Value: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value + 1"
+                ApplyTo: Me
+      - Priority: -100000
+        Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+        Actions:
+          - SwitchTactics:
+                ApplyTo: Enemy
+                Mode: NoneMode
+      - Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, Tutorial_SUPER_ARMOR_Training_ON].Value"
+                Value2: "1"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK_SUPER_1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "KICK_SUPER_2"
+              - GreaterEqual:
+                    Value1: "?GetVariable[Me, Tutorial_SUPER_Training_Count].Value"
+                    Value2: "15"
+        Actions:
+          - HideTutorialPanel
+          - UIElements:
+                ids:
+                  - 0
+                  - 900
+                  - 901
+                Show: true
+          - HighlightKey:
+                Keys:
+                  - Forward
+                  - Back
+                  - Kick
+                Toggle: Off
+          - SetVariable:
+                Name: Tutorial_SUPER_ARMOR_Training_ON
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+...

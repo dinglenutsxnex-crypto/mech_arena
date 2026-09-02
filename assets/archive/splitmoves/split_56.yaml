@@ -1,0 +1,2898 @@
+﻿Root: 
+TriggerSets:
+  - Name: ATTACK_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.BASIC
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash
+        Priority: 200
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Down|Up)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_Twohanded_Sword_Short_As_Heavy
+    Triggers:
+      - Templates:
+          - ATTACK.BASIC
+          - TACTICS.ATTACK_VERY_CLOSE
+          - TACTICS_BASE.ATTACK
+        Priority: 221
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "FALL"
+                    IgnoredByAI: 1
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "STAND_UP"
+                    IgnoredByAI: 1
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "110"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+              - Equal:
+                    Value1: "?Player[Me].KeyPress"
+                    Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Down|Up)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Up|Unhold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Short
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Up
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+      - Templates:
+          - ATTACK.HEAVY
+          - TACTICS.ATTACK_VERY_CLOSE
+          - TACTICS_BASE.ATTACK
+        Priority: 221
+        Conditions:
+          - LessEqual:
+                Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                Value2: "90"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_HEAVY].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Short
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "120"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_DOUBLE_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.DOUBLE
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Double
+        Priority: 210
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_BASIC"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_UPPER_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.UPPER
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Upper
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "JUMP_UP"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Up]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_LOW_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.LOW
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Low
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "LOW_STANCE"
+                          - Equal:
+                                Value1: "?Player[Me].CurrentInterval"
+                                Value2: "Transitional"
+              - And:
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Down]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_HEAVY_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.HEAVY
+          - TACTICS.ATTACK_AFAR
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Heavy
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Priority: 240
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TUTORIAL_NO_HEAVY].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Or:
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                                IgnoredByAI: 1
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch(Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "250"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SPINNING_1_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.SPINNING
+          - TACTICS.ATTACK_MIDRANGE
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Spinning_1
+        Priority: 220
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Down_Back
+                States:
+                  - Down
+          - KeyPress:
+                Player: Me
+                Key: Up_Back
+                States:
+                  - Down
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+                            IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_BACK"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch(Down|Hold)]"
+                          - Not:
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                      - And:
+                          - Not:
+                              - Equal:
+                                    Value1: "?Trigger[].Event"
+                                    Value2: "StageChange"
+                              - Equal:
+                                    Value1: "?Trigger[].Event"
+                                    Value2: "IntervalEnd"
+                              - Equal:
+                                    Value1: "?Player[Me].CurrentInterval"
+                                    Value2: "Uninterrupt"
+                          - Equal:
+                                Value1: "?Player[Me].KeyPress"
+                                Value2: "?CLC_KeyPressConvert[Punch]"
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Back(Down|Hold)]"
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Back(Down|Hold)]"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Back]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Back]"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Punch]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+        Tactics:
+            MathWeight: 600
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "160"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "300"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: ATTACK_SPINNING_2_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - ATTACK.SPINNING_DOUBLE
+          - TACTICS.ATTACK_COMBO
+          - TACTICS_BASE.ATTACK
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Slash_Spinning_2
+        Priority: 230
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Punch
+                States:
+                  - Down
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "ATTACK_SPINNING"
+                IgnoredByAI: 1
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Transitional"
+                IgnoredByAI: 1
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Or:
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "ATTACK"
+                  - Equal:
+                        Value1: "?Player[Enemy].CurrentAnimation"
+                        Value2: "HIT"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+              - LessEqual:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "370"
+  - Name: STANCE_IDLE_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - STANCE.IDLE
+          - STATE.ALIVE
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Idle
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 10
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundFightEnd"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+  - Name: STEP_FORWARD_Twohanded_Sword
+    Triggers:
+      - Actions:
+          - Animation:
+                Name: Twohanded_Sword_Step_Forward
+        Templates:
+          - TACTICS.APPROACH_CLOSE
+          - TACTICS_BASE.APPROACH
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 20
+            Conditions:
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+              - Greater:
+                    Value1: "abs(?Coordinate[?Player[Me],COM].X - ?Coordinate[?Player[Enemy],COM].X)"
+                    Value2: "100"
+  - Name: STEP_BACK_Twohanded_Sword
+    Triggers:
+      - Actions:
+          - Animation:
+                Name: Twohanded_Sword_Step_Back
+        Templates:
+          - TACTICS.RETREAT
+          - TACTICS_BASE.RETREAT
+        Priority: 100
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Back
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - StageChange:
+                Stage: RoundFightStart
+        Conditions:
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                        IgnoredByAI: 1
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Equal:
+                        Value1: "?Player[Me].CurrentAnimation"
+                        Value2: "STEP"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Back(Up|Unhold)]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Back(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+        Tactics:
+            MathWeight: 10
+            Conditions:
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+  - Name: STANCE_START_IDLE_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - STANCE.START_IDLE
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Stance_Start_Idle
+        Priority: 12
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+  - Name: STANCE_WIN_ROUND_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - STANCE.WIN_ROUND
+          - STATE.ALIVE
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Stance_Win_Round
+        Priority: 10500
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - EveryFrame:
+                Step: 10
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Winner].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_POSE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STAND_UP_KICK"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "EveryFrame"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "EveryFrame"
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Winner].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_POSE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STAND_UP_KICK"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+  - Name: STANCE_FINISHING_ROUND_IDLE_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - STANCE.FINISHING_ROUND_IDLE
+          - STATE.ALIVE
+        Actions:
+          - Animation:
+                Name: Twohanded_Sword_Stance_Win_Idle
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Priority: 9400
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundFightEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "FightEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundStart"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_WIN_POSE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_WIN_IDLE"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+  - Name: REACTION__Block_Overhead_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Twohanded_Sword_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_High_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Twohanded_Sword_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1202
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Short_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1202
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Heavy_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Middle_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 102
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Twohanded_Sword_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1202
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Short_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1202
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Middle_Heavy_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Low_Twohanded_Sword
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Twohanded_Sword_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Low"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1202
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Short_Twohanded_Sword_Hit
+        Events:
+          - PostHit:
+                Player: Me
+Animations:
+  - "Animation": Twohanded_Sword_Slash
+    "FileName": twohanded_sword_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_BASIC
+      - WEAPON
+      - TWOHANDED_SWORD
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 34
+      - "Name": Blocking
+        "Start": 35
+      - "Name": Transitional
+        "End": 20
+      - "Name": Throwable
+        "Start": 29
+      - "Name": Perk_Parry
+        "Start": 10
+        "End": 19
+      - "Type": Attack
+        "Start": 16
+        "End": 19
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 22000
+            "Y": -3000
+        "Slowmo":
+            "Start": 10
+            "End": 19
+            "Distance": 270
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 270
+            "Name":
+              - Block_High
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 12
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 8
+  - "Animation": Twohanded_Sword_Slash_Short
+    "FileName": twohanded_sword_short_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SHORT
+      - WEAPON
+      - TWOHANDED_SWORD
+      - SHORT
+    "RepulsionScale":
+        "X": 0.7
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 22
+      - "Name": Blocking
+        "Start": 23
+      - "Name": Throwable
+        "Start": 17
+      - "Name": Perk_Parry
+        "Start": 4
+        "End": 12
+      - "Type": Attack
+        "Start": 10
+        "End": 12
+        "HitTags":
+          - Hit_Head
+        "AttackingParts":
+          - Hand_left
+          - Forearm_left
+        "Impulse":
+            "X": 22000
+            "Y": 10000
+        "Slowmo":
+            "Start": 6
+            "End": 12
+            "Distance": 110
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 110
+            "Name":
+              - Block_High_Short
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 4
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 2
+  - "Animation": Twohanded_Sword_Slash_Double
+    "FileName": twohanded_sword_double_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_DOUBLE
+      - WEAPON
+      - TWOHANDED_SWORD
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Twohanded_Sword_Slash
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 50
+      - "Name": Blocking
+        "Start": 51
+      - "Name": Throwable
+        "Start": 45
+      - "Name": Perk_Parry
+        "Start": 10
+        "End": 19
+      - "Name": Perk_Parry
+        "Start": 23
+        "End": 32
+      - "Type": Attack
+        "Start": 16
+        "End": 19
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 22000
+            "Y": -3000
+        "Slowmo":
+            "Start": 10
+            "End": 19
+            "Distance": 270
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.05
+        "Block":
+            "Distance": 270
+            "Name":
+              - Block_High
+      - "Type": Attack
+        "Start": 29
+        "End": 32
+        "HitTags":
+          - Hit_Overhead
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 25000
+            "Y": -3000
+        "Slowmo":
+            "Start": 25
+            "End": 32
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.06
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Overhead
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 12
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 25
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 8
+  - "Animation": Twohanded_Sword_Slash_Upper
+    "FileName": twohanded_sword_upper_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_UPPER
+      - WEAPON
+      - TWOHANDED_SWORD
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 37
+      - "Name": Blocking
+        "Start": 38
+      - "Name": Throwable
+        "Start": 32
+      - "Name": Perk_Parry
+        "Start": 9
+        "End": 19
+      - "Type": Attack
+        "Start": 15
+        "End": 19
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 24000
+            "Y": 17000
+        "Slowmo":
+            "Start": 10
+            "End": 19
+            "Distance": 200
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 200
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 11
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 8
+  - "Animation": Twohanded_Sword_Slash_Low
+    "FileName": twohanded_sword_low_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_LOW
+      - WEAPON
+      - TWOHANDED_SWORD
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 32
+      - "Name": Blocking
+        "Start": 33
+      - "Name": Throwable
+        "Start": 27
+      - "Name": Perk_Parry
+        "Start": 11
+        "End": 19
+      - "Type": Attack
+        "Start": 17
+        "End": 19
+        "HitTags":
+          - Hit_Legs_Short
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 22000
+            "Y": 7000
+        "Slowmo":
+            "Start": 12
+            "End": 19
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Low_Short
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 11
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 8
+  - "Animation": Twohanded_Sword_Slash_Heavy
+    "FileName": twohanded_sword_heavy_slash.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_HEAVY
+      - WEAPON
+      - TWOHANDED_SWORD
+      - HEAVY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 44
+      - "Name": Blocking
+        "Start": 45
+      - "Name": Throwable
+        "Start": 39
+      - "Name": Perk_Parry
+        "Start": 13
+        "End": 22
+      - "Type": Attack
+        "Start": 18
+        "End": 22
+        "HitTags":
+          - Hit_Chest_Heavy
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_r
+        "Impulse":
+            "X": 25000
+            "Y": 12000
+        "Slowmo":
+            "Start": 13
+            "End": 22
+            "Distance": 420
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.13
+        "Block":
+            "Distance": 420
+            "Name":
+              - Block_Middle_Heavy
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 14
+      - "Gender":
+            "Male":
+              - voice/attack/heavy/m/m_heavy_attack_1
+              - voice/attack/heavy/m/m_heavy_attack_4
+              - voice/attack/heavy/m/m_heavy_attack_5
+              - voice/attack/heavy/m/m_heavy_attack_6
+              - voice/attack/heavy/m/m_heavy_attack_7
+            "Female":
+              - voice/attack/heavy/f/f_heavy_attack_1
+              - voice/attack/heavy/f/f_heavy_attack_2
+              - voice/attack/heavy/f/f_heavy_attack_3
+              - voice/attack/heavy/f/f_heavy_attack_4
+              - voice/attack/heavy/f/f_heavy_attack_5
+        "Frame": 8
+  - "Animation": Twohanded_Sword_Slash_Spinning_1
+    "FileName": twohanded_sword_spinning_slash1.bin
+    "BlendingFrames": 2
+    "Groups":
+      - ATTACK
+      - ATTACK_SPINNING
+      - WEAPON
+      - TWOHANDED_SWORD
+      - HEAVY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 43
+      - "Name": Blocking
+        "Start": 44
+      - "Name": Transitional
+        "End": 26
+      - "Name": Throwable
+        "Start": 38
+      - "Name": Perk_Parry
+        "Start": 14
+        "End": 23
+      - "Type": Attack
+        "Start": 20
+        "End": 23
+        "HitTags":
+          - Hit_Stomach
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_l
+        "Impulse":
+            "X": 24000
+            "Y": 10000
+        "Slowmo":
+            "Start": 14
+            "End": 23
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Low
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 16
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+  - "Animation": Twohanded_Sword_Slash_Spinning_2
+    "FileName": twohanded_sword_spinning_slash2.bin
+    "Groups":
+      - ATTACK
+      - ATTACK_SPINNING_DOUBLE
+      - WEAPON
+      - TWOHANDED_SWORD
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "ApplyTo": Bot
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Transitions":
+      - "FrameShift": 0
+        "Animations":
+          - Twohanded_Sword_Slash_Spinning_1
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 60
+      - "Name": Blocking
+        "Start": 61
+      - "Name": Throwable
+        "Start": 55
+      - "Name": Perk_Parry
+        "Start": 14
+        "End": 23
+      - "Name": Perk_Parry
+        "Start": 33
+        "End": 42
+      - "Type": Attack
+        "Start": 20
+        "End": 23
+        "HitTags":
+          - Hit_Stomach
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_l
+        "Impulse":
+            "X": 24000
+            "Y": 10000
+        "Slowmo":
+            "Start": 14
+            "End": 23
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Low
+      - "Type": Attack
+        "Start": 39
+        "End": 42
+        "HitTags":
+          - Hit_Chest
+        "AttackingParts":
+          - w_twohanded_sword_Attacking_Edge_l
+        "Impulse":
+            "X": 21000
+            "Y": 11000
+        "Slowmo":
+            "Start": 33
+            "End": 42
+            "Distance": 300
+        "Damage":
+            "Attack": WeaponDamage
+            "BaseDamage": 0.08
+        "Block":
+            "Distance": 300
+            "Name":
+              - Block_Middle
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 16
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 33
+      - "Gender":
+            "Male":
+              - voice/attack/light/m/m_light_attack_1
+              - voice/attack/light/m/m_light_attack_2
+              - voice/attack/light/m/m_light_attack_3
+              - voice/attack/light/m/m_light_attack_4
+              - voice/attack/light/m/m_light_attack_5
+            "Female":
+              - voice/attack/light/f/f_light_attack_1
+              - voice/attack/light/f/f_light_attack_2
+              - voice/attack/light/f/f_light_attack_3
+              - voice/attack/light/f/f_light_attack_4
+              - voice/attack/light/f/f_light_attack_5
+        "Frame": 10
+  - "Animation": Twohanded_Sword_Idle
+    "FileName": twohanded_sword_idle.bin
+    "Groups":
+      - STANCE_IDLE
+    "RepulsionScale":
+        "X": 0.9
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+  - "Animation": Twohanded_Sword_Step_Forward
+    "FileName": twohanded_sword_step_forward.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_FORWARD
+    "RepulsionScale":
+        "X": 0.9
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/Wood/8_Footsteps_Wood_Surface_V3
+              - step/Wood/8_Footsteps_Wood_Surface_V7
+              - step/Wood/8_Footsteps_Wood_Surface_V9
+              - step/Wood/8_Footsteps_Wood_Surface_V10
+              - step/Wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Twohanded_Sword_Step_Back
+    "FileName": twohanded_sword_step_back.bin
+    "Groups":
+      - MOVE
+      - STEP
+      - STEP_BACK
+    "RepulsionScale":
+        "X": 0.9
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - step/stone/9_Footsteps_Stone_Surface_V1
+              - step/stone/9_Footsteps_Stone_Surface_V2
+              - step/stone/9_Footsteps_Stone_Surface_V25
+            "Wood":
+              - step/Wood/8_Footsteps_Wood_Surface_V3
+              - step/Wood/8_Footsteps_Wood_Surface_V7
+              - step/Wood/8_Footsteps_Wood_Surface_V9
+              - step/Wood/8_Footsteps_Wood_Surface_V10
+              - step/Wood/8_Footsteps_Wood_Surface_V12
+        "Frame": 10
+  - "Animation": Twohanded_Sword_Stance_Start_Idle
+    "FileName": twohanded_sword_stance_idle.bin
+    "Groups":
+      - STANCE_START_IDLE
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+  - "Animation": Twohanded_Sword_Stance_Win_Round
+    "FileName": twohanded_sword_win_stance.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Groups":
+      - STANCE_WIN_POSE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "EndsStage":
+      - RoundFightEnd
+    "Intervals":
+      - "Name": Uninterrupt
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 10
+      - "Floor":
+            "Stone":
+              - strike/steel/4_Metallic_Weapon_Hit_V2
+            "Wood":
+              - strike/wood/heavy/2_Wood_Hits_A_V19_bip
+        "Frame": 50
+  - "Animation": Twohanded_Sword_Stance_Win_Idle
+    "FileName": twohanded_sword_win_stance_idle.bin
+    "Groups":
+      - STANCE_WIN_IDLE
+    "Intervals":
+      - "Name": Uninterrupt
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+  - "Animation": Block_Overhead_Twohanded_Sword_InOut
+    "FileName": b_twohanded_sword_overhead_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Overhead_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_overhead_block.bin
+    "FirstFrame": 15
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 33
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 34
+  - "Animation": Block_High_Twohanded_Sword_InOut
+    "FileName": b_twohanded_sword_high_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_High_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_high_block.bin
+    "FirstFrame": 11
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 27
+      - "Name": Blocking
+  - "Animation": Block_High_Short_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_high_block_short.bin
+    "FirstFrame": 12
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 22
+      - "Name": Blocking
+  - "Animation": Block_High_Heavy_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_high_block_heavy.bin
+    "FirstFrame": 10
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 35
+      - "Name": Blocking
+  - "Animation": Block_Middle_Twohanded_Sword_InOut
+    "FileName": b_twohanded_sword_mid_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Middle_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_mid_block.bin
+    "FirstFrame": 15
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 32
+      - "Name": Blocking
+  - "Animation": Block_Middle_Short_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_mid_block_short.bin
+    "FirstFrame": 13
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 22
+      - "Name": Blocking
+  - "Animation": Block_Middle_Heavy_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_mid_block_heavy.bin
+    "FirstFrame": 22
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 46
+      - "Name": Blocking
+  - "Animation": Block_Low_Twohanded_Sword_InOut
+    "FileName": b_twohanded_sword_low_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Low_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_low_block.bin
+    "FirstFrame": 14
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 33
+      - "Name": Blocking
+  - "Animation": Block_Low_Short_Twohanded_Sword_Hit
+    "FileName": b_twohanded_sword_low_block_short.bin
+    "FirstFrame": 14
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 27
+      - "Name": Blocking
+...

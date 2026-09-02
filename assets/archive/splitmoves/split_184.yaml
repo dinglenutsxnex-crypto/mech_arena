@@ -1,0 +1,142 @@
+﻿Root: 
+TriggerSets:
+  - Name: EFFECT__Hit_Fists
+    Triggers:
+      - Templates:
+          - EFFECT.HIT_COMMON
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "FISTS"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "HEAVY"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Basic
+                ParticlesCount: 100
+                ApplyTo: Enemy
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 6
+                AmpX: 5
+                AmpY: 12
+                PeriodX: 10.5
+                PeriodY: 10.5
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Enemy
+      - Templates:
+          - EFFECT.HIT_COMMON
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "FISTS"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "HEAVY"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Basic
+                ParticlesCount: 110
+                ApplyTo: Enemy
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 9
+                AmpX: 6
+                AmpY: 12
+                PeriodX: 9
+                PeriodY: 9
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Enemy
+  - Name: EFFECT__Hit_Block
+    Triggers:
+      - Templates:
+          - EFFECT.HIT_ME
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Block_Basic
+                ParticlesCount: 1000
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 6
+                AmpX: 3
+                AmpY: 9
+                PeriodX: 5.7
+                PeriodY: 6.3
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: SFX__Block_Unarmed
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Conditions:
+          - Equal:
+                Value1: "?Hit[].WeaponMaterial"
+                Value2: "flesh"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - block/flesh/12_Block_Body_Leather_Surface_Layer_V9
+                  - block/flesh/12_Block_Body_Leather_Surface_Layer_V22
+                  - block/flesh/12_Block_Body_Leather_Surface_Layer_V27
+                  - block/flesh/12_Block_Body_Leather_Surface_Layer_V29
+                  - block/flesh/12_Block_Body_Leather_Surface_Layer_V38
+        Priority: 1100
+        Events:
+          - PostHit:
+                Player: Me
+...

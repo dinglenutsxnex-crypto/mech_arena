@@ -1,0 +1,11 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__INVERTED_JOYSTICK
+    Triggers:
+      - Priority: 999999
+        Events:
+          - StageChange:
+                Stage: RoundFightStart
+        Actions:
+          - RuleInvertJoystick
+...

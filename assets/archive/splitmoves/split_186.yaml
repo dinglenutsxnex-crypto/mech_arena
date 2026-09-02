@@ -1,0 +1,160 @@
+﻿Root: 
+TriggerSets:
+  - Name: EFFECT__Hit_Blunt
+    Triggers:
+      - Templates:
+          - EFFECT.HIT_COMMON
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "HEAVY"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Staff
+                ParticlesCount: 140
+                ApplyTo: Enemy
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 10
+                AmpX: 6
+                AmpY: 12
+                PeriodX: 9
+                PeriodY: 9
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Enemy
+      - Templates:
+          - EFFECT.HIT_COMMON
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "HEAVY"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Staff
+                ParticlesCount: 150
+                ApplyTo: Enemy
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 12
+                AmpX: 8
+                AmpY: 12
+                PeriodX: 7.8
+                PeriodY: 7.8
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Enemy
+  - Name: EFFECT__Hit_Critical_Blunt
+    Triggers:
+      - Templates:
+          - EFFECT.HIT
+        Priority: -1200
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Enemy, CRITICAL].Value"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Not:
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Enemy, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - PlaySound:
+                Sounds:
+                  - strike/critical/crit2-metal
+                  - strike/critical/crit-metal_2
+          - HitEffect:
+                Name: HitEffect_Critical_Staff
+                ParticlesCount: 1000
+                PoolQuantity: 1
+                SingleInstance: 1
+          - GUIEffect:
+                Name: GUIEffect_Critical
+                ApplyTo: Me
+                PoolQuantity: 1
+                SingleInstance: 1
+          - FreezeFrame:
+                Frames: 55
+          - ShakeCamera:
+                Frames: 55
+                AmpX: 5
+                AmpY: 15
+                PeriodX: 5.7
+                PeriodY: 6.3
+        Events:
+          - PostHit:
+                Player: Enemy
+  - Name: EFFECT__Hit_Block_With_Blunt
+    Triggers:
+      - Templates:
+          - EFFECT.HIT_ME
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Hit[].Name"
+                    Value2: "No_FX_SFX"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - HitEffect:
+                Name: HitEffect_Block_Staff
+                ParticlesCount: 1000
+                PoolQuantity: 1
+                SingleInstance: 1
+          - ShakeCamera:
+                Frames: 7
+                AmpX: 4
+                AmpY: 10
+                PeriodX: 5.7
+                PeriodY: 6.3
+        Priority: -1000
+        Events:
+          - PostHit:
+                Player: Me
+...

@@ -1,0 +1,45 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_BREACHER
+    Triggers:
+      - Priority: 9990
+        Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - Equal:
+                Value1: "?GetVariable[Enemy, BLOCK].Value"
+                Value2: "1"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1002, Chance]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_BREACHER
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_BREACHER
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+          - ShakeCamera:
+                Frames: 20
+                AmpX: 3
+                AmpY: 10
+                PeriodX: 5.7
+                PeriodY: 6.3
+          - SetVariable:
+                Name: BLOCK_BROKEN
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 1
+        Templates:
+          - STATE.ALIVE
+...

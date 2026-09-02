@@ -1,0 +1,3396 @@
+﻿Root: 
+SplitFiles:
+  - FileName: split_0
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_1
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_2
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_3
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_4
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_5
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_6
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_7
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_8
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "IM_A_SHURIKEN"
+  - FileName: split_9
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_10
+    Locks:
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_11
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+  - FileName: split_12
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PRECISE"
+  - FileName: split_13
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+  - FileName: split_14
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+  - FileName: split_15
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_16
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_17
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_18
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_19
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STRONG"
+  - FileName: split_20
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_21
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_22
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_23
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_24
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PRECISE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_25
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_26
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PRECISE"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_27
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_28
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_29
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_AGILE_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_30
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_AGILE_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_31
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_AGILE_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AGILE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_32
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_33
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_34
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_35
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_36
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_37
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SUPER_ARMOR_STRONG_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_38
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_39
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_40
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_41
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_42
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_AGILE_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_43
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_AGILE_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_44
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_AGILE_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_45
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_STRONG_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_46
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_STRONG_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_47
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORDS_STRONG_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_48
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_49
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_50
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_51
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_52
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_53
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_54
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_55
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_56
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_57
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_58
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_TWOHANDED_SWORD_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_59
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_TWOHANDED_SWORD_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_60
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_TWOHANDED_SWORD_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_61
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_TWOHANDED_SWORD_4"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_62
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_63
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_64
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_65
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_66
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_67
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_68
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORD_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_69
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SWORD_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_70
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_71
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_72
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_73
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_74
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_75
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_76
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_NUNCHAKU_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_77
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_NUNCHAKU_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_78
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_79
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_80
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_81
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_82
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_83
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_84
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_STAFF_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_85
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_STAFF_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_86
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_87
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_88
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_89
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STAFF"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_90
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_TWOHANDED_SWORD_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_91
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_TWOHANDED_SWORD_SLASH_MODEL"
+  - FileName: split_92
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SWORD_LONELY_SPINNING_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_93
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SWORD_LONELY_SLASH_MODEL"
+  - FileName: split_94
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_DUAL_SWORDS_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORDS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_95
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_DUAL_SWORDS_SLASH_MODEL"
+  - FileName: split_96
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SPEAR_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_97
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SPEAR_THROW_MODEL"
+  - FileName: split_98
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_HAMMERS_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_99
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_HAMMERS_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_100
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SPEAR_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_101
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SPEAR_SLASH_MODEL"
+  - FileName: split_102
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_SPEAR_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_103
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_AXES_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_104
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SWORD_RAY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SWORD_LONELY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_105
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SWORD_RAY_MODEL"
+  - FileName: split_106
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_STRONG_WEAPON"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_107
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_THUD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_108
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_THUD_MODEL"
+  - FileName: split_109
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_CARAPACE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_110
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_CARAPACE_MODEL"
+  - FileName: split_111
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_STRONG_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_112
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_POWER_WILL"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_113
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_MIND_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_114
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_MIND_THROW_MODEL"
+  - FileName: split_115
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_MIND_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_116
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_UPPERCUT"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_117
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_UPPERCUT_MODEL"
+  - FileName: split_118
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_UPPERCUT"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_119
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_STAFF_SPINNING_SLASH"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+  - FileName: split_120
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_NUNCHAKU_SPINNING_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_121
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SABERS_BLINK"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_122
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_SABERS_BLINK"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_123
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_GUANDAO_SPINNING_SLASH_1"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+  - FileName: split_124
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_GUANDAO_SPINNING_SLASH_2"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+  - FileName: split_125
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_AGILE_WEAPON_TORNADO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_126
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SABERS_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SABERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_127
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_SABERS_THROW"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_128
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_BLINK"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_129
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_MINE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_130
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_MINE_MODEL"
+  - FileName: split_131
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_STASIS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_132
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_AGILE_HELMET"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_133
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_DASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_134
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_PUSH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_135
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_PUSH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_136
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_SPURT"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_137
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_MIND_CONTROL"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_138
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_MIND_CONTROL"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_139
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_EVAPORATION"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_140
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_EVAPORATION_MODEL"
+  - FileName: split_141
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SHADOW_EVAPORATION"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_142
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_VANISH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_143
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "DESTROYABLE"
+  - FileName: split_144
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_145
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_146
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_AXES_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_147
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SUPER_AXES_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_148
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_AXES_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_149
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_150
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_151
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_152
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_153
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_154
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_155
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_HAMMERS_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_156
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_HAMMERS_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_157
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_158
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_159
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_160
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_GUANDAO_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_161
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_GUANDAO_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_162
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_163
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_164
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_165
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "GUANDAO"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_166
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_167
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_168
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SPEAR_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_169
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SPEAR_2"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_170
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_SPEAR_3"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_WEAPON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_171
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_172
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_173
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_174
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SPEAR"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_175
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_AXES_THROW"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_SWORD_RAY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_176
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_GUANDAO_SPINNING_SLASH_2"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_DUAL_SWORDS_SLASH"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_NUNCHAKU_SPINNING_SLASH"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_AGILE_WEAPON_TORNADO"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_STAFF_SPINNING_SLASH"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_SWORD_LONELY_SPINNING_SLASH"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_177
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_THUD"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_TWOHANDED_SWORD_SLASH"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_AXES_THROW"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_MINE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_178
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_RANDOM_ABILITY"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_179
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "MAGIC_FIREBALL"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_GUANDAO_SPINNING_SLASH_1"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_SABERS_BLINK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "SHADOW_STRONG_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_180
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORDS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SABERS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORD_LONELY"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KNIVES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "AXES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SAI"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_181
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_182
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_HAMMER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_183
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "KATANA"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_184
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_185
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORDS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SABERS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORD_LONELY"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KNIVES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "TWOHANDED_SWORD"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KATANA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "AXES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SAI"
+  - FileName: split_186
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NUNCHAKU"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "HAMMERS"
+  - FileName: split_187
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "FISTS"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_188
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Fight[].Location"
+                Value2: "Dojo"
+          - Equal:
+                Value1: "?Fight[].Location"
+                Value2: "chinatown"
+          - Equal:
+                Value1: "?Fight[].Location"
+                Value2: "dojo_fight"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_189
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ARMOR_METAL"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_190
+    Locks:
+      - Equal:
+            Value1: "?Fight[].Location"
+            Value2: "bamboo"
+      - Equal:
+            Value1: "?Fight[].Location"
+            Value2: "temple"
+      - Equal:
+            Value1: "?Fight[].Location"
+            Value2: "backstreets"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_191
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "ARMOR_METAL"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_192
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_ATTACKING_EDGE"
+  - FileName: split_193
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_ATTACKING_EDGE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "KATANA"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_194
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_ATTACKING_EDGE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "AXES"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_195
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_ATTACKING_EDGE"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_196
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "INVISIBLE"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOWLESS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_197
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_198
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "INVISIBLE"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOWLESS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_199
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Rule[Me, SargeSF].HasRule"
+                Value2: "1"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "INVISIBLE"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOWLESS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_200
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SHADOW_ATTACKING_EDGE"
+  - FileName: split_201
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOWLESS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_202
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "PERK_BASHER"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_203
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_BREACHER"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_204
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_BERSERK"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_205
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_IRON_GRIP"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_206
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_STEEL_FOOT"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_207
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_ROCK"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_208
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_STONE_SKIN"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_209
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_REVENGE"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_210
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_REPELLER"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_211
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_PREDATOR"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_212
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_RETRIBUTION"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_213
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_RECOLLECTION"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_214
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_PLUCK"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_215
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_BACKSTABBER"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_216
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_WOLVERINE"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_217
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_FLURRY"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_218
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_CORNERED_CAT"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_219
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_SPURT"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_220
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_VENGEFUL_TIGER"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_221
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_RISING_TIDE"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_222
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PERK_BREAKING_POINT"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_223
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_LIFESTEAL"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_224
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_BLEEDING"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_225
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_DAMAGE_RETURN_BODY"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_226
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_DAMAGE_RETURN_HEAD"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_227
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_DAMAGE_ABSORPTION_BODY"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_228
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_DAMAGE_ABSORPTION_HEAD"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_229
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_SHADOW_DRAIN"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_230
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_REGENERATION_BODY"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_231
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "ENCHANTMENT_REGENERATION_HEAD"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_232
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_233
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_234
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_235
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TUTORIAL_BLOCK"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_236
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_BLOCK"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_237
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT_COMBOS"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_BLOCK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_SF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_238
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_239
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+  - FileName: split_240
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_MOVEMENT_COMBOS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "STRONG"
+  - FileName: split_241
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "TUTORIAL_SF"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_242
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+  - FileName: split_243
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_ARMOR"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_244
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT_COMBOS"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_BLOCK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_SF"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_TWOHANDED_SWORD_SLASH"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_SWORD_LONELY_SPINNING_SLASH"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_DUAL_SWORDS_SLASH"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_SPEAR_THROW"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_HAMMERS_THROW"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_SPEAR_SLASH"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_AXES_THROW"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_SWORD_RAY"
+  - FileName: split_245
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT_COMBOS"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_BLOCK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_SF"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_246
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT_COMBOS"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_BLOCK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_SF"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_THUD"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_CARAPACE"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_STRONG_ARMOR"
+  - FileName: split_247
+    Locks:
+      - Not:
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_CHEAT"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_MOVEMENT_COMBOS"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_BLOCK"
+          - Equal:
+                Value1: "?Player[Enemy].TagExists"
+                Value2: "TUTORIAL_SF"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_UPPERCUT"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SHADOW_POWER_WILL"
+  - FileName: split_248
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, Shadowless].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_249
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, PerpetualSF].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_250
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, Regeneration].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_251
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, Degeneration].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_252
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, Darkness].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_253
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, InvertedJoystick].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_254
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, ScoreFight].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_255
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, WithoutHP].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_256
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, WithoutSF].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_257
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, InvisibleWarrior].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_258
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, WithoutTime].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_259
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, TimeoutWin].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_260
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, PerfectWin].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_261
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, LifeSteal].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_262
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, NoKicks].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_263
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, NoPunches].HasRule"
+            Value2: "1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_264
+    Locks:
+      - Equal:
+            Value1: "?Rule[Me, SargeSF].HasRule"
+            Value2: "1"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+  - FileName: split_265
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SUPER_GIZMO_THROW_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_266
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "SUPER_GIZMO_THROW_1"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_267
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "BETA_LEGIONDOJO_MQ_SPILLTHEBEANS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_268
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "BETA_BAMBOO_MQ_YOUWEREASONTOME_BOSS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "HAMMERS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_269
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "BETA_BAMBOO_MQ_YOUWEREASONTOME_BOSS"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_270
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "FISTS"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_271
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORD_LONELY"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "TWOHANDED_SWORD"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KATANA"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_272
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NUNCHAKU"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "TWOHANDED_SWORD"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "TWOHANDED_HAMMER"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_273
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORDS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SABERS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KNIVES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "AXES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SAI"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_274
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "STAFF3"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "GUANDAO"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "NAGINATA"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SPEAR"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_275
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "NUNCHAKU"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_276
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_SWORD"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_277
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "TWOHANDED_HAMMER"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_278
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "KNIVES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "AXES"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SAI"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "HAMMERS"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_279
+    Locks:
+      - Or:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SWORDS"
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "SABERS"
+      - Equal:
+            Value1: "?Fight[].BattleType"
+            Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_280
+    Locks:
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "BETA_LEGIONDOJO_MQ_SPILLTHEBEANS"
+      - Not:
+          - Equal:
+                Value1: "?Player[Me].TagExists"
+                Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+  - FileName: split_281
+    Locks:
+      - Equal:
+            Value1: "?Player[Enemy].TagExists"
+            Value2: "BETA_LEGIONDOJO_MQ_SPILLTHEBEANS"
+      - Not:
+          - Equal:
+                Value1: "?Fight[].BattleType"
+                Value2: "Dojo"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "PLAYER"
+      - Equal:
+            Value1: "?Player[Me].TagExists"
+            Value2: "SKELETON"
+...

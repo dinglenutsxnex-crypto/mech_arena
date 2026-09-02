@@ -1,0 +1,532 @@
+﻿Root: 
+TriggerSets:
+  - Name: Shadow_Staff_Slash
+    Triggers:
+      - Templates:
+          - SHADOW_KEY.FORWARD
+          - STATE.SHADOW_FORM
+          - TACTICS.SHADOW_ATTACK
+          - TACTICS_BASE.SHADOW_MOVE
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, Shadow_Staff_Slash_CD].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Not:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "AnimationEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "IntervalEnd"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                        IgnoredByAI: 1
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STEP_FORWARD"
+                            IgnoredByAI: 1
+                      - And:
+                          - Equal:
+                                Value1: "?Player[Me].CurrentAnimation"
+                                Value2: "STEP_BACK"
+                                IgnoredByAI: 1
+                          - Or:
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                                    IgnoredByAI: 1
+                              - Equal:
+                                    Value1: "?Player[Me].KeyPress"
+                                    Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                                    IgnoredByAI: 1
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "IntervalEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "StageChange"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward]"
+                  - Not:
+                      - Equal:
+                            Value1: "?GetVariable[Me, TUTORIAL].Value"
+                            Value2: "1"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Equal:
+                        Value1: "?Player[Me].KeyPress"
+                        Value2: "?CLC_KeyPressConvert[Shadow]"
+                  - Or:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Down_Forward(Down|Hold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Up_Forward(Down|Hold)]"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Forward(Up|Unhold)]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Punch]"
+                      - Equal:
+                            Value1: "?Player[Me].KeyPress"
+                            Value2: "?CLC_KeyPressConvert[Kick]"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - Animation:
+                Name: Shadow_Staff_Slash
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: w_staff_08_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh
+                ApplyTo: Me
+                AttachToBone: w_staff_02_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_l
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh_hand
+                ApplyTo: Me
+                AttachToBone: hand_r
+                Looped: 0
+                Follow: 1
+                Shift:
+                    X: 0
+                    Y: 0
+                    Z: 0
+                PoolQuantity: 1
+          - CustomEffect:
+                Name: sf_staff_thresh_strike
+                ApplyTo: Me
+                AttachToBone: pelvis
+                Looped: 1
+                Follow: 1
+                Shift:
+                    X: 270
+                    Y: 85
+                    Z: 0
+                PoolQuantity: 1
+          - SetVariable:
+                Name: Shadow_Staff_Slash_CD
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - SetVariable:
+                Name: SF_CD_WEAPON
+                Value: 1
+                ApplyTo: Me
+                Frames: 400
+          - ShowSFIcon:
+                ApplyTo: Me
+                Name: Shadow_Staff_Slash_CD
+                Frames: 400
+                Equipment: Weapon
+        Events:
+          - KeyPress:
+                Player: Me
+                Key: Shadow
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Down_Forward
+                States:
+                  - Down
+                  - Hold
+          - KeyPress:
+                Player: Me
+                Key: Up_Forward
+                States:
+                  - Down
+                  - Hold
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - StageChange:
+                Stage: RoundFightStart
+          - AnimationEnd:
+                Player: Me
+        Priority: 300
+        Tactics:
+            MathWeight: 1800
+            Conditions:
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+              - Not:
+                  - Equal:
+                        Value1: "?GetVariable[Me, TUTORIAL_CONTROLS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, CHEAT_ATTACKS_DISABLED].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_ARMOR].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_WEAPON].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?GetVariable[Me, SF_CD_HELM].Value"
+                        Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].ShadowForm"
+                    Value2: "1"
+      - Events:
+          - AnimationEnd:
+                Player: Me
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Shadow_Staff_Slash"
+        Actions:
+          - DestroyEffect:
+                Player: Me
+                Name: sf_staff_thresh
+          - DestroyEffect:
+                Player: Me
+                Name: sf_staff_thresh_hand
+          - DestroyEffect:
+                Player: Me
+                Name: sf_staff_thresh_strike
+Animations:
+  - "Animation": Shadow_Staff_Slash
+    "FileName": shadow_staff_ability.bin
+    "Groups":
+      - ATTACK
+      - SHADOW_MOVE
+      - SHADOW_MOVE_END
+      - WEAPON
+      - STAFF
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 73
+      - "Name": Shadow_Move_Successful
+        "Start": 60
+        "End": 60
+      - "Name": Throwable
+        "Start": 68
+      - "Name": Blocking
+        "Start": 74
+      - "Type": Attack
+        "Start": 6
+        "End": 9
+        "HitTags":
+          - Hit_Head
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 2
+            "End": 9
+            "Distance": 400
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 10
+        "End": 12
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 6
+            "End": 12
+            "Distance": 300
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 15
+        "End": 17
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 11
+            "End": 17
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 19
+        "End": 23
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 15
+            "End": 23
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 26
+        "End": 28
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 22
+            "End": 28
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 32
+        "End": 35
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 28
+            "End": 35
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 38
+        "End": 41
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 34
+            "End": 41
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 44
+        "End": 46
+        "HitTags":
+          - Hit_Head_Short
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 40
+            "End": 46
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.02
+      - "Type": Attack
+        "Start": 52
+        "End": 54
+        "HitTags":
+          - Hit_Overhead
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 48
+            "End": 54
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.04
+      - "Type": Attack
+        "Start": 59
+        "End": 61
+        "HitTags":
+          - Hit_Overhead_Critical_Fall
+          - Unblockable
+        "AttackingParts":
+          - Staff_Attacking_Edge_l
+        "Impulse":
+            "X": 10000
+            "Y": 5000
+        "Slowmo":
+            "Start": 55
+            "End": 61
+            "Distance": 275
+        "Damage":
+            "Attack": MagicPower
+            "Defense": BodyDefense
+            "BaseDamage": 0.06
+    "Sounds":
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_out
+        "Frame": 3
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_1
+        "Frame": 7
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_2
+        "Frame": 15
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_3
+        "Frame": 22
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_4
+        "Frame": 32
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_5
+        "Frame": 44
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_hit_6
+        "Frame": 52
+      - "Common":
+          - shadow_moves/staff_thresh/shadow_quaterstaff_in
+        "Frame": 63
+...

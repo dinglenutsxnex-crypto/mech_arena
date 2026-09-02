@@ -1,0 +1,47 @@
+﻿Root: 
+TriggerSets:
+  - Name: ENCHANTMENT_BLEEDING
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 2002, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?GetVariable[Me, ENCHANTMENT_BLEEDING].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: ENCHANTMENT_BLEEDING
+                Value: 1
+                ApplyTo: Me
+                Frames: "?GetPerkVariable[Me, 2002, Frames]"
+          - ApplyStatus:
+                ApplyTo: Enemy
+                Name: ENCHANTMENT_BLEEDING_DAMAGE
+                Frames: "?GetPerkVariable[Me, 2002, Frames]"
+                Type: ModHP
+                HPPerFrame: "-?GetPerkVariable[Me, 2002, BleedingPower] * ?Hit[].Damage / ?GetPerkVariable[Me, 2002, Frames]"
+          - ShowStatusIcon:
+                ApplyTo: Enemy
+                Name: ICON_ENCHANTMENT_BLEEDING
+                Icon: ICON_ENCHANTMENT_BLEEDING
+                BackgroundColor: "#9f1c03"
+                ShowExpiration: 1
+                Frames: "?GetPerkVariable[Me, 2002, Frames]"
+        Templates:
+          - STATE.ALIVE
+...

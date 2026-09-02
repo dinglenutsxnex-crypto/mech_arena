@@ -1,0 +1,40 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_NOT_PLAYER_Common
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_NOT_PLAYER
+        Priority: 9999
+        Actions:
+          - Animation:
+                Name: Stance_Start_Round
+        Events:
+          - VariableDestruction:
+                Player: Me
+                Name: START_ROUND_NOT_PLAYER
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+Animations:
+  - "Animation": Stance_Start_Round
+    "FileName": m_2h_stance.bin
+    "Groups":
+      - STANCE_START_ROUND
+    "RepulsionScale":
+        "X": 0.5
+    "BlendingFrames": 0
+    "EndsStage":
+      - RoundStart
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+...

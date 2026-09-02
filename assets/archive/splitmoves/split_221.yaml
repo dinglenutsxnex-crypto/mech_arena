@@ -1,0 +1,34 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_RISING_TIDE
+    Triggers:
+      - Priority: -120
+        Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - GreaterEqual:
+                Value1: "?GetVariable[Me, COMBO_COUNTER].Value"
+                Value2: "?GetPerkVariable[Me, 1022, ComboCounterValue]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetShadowCharge:
+                Value: "?GetShadowCharge[Me] + ?GetPerkVariable[Me, 1022, ShadowChargeValue] * ?Hit[].Damage"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_RISING_TIDE
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_RISING_TIDE
+                Frames: 90
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

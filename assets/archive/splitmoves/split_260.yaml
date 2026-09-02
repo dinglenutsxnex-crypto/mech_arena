@@ -1,0 +1,15 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__PERFECT_WIN
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, BLOCK].Value"
+                    Value2: "1"
+        Actions:
+          - Lose
+...

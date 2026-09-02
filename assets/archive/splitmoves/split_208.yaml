@@ -1,0 +1,39 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_STONE_SKIN
+    Triggers:
+      - Events:
+          - Hit:
+                Player: Me
+        Priority: -4000
+        Conditions:
+          - Greater:
+                Value1: "?Hit[].Damage"
+                Value2: "?GetPerkVariable[Me, 1007, Health]"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1007, Chance]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetHit:
+                DealsDamage: 0
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: PERK_STONE_SKIN_DAMAGE_REDUCTION
+                Frames: 1
+                Type: ModHP
+                HPPerFrame: "-?GetPerkVariable[Me, 1007, Health]"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_STONE_SKIN
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_STONE_SKIN
+                Frames: 90
+                ShowExpiration: 1
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+...

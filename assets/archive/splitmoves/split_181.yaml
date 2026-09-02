@@ -1,0 +1,738 @@
+﻿Root: 
+TriggerSets:
+  - Name: REACTION__Block_Overhead_Polearm
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Polearm_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Overhead_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Overhead_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Mid_Polearm
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Mid_Polearm_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Mid_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Mid_Heavy_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Middle_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Mid_Short_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_High_Polearm
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Short"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Polearm_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Short_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_High_Heavy"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_High_Heavy_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+  - Name: REACTION__Block_Low_Polearm
+    Triggers:
+      - Templates:
+          - REACTION.BLOCK_IN
+        Priority: 100
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low"
+              - Equal:
+                    Value1: "?Block[].BlockName"
+                    Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?Player[Me].CurrentInterval"
+                Value2: "Blocking"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Dodging"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STEP"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Invincible"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "BLOCK"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Polearm_InOut
+        Events:
+          - BlockCheck:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Low"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+      - Templates:
+          - REACTION.BLOCK_HIT
+        Priority: 1200
+        Conditions:
+          - Equal:
+                Value1: "?Block[].BlockName"
+                Value2: "Block_Low_Short"
+          - Equal:
+                Value1: "?GetVariable[Me, BLOCK].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_POWER_WILL_NO_REACTION].Value"
+                    Value2: "1"
+        Actions:
+          - Animation:
+                Name: Block_Low_Short_Polearm_Hit
+        Events:
+          - PostHit:
+                Player: Me
+Animations:
+  - "Animation": Block_Overhead_Polearm_InOut
+    "FileName": b_polearm_overhead_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Overhead_Polearm_Hit
+    "FileName": b_polearm_overhead_block.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 24
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 25
+  - "Animation": Block_Mid_Polearm_InOut
+    "FileName": b_polearm_mid_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Mid_Polearm_Hit
+    "FileName": b_polearm_mid_block.bin
+    "FirstFrame": 2
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 16
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 17
+  - "Animation": Block_Mid_Heavy_Polearm_Hit
+    "FileName": b_polearm_mid_block_heavy.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 22
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 23
+  - "Animation": Block_Mid_Short_Polearm_Hit
+    "FileName": b_polearm_mid_block_short.bin
+    "BlendingFrames": 0
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 11
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 12
+  - "Animation": Block_High_Polearm_InOut
+    "FileName": b_polearm_high_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_High_Polearm_Hit
+    "FileName": b_polearm_high_block.bin
+    "BlendingFrames": 0
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 16
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 17
+  - "Animation": Block_High_Short_Polearm_Hit
+    "FileName": b_polearm_high_block_short.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 10
+      - "Name": Blocking
+  - "Animation": Block_High_Heavy_Polearm_Hit
+    "FileName": b_polearm_high_block_heavy.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 25
+      - "Name": Blocking
+  - "Animation": Block_Low_Polearm_InOut
+    "FileName": b_polearm_low_block_inout.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_IN_OUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+  - "Animation": Block_Low_Polearm_Hit
+    "FileName": b_polearm_low_block.bin
+    "BlendingFrames": 0
+    "FirstFrame": 1
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 20
+      - "Name": Blocking
+      - "Name": Throwable
+        "Start": 21
+  - "Animation": Block_Low_Short_Polearm_Hit
+    "FileName": b_polearm_low_block_short.bin
+    "Groups":
+      - BLOCK
+      - BLOCK_HIT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 13
+      - "Name": Blocking
+...

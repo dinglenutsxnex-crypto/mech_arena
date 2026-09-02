@@ -1,0 +1,61 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_WOLVERINE
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "WEAPON"
+          - LessEqual:
+                Value1: "?Random[1,100]"
+                Value2: "?GetPerkVariable[Me, 1019, Chance]"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, BLOCK].Value"
+                    Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_WOLVERINE
+                Value: 1
+                Frames: "?GetPerkVariable[Me, 1019, Duration]"
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_WOLVERINE
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_WOLVERINE
+                Frames: "?GetPerkVariable[Me, 1019, Duration]"
+                ShowExpiration: 1
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_WOLVERINE].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "?GetPerkVariable[Me, 1019, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "?GetPerkVariable[Me, 1019, AdditionDamage]"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+...

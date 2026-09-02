@@ -1,0 +1,43 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_BIRTH_Nunchaku
+    Triggers:
+      - Templates:
+          - STANCE.START_BIRTH
+        Actions:
+          - Animation:
+                Name: Nunchaku_Stance_Birth
+        Priority: 50
+        Events:
+          - Birth:
+                Player: Me
+Animations:
+  - "Animation": Nunchaku_Stance_Birth
+    "FileName": nunchaku_idle.bin
+    "WeaponSwitchFrames":
+      - "Name": Main
+        "Frame": 1
+    "Looped": 1
+    "Groups":
+      - STANCE_START_BIRTH
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+        "Shift":
+            "X": -50
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Object": Center
+...

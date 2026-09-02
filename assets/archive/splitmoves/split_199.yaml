@@ -1,0 +1,243 @@
+﻿Root: 
+TriggerSets:
+  - Name: ShadowForm_Toggle_Off
+    Triggers:
+      - Priority: 500
+        Events:
+          - ShadowChargeBurndown:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SHADOW_MOVE"
+              - Equal:
+                    Value1: "?GetVariable[Me, TestShadowForm].Value"
+                    Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 500
+        Events:
+          - ShadowChargeBurndown:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "SHADOW_MOVE"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, TestShadowForm].Value"
+                    Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 1
+                ApplyTo: Me
+      - Priority: 500
+        Events:
+          - AnimationEnd:
+                Player: Me
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "SHADOW_MOVE_END"
+          - Equal:
+                Value1: "?GetVariable[Me, ShadowForm_Toggle_Off_Postpone].Value"
+                Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 500
+        Events:
+          - AnimationEnd:
+                Player: Me
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "SHADOW_MOVE"
+          - Equal:
+                Value1: "?GetVariable[Me, ShadowForm_Toggle_Off_Postpone].Value"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Me, SHADOW_ATTACKING_EDGE].Value"
+                    Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 500
+        Events:
+          - PostHit:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SHADOW_MOVE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "SHADOW_MOVE_END"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+          - Equal:
+                Value1: "?GetVariable[Me, ShadowForm_Toggle_Off_Postpone].Value"
+                Value2: "1"
+        Actions:
+          - ToggleShadowForm:
+                Value: 0
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+          - SetVariable:
+                Name: SHADOW_ATTACKING_EDGE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: ShadowForm_Toggle_Off_Postpone
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_POWER_WILL_NO_REACTION
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHADOW_SPURT
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: ShadowFormUpSFX
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+      - Priority: 500
+        Events:
+          - StageChange
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].CurrentStage"
+                Value2: "RoundFightEnd"
+          - Equal:
+                Value1: "?Player[Me].ShadowForm"
+                Value2: "1"
+        Actions:
+          - SetShadowCharge:
+                Value: "0"
+          - ToggleShadowForm:
+                Value: 0
+          - DestroyEffect:
+                Name: shadow_fire
+                ApplyTo: Me
+          - PlaySound:
+                Sounds:
+                  - shadow_form/shadow end
+...

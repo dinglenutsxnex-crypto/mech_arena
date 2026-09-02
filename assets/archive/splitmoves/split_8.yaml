@@ -1,0 +1,135 @@
+﻿Root: 
+TriggerSets:
+  - Name: FALL_Ranged_On_Hit
+    Triggers:
+      - Events:
+          - PostHit:
+                Player: Parent
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "RANGED_CREATE"
+        Actions:
+          - ActivateColliders
+          - Animation:
+                Name: Physics
+          - SetVariable:
+                Name: DestroyMe
+                Value: 1
+                ApplyTo: Me
+                Frames: 300
+          - WallReaction:
+                Type: Repulse
+  - Name: DESTROY_Ranged_On_BorderHitCoroutine
+    Triggers:
+      - Events:
+          - WallHit:
+                Player: Me
+        Priority: 1000
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "RANGED_ATTACK"
+        Actions:
+          - ActivateColliders
+          - SetVariable:
+                Name: DestroyMe
+                Value: 1
+                ApplyTo: Me
+                Frames: 300
+          - SetVariable:
+                Name: WallHit
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+  - Name: DESTROY_Me_On_Timer
+    Triggers:
+      - Events:
+          - VariableDestruction:
+                Player: Me
+                Name: DestroyMe
+        Actions:
+          - DestroyMe
+  - Name: WALL_REACTION_Ranged
+    Triggers:
+      - Events:
+          - WallHit:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?WallHit[].Type"
+                Value2: "Sticky"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "RANGED_ATTACK"
+        Actions:
+          - Animation:
+                Name: Shuriken_Model_Stop
+          - WallReaction:
+                Type: Stop
+      - Events:
+          - WallHit:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?WallHit[].Type"
+                    Value2: "Sticky"
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "RANGED_ATTACK"
+        Actions:
+          - Animation:
+                Name: Physics_Wall_Recoil
+          - WallReaction:
+                Type: Repulse
+Animations:
+  - "Animation": Physics
+    "Groups":
+      - PHYSICS
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Name": Unstable
+  - "Animation": Shuriken_Model_Stop
+    "FileName": throw_shuriken_fly.bin
+    "Groups":
+      - ATTACK
+      - RANGED
+      - SHURIKEN_ATTACKING_EDGE
+    "Looped": 1
+    "BlendingFrames": 0
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": bullet_joint
+        "Position":
+            "Player": Me
+            "Object": Nodes
+            "Part": bullet_joint
+        "Shift":
+            "Y": 90
+    "SetDirection":
+        "From":
+            "Player": Parent
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Type": NoWallRepulsion
+    "Sounds":
+      - "Common":
+          - ranged/shuriken/shuriken_fly
+        "Frame": 1
+  - "Animation": Physics_Wall_Recoil
+    "Intervals":
+      - "Name": Uninterrupt
+      - "Type": NoWallRepulsion
+...

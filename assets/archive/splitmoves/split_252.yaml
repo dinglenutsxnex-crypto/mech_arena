@@ -1,0 +1,14 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__DARKNESS
+    Triggers:
+      - Priority: 999999
+        Events:
+          - StageChange:
+                Stage: RoundFightStart
+        Actions:
+          - RuleDarkness:
+                DarkFrames: "?RuleVariable[Me, Darkness, DarkFrames]"
+                LightFrames: "?RuleVariable[Me, Darkness, LightFrames]"
+                TransitionFrames: "?RuleVariable[Me, Darkness, TransitionFrames]"
+...

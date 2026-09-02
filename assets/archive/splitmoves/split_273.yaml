@@ -1,0 +1,451 @@
+﻿Root: 
+TriggerSets:
+  - Name: Inv_2_In_M
+    Triggers:
+      - Templates:
+          - INVENTORY.IN
+        Actions:
+          - Animation:
+                Name: Inv_2_In_M
+          - SetVariable:
+                Name: TryOn_Crutch
+                Value: "1"
+                ApplyTo: Enemy
+        Priority: 20001
+        Events:
+          - AnimationEnd:
+                Player: Me
+          - ModulePreEnter:
+                Name: Inventory
+          - ModulePreEnter:
+                Name: Shop
+          - ModulePreEnter:
+                Name: CharacterCreation
+          - ModulePreEnter:
+                Name: BoosterpacksScreen
+          - ModuleEnter:
+                Name: Inventory
+          - ModuleEnter:
+                Name: Shop
+          - ModuleEnter:
+                Name: CharacterCreation
+          - ModuleEnter:
+                Name: BoosterpacksScreen
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, TryOn_Crutch].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Or:
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Inventory"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Shop"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "CharacterCreation"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "BoosterpacksScreen"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_INVENTORY"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "ModulePreEnter"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "ModuleEnter"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_INVENTORY"
+      - Templates:
+          - INVENTORY.IN_REVERSE
+        Actions:
+          - Animation:
+                Name: Inv_2_In_Back_M
+          - SetVariable:
+                Name: TryOn_Crutch
+                Value: "1"
+                ApplyTo: Enemy
+        Priority: 20001
+        Events:
+          - AnimationEnd:
+                Player: Me
+          - ModulePreEnter:
+                Name: Inventory
+          - ModulePreEnter:
+                Name: Shop
+          - ModulePreEnter:
+                Name: CharacterCreation
+          - ModulePreEnter:
+                Name: BoosterpacksScreen
+          - ModuleEnter:
+                Name: Inventory
+          - ModuleEnter:
+                Name: Shop
+          - ModuleEnter:
+                Name: CharacterCreation
+          - ModuleEnter:
+                Name: BoosterpacksScreen
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, TryOn_Crutch].Value"
+                    Value2: "1"
+          - Or:
+              - And:
+                  - Greater:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Equal:
+                        Value1: "?Player[Me].InMirrorPose"
+                        Value2: "1"
+              - And:
+                  - Less:
+                        Value1: "?Coordinate[?Player[Me],COM].X"
+                        Value2: "?Coordinate[?Player[Me],Wall,Back].X"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].InMirrorPose"
+                            Value2: "1"
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Or:
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Inventory"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Shop"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "CharacterCreation"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "BoosterpacksScreen"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_INVENTORY"
+              - And:
+                  - Or:
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "ModulePreEnter"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "ModuleEnter"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_INVENTORY"
+  - Name: Inv_2_Idle
+    Triggers:
+      - Templates:
+          - INVENTORY.IDLE
+        Actions:
+          - Animation:
+                Name: Inv_2_Idle
+        Priority: 20000
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY_OUT"
+          - Or:
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Inventory"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "Shop"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "CharacterCreation"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "PerkScreen"
+              - Equal:
+                    Value1: "?Module[].CurrentModule"
+                    Value2: "BoosterpacksScreen"
+  - Name: Inv_2_Out
+    Triggers:
+      - Templates:
+          - INVENTORY.OUT
+        Actions:
+          - Animation:
+                Name: Inv_2_Out
+          - SetVariable:
+                Name: TryOn_Crutch
+                Value: "0"
+                ApplyTo: Enemy
+                Frames: 1
+        Priority: 20000
+        Events:
+          - ModulePreEnter:
+                Name: DojoInterface
+          - ModuleEnter:
+                Name: DojoInterface
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY_IN"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_INVENTORY_IDLE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "TRY_ON"
+          - Or:
+              - Equal:
+                    Value1: "?Trigger[].Event"
+                    Value2: "ModulePreEnter"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "AnimationEnd"
+                  - Not:
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Inventory"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "Shop"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "CharacterCreation"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "PerkScreen"
+                      - Equal:
+                            Value1: "?Module[].CurrentModule"
+                            Value2: "BoosterpacksScreen"
+  - Name: INVENTORY_1_ARMOR_Common
+    Triggers:
+      - Templates:
+          - INVENTORY.TRY_ON_ARMOR
+        Actions:
+          - AnimationRandom:
+                Names:
+                  - Inv_2_Armor_01_M
+                  - Inv_2_Armor_02_M
+                  - Inv_2_Armor_04_M
+        Priority: 20010
+        Events:
+          - Equip:
+                Player: Me
+          - TryOn:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Module[].SelectedItemType"
+                    Value2: "Armor"
+  - Name: Inv_2_Helm_01
+    Triggers:
+      - Templates:
+          - INVENTORY.TRY_ON_HELMET
+        Actions:
+          - Animation:
+                Name: Inv_2_Helm_01
+        Priority: 20010
+        Events:
+          - Equip:
+                Player: Me
+          - TryOn:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Module[].SelectedItemType"
+                    Value2: "Helmet"
+Animations:
+  - "Animation": Inv_2_In_M
+    "FileName": inv_2_in_m.bin
+    "Groups":
+      - STANCE_INVENTORY_IN
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_In_Back_M
+    "FileName": inv_2_in_back_m.bin
+    "Mirrored": -1
+    "Groups":
+      - STANCE_INVENTORY_IN
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Idle
+    "FileName": inv_2_idle.bin
+    "Groups":
+      - STANCE_INVENTORY_IDLE
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Out
+    "FileName": inv_2_out.bin
+    "Groups":
+      - STANCE_INVENTORY_OUT
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Armor_01_M
+    "FileName": inv_2_armor_01_m.bin
+    "Groups":
+      - TRY_ON
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Armor_02_M
+    "FileName": inv_2_armor_02_m.bin
+    "Groups":
+      - TRY_ON
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Armor_04_M
+    "FileName": inv_2_armor_04_m.bin
+    "Groups":
+      - TRY_ON
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+  - "Animation": Inv_2_Helm_01
+    "FileName": inv_2_helm_01.bin
+    "Groups":
+      - TRY_ON
+      - STANCE_INVENTORY
+    "Align":
+        "Rotation":
+            "Y": 0
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Type": Invincible
+...

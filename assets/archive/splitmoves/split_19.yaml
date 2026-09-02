@@ -1,0 +1,225 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_IDLE_Agile_Fists
+    Triggers:
+      - Templates:
+          - STANCE.START_IDLE
+        Actions:
+          - Animation:
+                Name: Stance_Start_Idle_Agile_Fists
+        Priority: 12
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+  - Name: STANCE_WIN_ROUND_Agile_Fists
+    Triggers:
+      - Templates:
+          - STANCE.WIN_ROUND
+          - STATE.ALIVE
+        Priority: 10491
+        Actions:
+          - Animation:
+                Name: Stance_Win_Agile_Fists
+        Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationEnd:
+                Player: Me
+          - EveryFrame:
+                Step: 10
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Winner].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_POSE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STAND_UP_KICK"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "EveryFrame"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "EveryFrame"
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Equal:
+                        Value1: "?GetVariable[Me, Winner].Value"
+                        Value2: "1"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_POSE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STANCE_WIN_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "STAND_UP_KICK"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "FOLLOWED_BY"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+  - Name: STANCE_FINISHING_ROUND_IDLE_Agile_Fists
+    Triggers:
+      - Templates:
+          - STANCE.FINISHING_ROUND_IDLE
+          - STATE.ALIVE
+        Priority: 9391
+        Actions:
+          - Animation:
+                Name: Stance_Win_Idle_Agile_Fists
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundFightEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "FightEnd"
+              - Equal:
+                    Value1: "?Fight[].CurrentStage"
+                    Value2: "RoundStart"
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_WIN_POSE"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_WIN_IDLE"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+Animations:
+  - "Animation": Stance_Start_Idle_Agile_Fists
+    "FileName": m_agl_stance_idle.bin
+    "Groups":
+      - STANCE_START_IDLE
+    "RepulsionScale":
+        "X": 0.7
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+  - "Animation": Stance_Win_Agile_Fists
+    "FileName": m_agl_win_stance.bin
+    "Groups":
+      - STANCE_WIN_POSE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "EndsStage":
+      - RoundFightEnd
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 20
+      - "Common":
+          - whoosh/fists/light/7_Hand_Whooshes_V1_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V4_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V14_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V30_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V34_bip
+          - whoosh/fists/light/7_Hand_Whooshes_V35_bip
+        "Frame": 48
+  - "Animation": Stance_Win_Idle_Agile_Fists
+    "FileName": m_agl_stance_idle.bin
+    "Groups":
+      - STANCE_WIN_IDLE
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+...

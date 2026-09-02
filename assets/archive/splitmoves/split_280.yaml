@@ -1,0 +1,163 @@
+﻿Root: 
+TriggerSets:
+  - Name: beta_LEGIONDOJO_MQ_SPILLTHEBEANS
+    Triggers:
+      - Events:
+          - Birth:
+                Player: Me
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+        Actions:
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: BASHER_FOR_GIZMO_CHEAT
+                Value: 20
+                ApplyTo: Enemy
+      - Events:
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - AnimationStart:
+                Player: Enemy
+                Name: Stun
+          - EveryFrame:
+                Step: 20
+        Priority: 3000
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].Round"
+                Value2: "1"
+          - Not:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "FOLLOWED_BY"
+              - Equal:
+                    Value1: "?GetVariable[Me, SHOCKED].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "ATTACK"
+              - Equal:
+                    Value1: "?GetVariable[Me, GIZMO_DISARM].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Me].CurrentInterval"
+                    Value2: "Uninterrupt"
+          - Or:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, PERK_BASHER].Value"
+                    Value2: "1"
+              - Equal:
+                    Value1: "?Player[Enemy].CurrentAnimation"
+                    Value2: "Stun"
+        Actions:
+          - SetVariable:
+                Name: GIZMO_DISARM
+                Value: 1
+                ApplyTo: Me
+          - Animation:
+                Name: Gizmo_Cast_Start
+          - Call:
+                ID: GIZMO_RAGE_DIALOG
+                Frame: 5
+      - Events:
+          - IntervalStart:
+                Player: Me
+                Name: DisarmMe
+        Actions:
+          - Disarm:
+                ApplyTo: Me
+                InstantFreeze: 1
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+      - Events:
+          - PostHit:
+                Player: Me
+        Priority: 99999
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "Gizmo_Cast_Start"
+          - Not:
+              - Equal:
+                    Value1: "?GetVariable[Enemy, GIZMO_DISARM].Value"
+                    Value2: "1"
+        Actions:
+          - Disarm:
+                ApplyTo: Me
+          - SetVariable:
+                Name: UNSHOCKABLE
+                Value: 0
+                ApplyTo: Me
+                Frames: 1
+          - SetVariable:
+                Name: GIZMO_DISARM
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCKED
+                Value: 1
+                ApplyTo: Me
+          - SetVariable:
+                Name: SHOCK
+                Value: 1
+                ApplyTo: Me
+                Frames: 1
+Animations:
+  - "Animation": Gizmo_Cast_Start
+    "FileName": gizmo_ability_start.bin
+    "RepulsionScale":
+        "X": 0.5
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Intervals":
+      - "Name": Uninterrupt
+        "End": 58
+      - "Name": Blocking
+        "Start": 59
+      - "Name": DisarmMe
+        "Start": 50
+        "End": 50
+    "Sounds":
+      - "Floor":
+            "Stone":
+              - strike/steel/4_Metallic_Weapon_Hit_V2
+            "Wood":
+              - strike/wood/heavy/2_Wood_Hits_A_V19_bip
+        "Frame": 18
+...

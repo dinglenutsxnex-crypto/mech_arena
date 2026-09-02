@@ -1,0 +1,22 @@
+﻿Root: 
+TriggerSets:
+  - Name: RULE__DEGENERATION
+    Triggers:
+      - Events:
+          - StageChange
+        Conditions:
+          - Equal:
+                Value1: "?Fight[].CurrentStage"
+                Value2: "RoundFightStart"
+        Actions:
+          - ApplyStatus:
+                ApplyTo: Me
+                Name: RULE_REGENERATION
+                Type: ModHP
+                HPPerFrame: "-1 * ?RuleVariable[Me, Degeneration, Value]"
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_ENCHANTMENT_BLEEDING
+                Icon: ICON_ENCHANTMENT_BLEEDING
+                BackgroundColor: "#cc6128"
+...

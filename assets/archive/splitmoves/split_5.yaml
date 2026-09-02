@@ -1,0 +1,106 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_GIZMO
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_NOT_PLAYER
+        Priority: 10003
+        Actions:
+          - Animation:
+                Name: Gizmo_Stance_Start_Round
+        Events:
+          - VariableDestruction:
+                Player: Me
+                Name: START_ROUND_NOT_PLAYER
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+  - Name: STANCE_START_IDLE_GIZMO
+    Triggers:
+      - Templates:
+          - STANCE.START_IDLE
+        Priority: 13
+        Actions:
+          - Animation:
+                Name: Gizmo_Stance_Start_Idle
+        Events:
+          - AnimationEnd:
+                Player: Me
+        Conditions:
+          - Or:
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_ROUND"
+              - Equal:
+                    Value1: "?Player[Me].CurrentAnimation"
+                    Value2: "STANCE_START_IDLE"
+Animations:
+  - "Animation": Gizmo_Stance_Start_Round
+    "FileName": gizmo_stance.bin
+    "EndFrame": 52
+    "EndsStage":
+      - RoundStart
+    "Groups":
+      - STANCE_START_ROUND
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+    "Sounds":
+      - "Common":
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V2_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V3_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V12_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V17_bip
+          - whoosh/medium/8_Short_Whooshes_Of_Medium_Weapon_V19_bip
+        "Frame": 20
+  - "Animation": Gizmo_Stance_Start_Idle
+    "FileName": gizmo_stance_idle.bin
+    "Groups":
+      - STANCE_START_IDLE
+    "RepulsionScale":
+        "X": 0.9
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": pelvis
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "Intervals":
+      - "Name": Blocking
+      - "Name": Throwable
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...

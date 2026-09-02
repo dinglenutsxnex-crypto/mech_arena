@@ -1,0 +1,76 @@
+﻿Root: 
+TriggerSets:
+  - Name: PERK_PREDATOR
+    Triggers:
+      - Events:
+          - EveryFrame:
+                Step: 5
+        Conditions:
+          - LessEqual:
+                Value1: "?Player[Enemy].Health"
+                Value2: "?GetPerkVariable[Me, 1011, Health]"
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_PREDATOR].Value"
+                Value2: "0"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_PREDATOR
+                Value: 1
+                ApplyTo: Me
+          - ShowStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_PREDATOR
+                BackgroundColor: "#2f4668"
+                Icon: ICON_PERK_PREDATOR
+                ShowExpiration: 0
+                Stackable: 0
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - Hit:
+                Player: Enemy
+        Conditions:
+          - Equal:
+                Value1: "?GetVariable[Me, PERK_PREDATOR].Value"
+                Value2: "1"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetAttribute:
+                Name: Factor_UnarmedDamage
+                Value: "1 + ?GetPerkVariable[Me, 1011, AdditionDamage]"
+                ApplyTo: Me
+          - SetAttribute:
+                Name: Factor_WeaponDamage
+                Value: "1 + ?GetPerkVariable[Me, 1011, AdditionDamage]"
+                ApplyTo: Me
+        Templates:
+          - STATE.ALIVE
+      - Events:
+          - EveryFrame:
+                Step: 5
+        Conditions:
+          - Greater:
+                Value1: "?Player[Enemy].Health"
+                Value2: "?GetPerkVariable[Me, 1011, Health]"
+          - Not:
+              - LessEqual:
+                    Value1: "?Player[Me].Health"
+                    Value2: "0"
+        Actions:
+          - SetVariable:
+                Name: PERK_PREDATOR
+                Value: 0
+                ApplyTo: Me
+          - ClearStatusIcon:
+                ApplyTo: Me
+                Name: ICON_PERK_PREDATOR
+        Templates:
+          - STATE.ALIVE
+...

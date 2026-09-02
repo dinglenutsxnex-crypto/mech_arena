@@ -1,0 +1,147 @@
+﻿Root: 
+TriggerSets:
+  - Name: STANCE_START_ROUND_PLAYER_Common
+    Triggers:
+      - Templates:
+          - STANCE.START_ROUND_PLAYER
+        Priority: 9999
+        Actions:
+          - Animation:
+                Name: Stance_Start_Round
+          - SetVariable:
+                Name: START_ROUND_NOT_PLAYER
+                Value: 1
+                ApplyTo: Enemy
+                Frames: 20
+        Events:
+          - StageChange:
+                Stage: RoundStart
+        Conditions:
+          - Equal:
+                Value1: "?Player[Me].CurrentAnimation"
+                Value2: "STANCE_START_BIRTH"
+  - Name: TIMEOUT_Common
+    Triggers:
+      - Priority: 15000
+        Events:
+          - AnimationEnd:
+                Player: Me
+          - IntervalEnd:
+                Player: Me
+                Name: Uninterrupt
+          - EveryFrame:
+                Step: 10
+        Conditions:
+          - Or:
+              - And:
+                  - Equal:
+                        Value1: "?GetVariable[Global, Timeout].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Greater:
+                        Value1: "?Player[Enemy].Health"
+                        Value2: "0"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout_Idle"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "LOSS"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "LOSS_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Trigger[].Event"
+                            Value2: "EveryFrame"
+              - And:
+                  - Equal:
+                        Value1: "?Trigger[].Event"
+                        Value2: "EveryFrame"
+                  - Equal:
+                        Value1: "?GetVariable[Global, Timeout].Value"
+                        Value2: "1"
+                  - Equal:
+                        Value1: "?Fight[].CurrentStage"
+                        Value2: "RoundFightEnd"
+                  - Greater:
+                        Value1: "?Player[Enemy].Health"
+                        Value2: "0"
+                  - Not:
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "Stance_Timeout_Idle"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "LOSS"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "LOSS_IDLE"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentAnimation"
+                            Value2: "THROW_FALL"
+                      - Equal:
+                            Value1: "?Player[Me].CurrentInterval"
+                            Value2: "Uninterrupt"
+        Actions:
+          - Animation:
+                Name: Stance_Timeout
+Animations:
+  - "Animation": Stance_Start_Round
+    "FileName": m_2h_stance.bin
+    "Groups":
+      - STANCE_START_ROUND
+    "RepulsionScale":
+        "X": 0.5
+    "BlendingFrames": 0
+    "EndsStage":
+      - RoundStart
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+  - "Animation": Stance_Timeout
+    "FileName": m_lose_time_out.bin
+    "Groups":
+      - STANCE_TIMEOUT
+    "Align":
+        "Rotation":
+            "Y": 6
+        "Axis":
+          - X
+        "Pivot":
+            "Object": Nodes
+            "Part": foot_l
+        "Position":
+            "Player": Me
+            "Object": Pivot
+    "EndsStage":
+      - RoundFightEnd
+    "SetDirection":
+        "From":
+            "Player": Me
+            "Object": Nodes
+            "Part": pelvis
+        "To":
+            "Player": Enemy
+            "Object": Nodes
+            "Part": pelvis
+...
