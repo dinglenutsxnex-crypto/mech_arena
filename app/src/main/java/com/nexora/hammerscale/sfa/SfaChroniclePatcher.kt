@@ -24,16 +24,11 @@ object SfaChroniclePatcher {
     }
 
     fun patchToWin(data: ByteArray, roundsOverride: Int? = null): ByteArray? {
-        // We do byte-level patch via proto field walking.
-        // Structure: outer 0x01 frame -> payload -> field3 params (964) -> field1 inner (961) -> field4 deep (913) -> deep[3], deep[4], deep[5], deep[10] etc.
-        // For robustness, we rebuild via field maps where needed, otherwise in-place patch.
+        // Handle all framings 0x01 / 0x02 / 0x03 via extractPayload, then rebuild with same framing type
         try {
-            if (data.size < 2 || (data[0].toInt() and 0xFF) != 0x01) return null
-            val frameLenPos = 1
-            val frameLen = data[1].toInt() and 0xFF
-            if (data.size < 2 + frameLen) return null
-            // Parse outer payload
-            val payload = data.copyOfRange(2, 2 + frameLen)
+            val origType = data[0].toInt() and 0xFF
+            if (origType != 0x01 && origType != 0x02 && origType != 0x03) return null
+            val payload = SfaGameProtocolParser.extractPayload(data) ?: return null
             val outer = SfaGameProtocolParser.readProtoFields(payload)
             val counter = outer[1] as? Long ?: return null
             val paramsBlob = outer[3] as? ByteArray ?: return null
@@ -57,8 +52,7 @@ object SfaChroniclePatcher {
             val newInnerBlob = buildProto(inner)
             // Rebuild params
             val newParamsBlob = buildProto(mapOf(1 to newInnerBlob))
-            val newPayload = buildEnvelope("process_offline_batch", newParamsBlob, counter)
-            // newPayload already includes outer frame header (0x01 len)
+            val newPayload = buildEnvelopeWithType("process_offline_batch", newParamsBlob, counter, origType)
             return newPayload
         } catch (e: Exception) {
             android.util.Log.w("SfaChroniclePatcher", "patch failed ${e.message}")
@@ -138,6 +132,29 @@ object SfaChroniclePatcher {
         } else {
             val compressed = rawDeflate(body)
             byteArrayOf(0x02) + ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(compressed.size).array() + compressed
+        }
+    }
+
+    private fun buildEnvelopeWithType(cmd: String, params: ByteArray, counter: Long, origType: Int): ByteArray {
+        val bodyFields = mutableMapOf<Int, Any>()
+        bodyFields[1] = counter
+        bodyFields[2] = cmd.toByteArray(Charsets.UTF_8)
+        bodyFields[3] = params
+        val body = buildProto(bodyFields)
+        return when (origType) {
+            0x01 -> if (body.size <= 255) byteArrayOf(0x01, body.size.toByte()) + body else {
+                val c = rawDeflate(body)
+                byteArrayOf(0x02) + ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(c.size).array() + c
+            }
+            0x03 -> {
+                val c = rawDeflate(body)
+                if (c.size <= 255) byteArrayOf(0x03, c.size.toByte()) + c
+                else byteArrayOf(0x02) + ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(c.size).array() + c
+            }
+            else -> { // 0x02
+                val c = rawDeflate(body)
+                byteArrayOf(0x02) + ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(c.size).array() + c
+            }
         }
     }
 

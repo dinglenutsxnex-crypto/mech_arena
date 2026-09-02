@@ -2,6 +2,7 @@ package com.nexora.hammerscale.sfa
 
 import android.net.VpnService
 import com.nexora.hammerscale.model.*
+import com.nexora.hammerscale.sfa.SfaAppState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel as KChannel
 import java.io.ByteArrayOutputStream
@@ -177,13 +178,41 @@ class SfaTcpHandler(
                         }
                     } catch (_: Exception) {}
                 }
+                // Capture before snapshot for logging
+                var battleIdForLog: String? = null
+                var beforeWon: Long? = null
+                var beforeReq: Long? = null
+                try {
+                    val outerB = SfaGameProtocolParser.extractPayload(payloadForServer)
+                    val outerF = outerB?.let { SfaGameProtocolParser.readProtoFields(it) }
+                    val pb = outerF?.get(3) as? ByteArray
+                    val pfB = pb?.let { SfaGameProtocolParser.readProtoFields(it) }?.get(1) as? ByteArray
+                    val innerB = pfB?.let { SfaGameProtocolParser.readProtoFields(it) }
+                    val deepB = innerB?.get(4) as? ByteArray
+                    val deepF = deepB?.let { SfaGameProtocolParser.readProtoFields(it) }
+                    beforeWon = (deepF?.get(5) as? ByteArray)?.let { SfaGameProtocolParser.readProtoFields(it).get(5) as? ByteArray }?.let { SfaGameProtocolParser.readProtoFields(it)[1] as? Long }
+                    beforeReq = (deepF?.get(5) as? ByteArray)?.let { SfaGameProtocolParser.readProtoFields(it).get(5) as? ByteArray }?.let { SfaGameProtocolParser.readProtoFields(it)[2] as? Long }
+                    val deep5B = deepF?.get(5) as? ByteArray
+                    val sub1B = deep5B?.let { SfaGameProtocolParser.readProtoFields(it)[1] as? ByteArray }
+                    battleIdForLog = sub1B?.let { SfaGameProtocolParser.readProtoFields(it)[5] as? Long }?.toString() ?: sub1B?.let { SfaGameProtocolParser.readProtoFields(it)[2] as? Long }?.toString()
+                } catch (_: Exception) {}
                 val patched = SfaChroniclePatcher.patchToWin(payloadForServer, rounds)
                 if (patched != null) {
                     chronicleInterceptArmed.set(false)
                     payloadForServer = patched
-                    android.util.Log.d("SfaChronicle", "patch FIRED rounds=$rounds size ${packet.payload.size}->${patched.size}")
+                    val roundsStr = rounds?.toString() ?: "auto12"
+                    val logText = "SFA CHRONICLE PATCH battleId=${battleIdForLog ?: "?"} roundsLookup=$roundsStr patched ${beforeWon ?: "?"}:${beforeReq ?: "?"} -> 12:12 deep[3]3->1 deep[4]1002->1001 deep[5].sub1 1->12 (${patched.size}B)"
+                    android.util.Log.d("SfaChronicle", "patch FIRED $logText size ${packet.payload.size}->${patched.size}")
+                    // Show decoded battle id / round set and what was modified — visible in dev logs (first line like SF3)
+                    try {
+                        SfaAppState.viewModel.postSyntheticEvent(GameEvent.Command("sfa_chronicle_patch", true, logText))
+                        SfaAppState.viewModel.postSyntheticEvent(GameEvent.Command("sfa_win", true, "battleId=$battleIdForLog rounds=12/12 win"))
+                    } catch (_: Exception) {}
                 } else {
-                    android.util.Log.w("SfaChronicle", "patch FAILED")
+                    android.util.Log.w("SfaChronicle", "patch FAILED battleId=$battleIdForLog")
+                    try {
+                        SfaAppState.viewModel.postSyntheticEvent(GameEvent.Command("sfa_patch_fail", true, "battleId=${battleIdForLog ?: "?"}"))
+                    } catch (_: Exception) {}
                 }
             }
             conn.outboundSfaBuffer.write(payloadForServer)

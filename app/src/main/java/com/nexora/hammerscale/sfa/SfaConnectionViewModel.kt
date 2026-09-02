@@ -73,6 +73,10 @@ class SfaConnectionViewModel : ViewModel() {
     }
     fun getConnection(id:String): ConnectionEntry? = connectionMap[id]
     fun getMessages(id:String): List<LiveMessage> { val conn=connectionMap[id]?:return emptyList(); return synchronized(conn.messages){conn.messages.toList()} }
+    fun postSyntheticEvent(event: GameEvent) {
+        synchronized(gameEventList){ gameEventList.add(event); if(gameEventList.size>3000) gameEventList.subList(0,1000).clear() }
+        _gameEvents.postValue(gameEventList.toList())
+    }
     private fun publishUpdate(){
         val list=connectionMap.values.sortedByDescending{it.lastActivityTime}
         _connections.postValue(list)
